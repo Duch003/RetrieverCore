@@ -1,0 +1,18 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net5.0</TargetFramework>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <Folder Include="Master\" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\GathererEngine\GathererEngine.csproj" />
+    <ProjectReference Include="..\RegistryReader\RegistryReader.csproj" />
+    <ProjectReference Include="..\RetrieverCore.LocalDatabase\RetrieverCore.LocalDatabase.csproj" />
+    <ProjectReference Include="..\RetrieverCore.MasterDatabase\RetrieverCore.MasterDatabase.csproj" />
+  </ItemGroup>
+
+</Project>

@@ -1,0 +1,13 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net5.0</TargetFramework>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\GathererEngine\GathererEngine.csproj" />
+    <ProjectReference Include="..\RetrieverCore.LocalDatabase\RetrieverCore.LocalDatabase.csproj" />
+    <ProjectReference Include="..\RetrieverCore.Models\RetrieverCore.Models.csproj" />
+  </ItemGroup>
+
+</Project>
