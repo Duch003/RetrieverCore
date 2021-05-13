@@ -4,7 +4,7 @@ using GathererEngine.Extensions;
 
 namespace GathererEngine.Models
 {
-    public class Win32_PnPEntity : MappableToDatabaseExtension
+    public class Win32_PnPEntity
     {
         public const string Scope = WmiScope.Cimv2;
         public const string Conditions = "ConfigManagerErrorCode != 0";

@@ -4,7 +4,7 @@ using GathererEngine.Extensions;
 
 namespace GathererEngine.Models
 {
-    public class CIM_Processor : MappableToDatabaseExtension
+    public class CIM_Processor
     {
         public const string Scope = WmiScope.Cimv2;
         public UInt16? AddressWidth { get; set; }

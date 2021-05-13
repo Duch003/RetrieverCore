@@ -1,8 +1,14 @@
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using RetrieverCore.LocalDatabase;
+using RetrieverCore.MasterDatabase.Context;
+using RetrieverCore.Repositories.Interfaces;
+using RetrieverCore.Repositories.Local;
+using System.Reflection;
 
 namespace RetrieverCore.App
 {
@@ -44,6 +50,25 @@ namespace RetrieverCore.App
                     name: "default",
                     pattern: "{controller=Home}/{action=Index}/{id?}");
             });
+        }
+
+        private void RegisterRepositories(IServiceCollection services)
+        {
+            services.AddEntityFrameworkSqlite().AddDbContext<LocalDatabaseContext>(x =>
+            {
+                x.UseSqlite("Filename=LocalDatabase.db", options =>
+                {
+                    options.MigrationsAssembly(Assembly.GetExecutingAssembly().FullName);
+                });
+            });
+            services.AddEntityFrameworkSqlServer().AddDbContext<MasterDatabaseContext>(x => 
+            {
+                x.UseSqlServer(Configuration.GetConnectionString("Master"));
+            });
+            services.AddScoped(typeof(IGenericDatabaseRepository<>), typeof(GenericDatabaseRepository<>));
+            services.AddScoped< IGenericComponentRepository, GenericComponentRepository>();
+
+            services.AddScoped<IExtendedNetworkInterfaceComponentRepository, ExtendedNetworkInterfaceComponentRepository>();
         }
     }
 }

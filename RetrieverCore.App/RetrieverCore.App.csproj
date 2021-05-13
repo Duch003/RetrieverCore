@@ -5,7 +5,26 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <PackageReference Include="Microsoft.EntityFrameworkCore.Design" Version="5.0.4">
+      <PrivateAssets>all</PrivateAssets>
+      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+    </PackageReference>
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\RegistryReader\RegistryReader.csproj" />
+    <ProjectReference Include="..\RetrieverCore.CoreLogic\RetrieverCore.CoreLogic.csproj" />
+    <ProjectReference Include="..\RetrieverCore.IO\RetrieverCore.IO.csproj" />
+    <ProjectReference Include="..\RetrieverCore.LocalDatabase\RetrieverCore.LocalDatabase.csproj" />
+    <ProjectReference Include="..\RetrieverCore.MasterDatabase\RetrieverCore.MasterDatabase.csproj" />
     <ProjectReference Include="..\RetrieverCore.Models\RetrieverCore.Models.csproj" />
+    <ProjectReference Include="..\RetrieverCore.Repositories\RetrieverCore.Repositories.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Update="LocalDatabase.db">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
   </ItemGroup>
 
 </Project>

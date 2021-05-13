@@ -1,14 +1,13 @@
 ﻿using RetrieverCore.Models.Common;
-using RetrieverCore.LocalDatabase.Models;
+using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
-using RetrieverCore.Models.Common.Win32Entieties;
 
 namespace RetrieverCore.CoreLogic.Interfaces
 {
     public interface INetworkInterfaceService
     {
-        Task<Result<IEnumerable<NetworkInterfaceEntity>>> GetDesignedNetworkInterfacesAsync(string model);
-        Task<Result<IEnumerable<CommonNetworkInterface>>> GetPhysicalNetworkInterfacesAsync();
+        Task<Result<IEnumerable<Common.Models.NetworkInterface>>> GetDesignedNetworkInterfacesAsync(Guid setId);
+        Task<Result<IEnumerable<Common.Models.NetworkInterface>>> GetPhysicalNetworkInterfacesAsync();
     }
 }

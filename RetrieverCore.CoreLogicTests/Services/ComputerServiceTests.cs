@@ -1,151 +1,197 @@
-﻿using GathererEngine.Models;
-using Moq;
+﻿using Moq;
+using RetrieverCore.Common.Models;
 using RetrieverCore.CoreLogic.Interfaces;
 using RetrieverCore.CoreLogic.Services;
-using RetrieverCore.LocalDatabase.Models;
+using RetrieverCore.Models.WMIEntieties;
 using RetrieverCore.Repositories.Interfaces;
-using RetrieverCore.TestDataGenerator.Database;
-using RetrieverCore.TestDataGenerator.WindowsEntities;
 using System;
 using System.Collections.Generic;
+using System.Linq;
+using System.Linq.Expressions;
 using System.Threading.Tasks;
 using Xunit;
 
 namespace RetrieverCore.CoreLogicTests.Services
 {
-    public class ComputerServiceTests
+    public class ComputerServiceTests : IDisposable
     {
         private IComputerService _service;
-        private List<Win32_ComputerSystem> _win32_ComputerSystemEntries = Win32_ComputerSystemFactory.GetForComputerServiceTests();
-        private List<ComputerEntity> _databaseEntieties = ComputerEntityFactory.GetForComputerServiceTests();
 
-        private string _model0 = "Model0";
-        private string _nonExistingModel = "NonExisting";
-        private string _errorModel = "Error";
-        private bool _throwException = false;
-        private bool _noData = false;
+        private Mock<IGenericDatabaseRepository<Computer>> _mockComputerRepo;
+        private Mock<IGenericComponentRepository> _mockComponentRepo;
+
+        private Win32_ComputerSystem _win32ComputerSystem;
+        private List<Win32_ComputerSystem> _win32ComputerSystems;
+
+        private Computer _computer1;
+        private Computer _computer2;
+        private Computer _computer3;
+        private List<Computer> _computers;
+
+        private List<string> _includes;
+        private bool _batteryException;
+        private bool _win32ComputerSystemException;
 
         public ComputerServiceTests()
         {
-            var mockComputerRepository = new Mock<IComputerRepository>();
+            SetupData();
+            SetupRepositories();
+            SetupService();
+        }
+        public void Dispose()
+        {
+            _service = null;
+            _mockComputerRepo = null;
+            _mockComponentRepo = null;
+            _win32ComputerSystem = null;
+            _win32ComputerSystems = null;
+            _computer1 = null;
+            _computer2 = null;
+            _computer3 = null;
+            _computers = null;
+            _includes = null;
+        }
 
-            mockComputerRepository.Setup(p => p.GetDesignedComputerAsync(_model0))
-                .Returns(Task.FromResult(_databaseEntieties[0]));
-            mockComputerRepository.Setup(p => p.GetDesignedComputerAsync(_nonExistingModel))
-                .Returns(Task.FromResult((ComputerEntity)null));
-            mockComputerRepository.Setup(p => p.GetDesignedComputerAsync(_errorModel))
-                .Throws(new Exception());
-            mockComputerRepository.Setup(p => p.GetWin32ComputerSystemAsync())
-                .Returns(() => 
+        #region Tests
+        [Fact]
+        public async Task GetDesignedComputersAsync_FiltersOutDeletedEntries_ReturnsResultWithSuccess()
+        {
+            //Arrange
+            //Act
+            var result = await _service.GetDesignedComputersAsync();
+
+            //Assert
+            Assert.NotNull(result);
+            Assert.True(result.IsSuccess);
+            Assert.Null(result.Exception);
+            Assert.NotNull(result.Output);
+            Assert.True(result.Output.Count() == 2);
+            Assert.True(result.Output.ToList()[0] == _computer1);
+            Assert.True(result.Output.ToList()[1] == _computer3);
+        }
+
+        [Fact]
+        public async Task GetDesignedComputersAsync_ErrorWhileQueryingDatabase_ReturnsResultWithFailure()
+        {
+            //Arrange
+            _batteryException = true;
+
+            //Act
+            var result = await _service.GetDesignedComputersAsync();
+
+            //Assert
+            Assert.NotNull(result);
+            Assert.False(result.IsSuccess);
+            Assert.NotNull(result.Exception);
+            Assert.Null(result.Output);
+            Assert.True(result.Exception.Message == typeof(Computer).Name);
+        }
+
+        [Fact]
+        public async Task GetPhysicalComputersAsync_NoErrorWhileExecutingWMIQuery_ReturnsResultWithSuccess()
+        {
+            //Arrange
+            //Act
+            var result = await _service.GetPhysicalComputersAsync();
+
+            //Assert
+            Assert.NotNull(result);
+            Assert.True(result.IsSuccess);
+            Assert.Null(result.Exception);
+            Assert.NotNull(result.Output);
+            Assert.True(result.Output.Count() == 1);
+            Assert.True(result.Output.First().ID == 0);
+            Assert.True(result.Output.First().Deleted == false);
+            Assert.True(result.Output.First().Name == $"{_win32ComputerSystem.Manufacturer} - {_win32ComputerSystem.Model}");
+            Assert.True(_includes.Count() == 0);
+        }
+
+        [Fact]
+        public async Task GetPhysicalComputersAsync_ErrorWhileGatheringWin32ComputerSystemData_ReturnsResultWithFailure()
+        {
+            //Arrange
+            _win32ComputerSystemException = true;
+
+            //Act
+            var result = await _service.GetPhysicalComputersAsync();
+
+            //Assert
+            Assert.NotNull(result);
+            Assert.False(result.IsSuccess);
+            Assert.NotNull(result.Exception);
+            Assert.Null(result.Output);
+            Assert.True(result.Exception.Message == typeof(Win32_ComputerSystem).Name);
+        }
+        #endregion
+
+        #region Private methods
+        private void SetupData()
+        {
+            _win32ComputerSystem = new Win32_ComputerSystem
+            {
+                Model = "Model",
+                Manufacturer = "Manufacturer"
+            };
+            _win32ComputerSystems = new List<Win32_ComputerSystem> { _win32ComputerSystem };
+
+            _computer1 = new Computer
+            {
+                ID = 1,
+                Deleted = false,
+                Name = "Model1 - Manufacturer1"
+            };
+            _computer2 = new Computer
+            {
+                ID = 2,
+                Deleted = true,
+                Name = "Model2 - Manufacturer2"
+            };
+            _computer3 = new Computer
+            {
+                ID = 3,
+                Deleted = false,
+                Name = "Model3 - Manufacturer3"
+            };
+            _computers = new List<Computer> { _computer1, _computer2, _computer3 };
+
+            _includes = new List<string>();
+            _win32ComputerSystemException = false;
+            _batteryException = false;
+        }
+
+        private void SetupRepositories()
+        {
+            _mockComputerRepo = new Mock<IGenericDatabaseRepository<Computer>>();
+            _mockComputerRepo.Setup(x => x.GetAsync(It.IsAny<Expression<Func<Computer, bool>>>(), It.IsAny<Expression<Func<Computer, object>>[]>()))
+                .Returns<Expression<Func<Computer, bool>>, Expression<Func<Computer, object>>[]>((conditions, includes) =>
                 {
-                    if (_throwException)
+                    foreach(var include in includes)
                     {
-                        throw new Exception();
+                        _includes.Add(include.Body.ToString());
                     }
-                    if(_noData)
+                    if (_batteryException)
                     {
-                        return Task.FromResult((Win32_ComputerSystem)null);
+                        throw new Exception(typeof(Computer).Name);
                     }
-                    return Task.FromResult(_win32_ComputerSystemEntries[0]);
+                    return Task.FromResult(_computers.Where(conditions.Compile()).ToList().AsEnumerable());
                 });
 
-            _service = new ComputerService(mockComputerRepository.Object);
+            _mockComponentRepo = new Mock<IGenericComponentRepository>();
+            _mockComponentRepo.Setup(x => x.Get<Win32_ComputerSystem>())
+                .Returns(() =>
+                {
+                    if (_win32ComputerSystemException)
+                    {
+                        throw new Exception(typeof(Win32_ComputerSystem).Name);
+                    }
+                    return _win32ComputerSystems.AsEnumerable();
+                });
         }
 
-        [Fact]
-        public async Task GetDesignedComputerAsync_ModelExist_ReturnsResultWithSuccess()
+        private void SetupService()
         {
-            //Arrange
-
-            //Act
-            var result = await _service.GetDesignedComputerAsync(_model0);
-
-            //Assert
-            Assert.NotNull(result);
-            Assert.True(result.IsSuccess);
-            Assert.Null(result.Exception);
-            Assert.NotNull(result.Output);
-            Assert.True(result.Output == _databaseEntieties[0]);
+            _service = new ComputerService(_mockComputerRepo.Object, _mockComponentRepo.Object);
         }
-
-        [Fact]
-        public async Task GetDesignedComputerAsync_ModelDoesNotExist_ReturnsResultWithSuccess()
-        {
-            //Arrange
-
-            //Act
-            var result = await _service.GetDesignedComputerAsync(_nonExistingModel);
-
-            //Assert
-            Assert.NotNull(result);
-            Assert.True(result.IsSuccess);
-            Assert.Null(result.Exception);
-            Assert.Null(result.Output);
-        }
-
-        [Fact]
-        public async Task GetDesignedComputerAsync_DatabaseError_ReturnsResultWithFail()
-        {
-            //Arrange
-
-            //Act
-            var result = await _service.GetDesignedComputerAsync(_errorModel);
-
-            //Assert
-            Assert.NotNull(result);
-            Assert.False(result.IsSuccess);
-            Assert.NotNull(result.Exception);
-            Assert.Null(result.Output);
-        }
-
-        [Fact]
-        public async Task GetPhysicalComputerAsync_EverythingWorkFine_ReturnsResultWithSuccess()
-        {
-            //Arrange
-
-            //Act
-            var result = await _service.GetPhysicalComputerAsync();
-
-            //Assert
-            Assert.NotNull(result);
-            Assert.True(result.IsSuccess);
-            Assert.Null(result.Exception);
-            Assert.NotNull(result.Output);
-        }
-
-        [Fact]
-        public async Task GetPhysicalComputerAsync_GetPhysicalComputerAsyncFails_ReturnsResultWithFail()
-        {
-            //Arrange
-            _throwException = true;
-
-            //Act
-            var result = await _service.GetPhysicalComputerAsync();
-            _throwException = false;
-
-            //Assert
-            Assert.NotNull(result);
-            Assert.False(result.IsSuccess);
-            Assert.NotNull(result.Exception);
-            Assert.Null(result.Output);
-        }
-
-        [Fact]
-        public async Task GetPhysicalComputerAsync_GetPhysicalComputerAsyncReturnsNoData_ReturnsResultWithFail()
-        {
-            //Arrange
-            _noData = true;
-
-            //Act
-            var result = await _service.GetPhysicalComputerAsync();
-            _noData = false;
-
-            //Assert
-            Assert.NotNull(result);
-            Assert.False(result.IsSuccess);
-            Assert.NotNull(result.Exception);
-            Assert.Null(result.Output);
-            Assert.Equal($"Gatherer returned null entity of {nameof(Win32_ComputerSystem)}.", result.Exception.Message);
-        }
+        #endregion
     }
 }

@@ -7,6 +7,7 @@ namespace GathererEngine.Converters
 {
     internal class CustomManagementDateTimeConverter : DateTimeConverterBase
     {
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Interoperability", "CA1416:Validate platform compatibility", Justification = "Intended to be used on Windows only.")]
         public override object ReadJson(JsonReader reader, Type objectType, object existingValue, JsonSerializer serializer)
         {
             if(reader.TokenType == JsonToken.Null)

@@ -4,7 +4,7 @@ using GathererEngine.Extensions;
 
 namespace GathererEngine.Models
 {
-    public class Win32_CacheMemory : MappableToDatabaseExtension
+    public class Win32_CacheMemory
     {
         public const string Scope = WmiScope.Cimv2;
         public UInt16? Access { get; set; }

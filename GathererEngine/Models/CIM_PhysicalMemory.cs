@@ -4,7 +4,7 @@ using GathererEngine.Extensions;
 
 namespace GathererEngine.Models
 {
-    public class CIM_PhysicalMemory : MappableToDatabaseExtension
+    public class CIM_PhysicalMemory
     {
         public const string Scope = WmiScope.Cimv2;
         public UInt32? Attributes { get; set; }

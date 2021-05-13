@@ -15,11 +15,11 @@ namespace RetrieverCore.MasterDatabase.Migrations
         {
 #pragma warning disable 612, 618
             modelBuilder
-                .HasAnnotation("ProductVersion", "3.1.6")
                 .HasAnnotation("Relational:MaxIdentifierLength", 128)
+                .HasAnnotation("ProductVersion", "5.0.4")
                 .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-            modelBuilder.Entity("RetrieverCore.LocalDatabase.Models.WmiResultsSetEntity", b =>
+            modelBuilder.Entity("GathererEngine.Database.WmiResultsSetEntity", b =>
                 {
                     b.Property<int>("ID")
                         .ValueGeneratedOnAdd()
@@ -82,6 +82,9 @@ namespace RetrieverCore.MasterDatabase.Migrations
 
                     b.Property<decimal?>("Timestamp_Sys100NS")
                         .HasColumnType("decimal(20,0)");
+
+                    b.Property<Guid?>("UpdateID")
+                        .HasColumnType("uniqueidentifier");
 
                     b.Property<int?>("WmiResultsSetEntityID")
                         .HasColumnType("int");
@@ -184,6 +187,9 @@ namespace RetrieverCore.MasterDatabase.Migrations
                     b.Property<string>("UniqueID")
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<Guid?>("UpdateID")
+                        .HasColumnType("uniqueidentifier");
+
                     b.Property<int?>("WmiResultsSetEntityID")
                         .HasColumnType("int");
 
@@ -257,6 +263,9 @@ namespace RetrieverCore.MasterDatabase.Migrations
 
                     b.Property<decimal?>("Timestamp_Sys100NS")
                         .HasColumnType("decimal(20,0)");
+
+                    b.Property<Guid?>("UpdateID")
+                        .HasColumnType("uniqueidentifier");
 
                     b.Property<long?>("Voltage")
                         .HasColumnType("bigint");
@@ -367,6 +376,9 @@ namespace RetrieverCore.MasterDatabase.Migrations
 
                     b.Property<int?>("TargetOperatingSystem")
                         .HasColumnType("int");
+
+                    b.Property<Guid?>("UpdateID")
+                        .HasColumnType("uniqueidentifier");
 
                     b.Property<string>("Version")
                         .HasColumnType("nvarchar(max)");
@@ -487,6 +499,9 @@ namespace RetrieverCore.MasterDatabase.Migrations
                     b.Property<long?>("TimeToFullCharge")
                         .HasColumnType("bigint");
 
+                    b.Property<Guid?>("UpdateID")
+                        .HasColumnType("uniqueidentifier");
+
                     b.Property<int?>("WmiResultsSetEntityID")
                         .HasColumnType("int");
 
@@ -581,6 +596,9 @@ namespace RetrieverCore.MasterDatabase.Migrations
 
                     b.Property<string>("Tag")
                         .HasColumnType("nvarchar(max)");
+
+                    b.Property<Guid?>("UpdateID")
+                        .HasColumnType("uniqueidentifier");
 
                     b.Property<string>("Version")
                         .HasColumnType("nvarchar(max)");
@@ -712,6 +730,9 @@ namespace RetrieverCore.MasterDatabase.Migrations
 
                     b.Property<int?>("TypeDetail")
                         .HasColumnType("int");
+
+                    b.Property<Guid?>("UpdateID")
+                        .HasColumnType("uniqueidentifier");
 
                     b.Property<string>("Version")
                         .HasColumnType("nvarchar(max)");
@@ -916,6 +937,9 @@ namespace RetrieverCore.MasterDatabase.Migrations
                     b.Property<decimal?>("TotalPhysicalMemory")
                         .HasColumnType("decimal(20,0)");
 
+                    b.Property<Guid?>("UpdateID")
+                        .HasColumnType("uniqueidentifier");
+
                     b.Property<string>("UserName")
                         .HasColumnType("nvarchar(max)");
 
@@ -1011,6 +1035,9 @@ namespace RetrieverCore.MasterDatabase.Migrations
                     b.Property<DateTime?>("TimeOfLastReset")
                         .HasColumnType("datetime2");
 
+                    b.Property<Guid?>("UpdateID")
+                        .HasColumnType("uniqueidentifier");
+
                     b.Property<int?>("WmiResultsSetEntityID")
                         .HasColumnType("int");
 
@@ -1090,6 +1117,9 @@ namespace RetrieverCore.MasterDatabase.Migrations
 
                     b.Property<string>("SystemName")
                         .HasColumnType("nvarchar(max)");
+
+                    b.Property<Guid?>("UpdateID")
+                        .HasColumnType("uniqueidentifier");
 
                     b.Property<bool?>("VariableSpeed")
                         .HasColumnType("bit");
@@ -1207,6 +1237,9 @@ namespace RetrieverCore.MasterDatabase.Migrations
                     b.Property<int?>("Tolerance")
                         .HasColumnType("int");
 
+                    b.Property<Guid?>("UpdateID")
+                        .HasColumnType("uniqueidentifier");
+
                     b.Property<int?>("UpperThresholdCritical")
                         .HasColumnType("int");
 
@@ -1316,6 +1349,9 @@ namespace RetrieverCore.MasterDatabase.Migrations
 
                     b.Property<string>("SystemName")
                         .HasColumnType("nvarchar(max)");
+
+                    b.Property<Guid?>("UpdateID")
+                        .HasColumnType("uniqueidentifier");
 
                     b.Property<int?>("WmiResultsSetEntityID")
                         .HasColumnType("int");
@@ -1487,6 +1523,9 @@ namespace RetrieverCore.MasterDatabase.Migrations
                     b.Property<long?>("TracksPerCylinder")
                         .HasColumnType("bigint");
 
+                    b.Property<Guid?>("UpdateID")
+                        .HasColumnType("uniqueidentifier");
+
                     b.Property<int?>("WmiResultsSetEntityID")
                         .HasColumnType("int");
 
@@ -1606,6 +1645,9 @@ namespace RetrieverCore.MasterDatabase.Migrations
                     b.Property<string>("Type")
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<Guid?>("UpdateID")
+                        .HasColumnType("uniqueidentifier");
+
                     b.Property<int?>("WmiResultsSetEntityID")
                         .HasColumnType("int");
 
@@ -1707,6 +1749,9 @@ namespace RetrieverCore.MasterDatabase.Migrations
                     b.Property<string>("SystemName")
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<Guid?>("UpdateID")
+                        .HasColumnType("uniqueidentifier");
+
                     b.Property<int?>("WmiResultsSetEntityID")
                         .HasColumnType("int");
 
@@ -1787,6 +1832,9 @@ namespace RetrieverCore.MasterDatabase.Migrations
                     b.Property<string>("SystemName")
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<Guid?>("UpdateID")
+                        .HasColumnType("uniqueidentifier");
+
                     b.Property<bool?>("VariableSpeed")
                         .HasColumnType("bit");
 
@@ -1815,6 +1863,9 @@ namespace RetrieverCore.MasterDatabase.Migrations
 
                     b.Property<bool?>("PrimaryOS")
                         .HasColumnType("bit");
+
+                    b.Property<Guid?>("UpdateID")
+                        .HasColumnType("uniqueidentifier");
 
                     b.Property<int?>("WmiResultsSetEntityID")
                         .HasColumnType("int");
@@ -1901,6 +1952,9 @@ namespace RetrieverCore.MasterDatabase.Migrations
 
                     b.Property<string>("SystemName")
                         .HasColumnType("nvarchar(max)");
+
+                    b.Property<Guid?>("UpdateID")
+                        .HasColumnType("uniqueidentifier");
 
                     b.Property<int?>("WmiResultsSetEntityID")
                         .HasColumnType("int");
@@ -2029,6 +2083,9 @@ namespace RetrieverCore.MasterDatabase.Migrations
 
                     b.Property<string>("SystemName")
                         .HasColumnType("nvarchar(max)");
+
+                    b.Property<Guid?>("UpdateID")
+                        .HasColumnType("uniqueidentifier");
 
                     b.Property<bool?>("VolumeDirty")
                         .HasColumnType("bit");
@@ -2212,6 +2269,9 @@ namespace RetrieverCore.MasterDatabase.Migrations
                     b.Property<string>("SystemName")
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<Guid?>("UpdateID")
+                        .HasColumnType("uniqueidentifier");
+
                     b.Property<int?>("WmiResultsSetEntityID")
                         .HasColumnType("int");
 
@@ -2352,6 +2412,9 @@ namespace RetrieverCore.MasterDatabase.Migrations
                     b.Property<DateTime?>("TimeOfLastReset")
                         .HasColumnType("datetime2");
 
+                    b.Property<Guid?>("UpdateID")
+                        .HasColumnType("uniqueidentifier");
+
                     b.Property<int?>("WmiResultsSetEntityID")
                         .HasColumnType("int");
 
@@ -2464,6 +2527,9 @@ namespace RetrieverCore.MasterDatabase.Migrations
 
                     b.Property<int?>("Tolerance")
                         .HasColumnType("int");
+
+                    b.Property<Guid?>("UpdateID")
+                        .HasColumnType("uniqueidentifier");
 
                     b.Property<int?>("UpperThresholdCritical")
                         .HasColumnType("int");
@@ -2677,6 +2743,9 @@ namespace RetrieverCore.MasterDatabase.Migrations
                     b.Property<decimal?>("TotalVisibleMemorySize")
                         .HasColumnType("decimal(20,0)");
 
+                    b.Property<Guid?>("UpdateID")
+                        .HasColumnType("uniqueidentifier");
+
                     b.Property<string>("Version")
                         .HasColumnType("nvarchar(max)");
 
@@ -2862,6 +2931,9 @@ namespace RetrieverCore.MasterDatabase.Migrations
                     b.Property<DateTime?>("TimeOfLastReset")
                         .HasColumnType("datetime2");
 
+                    b.Property<Guid?>("UpdateID")
+                        .HasColumnType("uniqueidentifier");
+
                     b.Property<int?>("VideoArchitecture")
                         .HasColumnType("int");
 
@@ -2990,6 +3062,9 @@ namespace RetrieverCore.MasterDatabase.Migrations
                     b.Property<long?>("ThermalRating")
                         .HasColumnType("bigint");
 
+                    b.Property<Guid?>("UpdateID")
+                        .HasColumnType("uniqueidentifier");
+
                     b.Property<string>("VccMixedVoltageSupport")
                         .HasColumnType("nvarchar(max)");
 
@@ -3093,6 +3168,9 @@ namespace RetrieverCore.MasterDatabase.Migrations
 
                     b.Property<string>("Tag")
                         .HasColumnType("nvarchar(max)");
+
+                    b.Property<Guid?>("UpdateID")
+                        .HasColumnType("uniqueidentifier");
 
                     b.Property<string>("Version")
                         .HasColumnType("nvarchar(max)");
@@ -3225,6 +3303,9 @@ namespace RetrieverCore.MasterDatabase.Migrations
                     b.Property<int?>("TypeDetail")
                         .HasColumnType("int");
 
+                    b.Property<Guid?>("UpdateID")
+                        .HasColumnType("uniqueidentifier");
+
                     b.Property<string>("Version")
                         .HasColumnType("nvarchar(max)");
 
@@ -3343,6 +3424,9 @@ namespace RetrieverCore.MasterDatabase.Migrations
 
                     b.Property<string>("SystemName")
                         .HasColumnType("nvarchar(max)");
+
+                    b.Property<Guid?>("UpdateID")
+                        .HasColumnType("uniqueidentifier");
 
                     b.Property<int?>("WmiResultsSetEntityID")
                         .HasColumnType("int");
@@ -3613,6 +3697,9 @@ namespace RetrieverCore.MasterDatabase.Migrations
                     b.Property<DateTime?>("UntilTime")
                         .HasColumnType("datetime2");
 
+                    b.Property<Guid?>("UpdateID")
+                        .HasColumnType("uniqueidentifier");
+
                     b.Property<long?>("VerticalResolution")
                         .HasColumnType("bigint");
 
@@ -3752,6 +3839,9 @@ namespace RetrieverCore.MasterDatabase.Migrations
 
                     b.Property<long?>("ThreadCount")
                         .HasColumnType("bigint");
+
+                    b.Property<Guid?>("UpdateID")
+                        .HasColumnType("uniqueidentifier");
 
                     b.Property<decimal?>("UserModeTime")
                         .HasColumnType("decimal(20,0)");
@@ -3944,6 +4034,9 @@ namespace RetrieverCore.MasterDatabase.Migrations
                     b.Property<string>("UniqueId")
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<Guid?>("UpdateID")
+                        .HasColumnType("uniqueidentifier");
+
                     b.Property<int?>("UpgradeMethod")
                         .HasColumnType("int");
 
@@ -3993,6 +4086,9 @@ namespace RetrieverCore.MasterDatabase.Migrations
 
                     b.Property<string>("UUID")
                         .HasColumnType("nvarchar(max)");
+
+                    b.Property<Guid?>("UpdateID")
+                        .HasColumnType("uniqueidentifier");
 
                     b.Property<string>("Vendor")
                         .HasColumnType("nvarchar(max)");
@@ -4110,6 +4206,9 @@ namespace RetrieverCore.MasterDatabase.Migrations
                     b.Property<DateTime?>("TimeOfLastReset")
                         .HasColumnType("datetime2");
 
+                    b.Property<Guid?>("UpdateID")
+                        .HasColumnType("uniqueidentifier");
+
                     b.Property<int?>("WmiResultsSetEntityID")
                         .HasColumnType("int");
 
@@ -4222,6 +4321,9 @@ namespace RetrieverCore.MasterDatabase.Migrations
 
                     b.Property<int?>("Tolerance")
                         .HasColumnType("int");
+
+                    b.Property<Guid?>("UpdateID")
+                        .HasColumnType("uniqueidentifier");
 
                     b.Property<int?>("UpperThresholdCritical")
                         .HasColumnType("int");
@@ -4390,6 +4492,9 @@ namespace RetrieverCore.MasterDatabase.Migrations
                     b.Property<DateTime?>("TimeOfLastReset")
                         .HasColumnType("datetime2");
 
+                    b.Property<Guid?>("UpdateID")
+                        .HasColumnType("uniqueidentifier");
+
                     b.Property<int?>("WmiResultsSetEntityID")
                         .HasColumnType("int");
 
@@ -4502,6 +4607,9 @@ namespace RetrieverCore.MasterDatabase.Migrations
 
                     b.Property<long?>("ThermalRating")
                         .HasColumnType("bigint");
+
+                    b.Property<Guid?>("UpdateID")
+                        .HasColumnType("uniqueidentifier");
 
                     b.Property<string>("VccMixedVoltageSupport")
                         .HasColumnType("nvarchar(max)");
@@ -4660,6 +4768,9 @@ namespace RetrieverCore.MasterDatabase.Migrations
 
                     b.Property<bool?>("SystemVolume")
                         .HasColumnType("bit");
+
+                    b.Property<Guid?>("UpdateID")
+                        .HasColumnType("uniqueidentifier");
 
                     b.Property<int?>("WmiResultsSetEntityID")
                         .HasColumnType("int");
@@ -4861,6 +4972,9 @@ namespace RetrieverCore.MasterDatabase.Migrations
                     b.Property<decimal?>("TotalPhysicalMemory")
                         .HasColumnType("decimal(20,0)");
 
+                    b.Property<Guid?>("UpdateID")
+                        .HasColumnType("uniqueidentifier");
+
                     b.Property<string>("UserName")
                         .HasColumnType("nvarchar(max)");
 
@@ -4983,6 +5097,9 @@ namespace RetrieverCore.MasterDatabase.Migrations
                     b.Property<int?>("Tolerance")
                         .HasColumnType("int");
 
+                    b.Property<Guid?>("UpdateID")
+                        .HasColumnType("uniqueidentifier");
+
                     b.Property<int?>("UpperThresholdCritical")
                         .HasColumnType("int");
 
@@ -5077,6 +5194,9 @@ namespace RetrieverCore.MasterDatabase.Migrations
 
                     b.Property<DateTime?>("TimeOfLastReset")
                         .HasColumnType("datetime2");
+
+                    b.Property<Guid?>("UpdateID")
+                        .HasColumnType("uniqueidentifier");
 
                     b.Property<int?>("WmiResultsSetEntityID")
                         .HasColumnType("int");
@@ -5178,6 +5298,9 @@ namespace RetrieverCore.MasterDatabase.Migrations
 
                     b.Property<int?>("USBVersion")
                         .HasColumnType("int");
+
+                    b.Property<Guid?>("UpdateID")
+                        .HasColumnType("uniqueidentifier");
 
                     b.Property<int?>("WmiResultsSetEntityID")
                         .HasColumnType("int");
@@ -5379,6 +5502,9 @@ namespace RetrieverCore.MasterDatabase.Migrations
                     b.Property<decimal?>("TotalPhysicalMemory")
                         .HasColumnType("decimal(20,0)");
 
+                    b.Property<Guid?>("UpdateID")
+                        .HasColumnType("uniqueidentifier");
+
                     b.Property<string>("UserName")
                         .HasColumnType("nvarchar(max)");
 
@@ -5567,6 +5693,9 @@ namespace RetrieverCore.MasterDatabase.Migrations
                     b.Property<DateTime?>("TimeOfLastReset")
                         .HasColumnType("datetime2");
 
+                    b.Property<Guid?>("UpdateID")
+                        .HasColumnType("uniqueidentifier");
+
                     b.Property<int?>("VideoArchitecture")
                         .HasColumnType("int");
 
@@ -5626,6 +5755,9 @@ namespace RetrieverCore.MasterDatabase.Migrations
                     b.Property<string>("SettingID")
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<Guid?>("UpdateID")
+                        .HasColumnType("uniqueidentifier");
+
                     b.Property<long?>("VerticalResolution")
                         .HasColumnType("bigint");
 
@@ -5651,6 +5783,9 @@ namespace RetrieverCore.MasterDatabase.Migrations
 
                     b.Property<string>("Setting")
                         .HasColumnType("nvarchar(max)");
+
+                    b.Property<Guid?>("UpdateID")
+                        .HasColumnType("uniqueidentifier");
 
                     b.Property<int?>("WmiResultsSetEntityID")
                         .HasColumnType("int");
@@ -5765,6 +5900,9 @@ namespace RetrieverCore.MasterDatabase.Migrations
                     b.Property<int?>("Tolerance")
                         .HasColumnType("int");
 
+                    b.Property<Guid?>("UpdateID")
+                        .HasColumnType("uniqueidentifier");
+
                     b.Property<int?>("UpperThresholdCritical")
                         .HasColumnType("int");
 
@@ -5826,6 +5964,9 @@ namespace RetrieverCore.MasterDatabase.Migrations
 
                     b.Property<long?>("ThermalStamp")
                         .HasColumnType("bigint");
+
+                    b.Property<Guid?>("UpdateID")
+                        .HasColumnType("uniqueidentifier");
 
                     b.Property<int?>("WmiResultsSetEntityID")
                         .HasColumnType("int");
@@ -5954,6 +6095,9 @@ namespace RetrieverCore.MasterDatabase.Migrations
 
                     b.Property<int?>("UniqueIdFormat")
                         .HasColumnType("int");
+
+                    b.Property<Guid?>("UpdateID")
+                        .HasColumnType("uniqueidentifier");
 
                     b.Property<int?>("Usage")
                         .HasColumnType("int");
@@ -6143,6 +6287,9 @@ namespace RetrieverCore.MasterDatabase.Migrations
                     b.Property<DateTime?>("TrustedTime")
                         .HasColumnType("datetime2");
 
+                    b.Property<Guid?>("UpdateID")
+                        .HasColumnType("uniqueidentifier");
+
                     b.Property<string>("UseLicenseURL")
                         .HasColumnType("nvarchar(max)");
 
@@ -6283,6 +6430,9 @@ namespace RetrieverCore.MasterDatabase.Migrations
                     b.Property<long?>("TokenActivationILVID")
                         .HasColumnType("bigint");
 
+                    b.Property<Guid?>("UpdateID")
+                        .HasColumnType("uniqueidentifier");
+
                     b.Property<long?>("VLActivationInterval")
                         .HasColumnType("bigint");
 
@@ -6336,6 +6486,9 @@ namespace RetrieverCore.MasterDatabase.Migrations
                     b.Property<string>("Status")
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<Guid?>("UpdateID")
+                        .HasColumnType("uniqueidentifier");
+
                     b.Property<int?>("WmiResultsSetEntityID")
                         .HasColumnType("int");
 
@@ -6361,6 +6514,9 @@ namespace RetrieverCore.MasterDatabase.Migrations
 
                     b.Property<string>("Dependent")
                         .HasColumnType("nvarchar(max)");
+
+                    b.Property<Guid?>("UpdateID")
+                        .HasColumnType("uniqueidentifier");
 
                     b.Property<int?>("WmiResultsSetEntityID")
                         .HasColumnType("int");
@@ -6469,6 +6625,9 @@ namespace RetrieverCore.MasterDatabase.Migrations
                     b.Property<int?>("TargetOperatingSystem")
                         .HasColumnType("int");
 
+                    b.Property<Guid?>("UpdateID")
+                        .HasColumnType("uniqueidentifier");
+
                     b.Property<string>("Version")
                         .HasColumnType("nvarchar(max)");
 
@@ -6566,6 +6725,9 @@ namespace RetrieverCore.MasterDatabase.Migrations
 
                     b.Property<string>("Tag")
                         .HasColumnType("nvarchar(max)");
+
+                    b.Property<Guid?>("UpdateID")
+                        .HasColumnType("uniqueidentifier");
 
                     b.Property<string>("Version")
                         .HasColumnType("nvarchar(max)");
@@ -6692,6 +6854,9 @@ namespace RetrieverCore.MasterDatabase.Migrations
                     b.Property<long?>("TimeToFullCharge")
                         .HasColumnType("bigint");
 
+                    b.Property<Guid?>("UpdateID")
+                        .HasColumnType("uniqueidentifier");
+
                     b.Property<int?>("WmiResultsSetEntityID")
                         .HasColumnType("int");
 
@@ -6771,6 +6936,9 @@ namespace RetrieverCore.MasterDatabase.Migrations
 
                     b.Property<string>("SystemName")
                         .HasColumnType("nvarchar(max)");
+
+                    b.Property<Guid?>("UpdateID")
+                        .HasColumnType("uniqueidentifier");
 
                     b.Property<int?>("WmiResultsSetEntityID")
                         .HasColumnType("int");
@@ -6929,6 +7097,9 @@ namespace RetrieverCore.MasterDatabase.Migrations
 
                     b.Property<double?>("TransferRate")
                         .HasColumnType("float");
+
+                    b.Property<Guid?>("UpdateID")
+                        .HasColumnType("uniqueidentifier");
 
                     b.Property<string>("VolumeName")
                         .HasColumnType("nvarchar(max)");
@@ -7108,6 +7279,9 @@ namespace RetrieverCore.MasterDatabase.Migrations
 
                     b.Property<string>("SystemName")
                         .HasColumnType("nvarchar(max)");
+
+                    b.Property<Guid?>("UpdateID")
+                        .HasColumnType("uniqueidentifier");
 
                     b.Property<int?>("WmiResultsSetEntityID")
                         .HasColumnType("int");
@@ -7312,6 +7486,9 @@ namespace RetrieverCore.MasterDatabase.Migrations
                     b.Property<decimal?>("TotalPhysicalMemory")
                         .HasColumnType("decimal(20,0)");
 
+                    b.Property<Guid?>("UpdateID")
+                        .HasColumnType("uniqueidentifier");
+
                     b.Property<string>("UserName")
                         .HasColumnType("nvarchar(max)");
 
@@ -7491,6 +7668,9 @@ namespace RetrieverCore.MasterDatabase.Migrations
                     b.Property<long?>("TracksPerCylinder")
                         .HasColumnType("bigint");
 
+                    b.Property<Guid?>("UpdateID")
+                        .HasColumnType("uniqueidentifier");
+
                     b.Property<int?>("WmiResultsSetEntityID")
                         .HasColumnType("int");
 
@@ -7610,6 +7790,9 @@ namespace RetrieverCore.MasterDatabase.Migrations
                     b.Property<string>("Type")
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<Guid?>("UpdateID")
+                        .HasColumnType("uniqueidentifier");
+
                     b.Property<int?>("WmiResultsSetEntityID")
                         .HasColumnType("int");
 
@@ -7689,6 +7872,9 @@ namespace RetrieverCore.MasterDatabase.Migrations
 
                     b.Property<string>("SystemName")
                         .HasColumnType("nvarchar(max)");
+
+                    b.Property<Guid?>("UpdateID")
+                        .HasColumnType("uniqueidentifier");
 
                     b.Property<bool?>("VariableSpeed")
                         .HasColumnType("bit");
@@ -7778,6 +7964,9 @@ namespace RetrieverCore.MasterDatabase.Migrations
 
                     b.Property<string>("SystemName")
                         .HasColumnType("nvarchar(max)");
+
+                    b.Property<Guid?>("UpdateID")
+                        .HasColumnType("uniqueidentifier");
 
                     b.Property<int?>("WmiResultsSetEntityID")
                         .HasColumnType("int");
@@ -7907,6 +8096,9 @@ namespace RetrieverCore.MasterDatabase.Migrations
                     b.Property<string>("SystemName")
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<Guid?>("UpdateID")
+                        .HasColumnType("uniqueidentifier");
+
                     b.Property<bool?>("VolumeDirty")
                         .HasColumnType("bit");
 
@@ -7998,6 +8190,9 @@ namespace RetrieverCore.MasterDatabase.Migrations
 
                     b.Property<string>("SystemName")
                         .HasColumnType("nvarchar(max)");
+
+                    b.Property<Guid?>("UpdateID")
+                        .HasColumnType("uniqueidentifier");
 
                     b.Property<int?>("WmiResultsSetEntityID")
                         .HasColumnType("int");
@@ -8135,6 +8330,9 @@ namespace RetrieverCore.MasterDatabase.Migrations
 
                     b.Property<DateTime?>("TimeOfLastReset")
                         .HasColumnType("datetime2");
+
+                    b.Property<Guid?>("UpdateID")
+                        .HasColumnType("uniqueidentifier");
 
                     b.Property<int?>("WmiResultsSetEntityID")
                         .HasColumnType("int");
@@ -8320,6 +8518,9 @@ namespace RetrieverCore.MasterDatabase.Migrations
 
                     b.Property<long?>("TcpipNetbiosOptions")
                         .HasColumnType("bigint");
+
+                    b.Property<Guid?>("UpdateID")
+                        .HasColumnType("uniqueidentifier");
 
                     b.Property<bool?>("WINSEnableLMHostsLookup")
                         .HasColumnType("bit");
@@ -8539,6 +8740,9 @@ namespace RetrieverCore.MasterDatabase.Migrations
                     b.Property<decimal?>("TotalVisibleMemorySize")
                         .HasColumnType("decimal(20,0)");
 
+                    b.Property<Guid?>("UpdateID")
+                        .HasColumnType("uniqueidentifier");
+
                     b.Property<string>("Version")
                         .HasColumnType("nvarchar(max)");
 
@@ -8667,6 +8871,9 @@ namespace RetrieverCore.MasterDatabase.Migrations
                     b.Property<int?>("TypeDetail")
                         .HasColumnType("int");
 
+                    b.Property<Guid?>("UpdateID")
+                        .HasColumnType("uniqueidentifier");
+
                     b.Property<string>("Version")
                         .HasColumnType("nvarchar(max)");
 
@@ -8692,6 +8899,9 @@ namespace RetrieverCore.MasterDatabase.Migrations
 
                     b.Property<string>("SystemElement")
                         .HasColumnType("nvarchar(max)");
+
+                    b.Property<Guid?>("UpdateID")
+                        .HasColumnType("uniqueidentifier");
 
                     b.Property<int?>("WmiResultsSetEntityID")
                         .HasColumnType("int");
@@ -8787,6 +8997,9 @@ namespace RetrieverCore.MasterDatabase.Migrations
 
                     b.Property<string>("SystemName")
                         .HasColumnType("nvarchar(max)");
+
+                    b.Property<Guid?>("UpdateID")
+                        .HasColumnType("uniqueidentifier");
 
                     b.Property<int?>("WmiResultsSetEntityID")
                         .HasColumnType("int");
@@ -8904,6 +9117,9 @@ namespace RetrieverCore.MasterDatabase.Migrations
                     b.Property<string>("SystemName")
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<Guid?>("UpdateID")
+                        .HasColumnType("uniqueidentifier");
+
                     b.Property<int?>("WmiResultsSetEntityID")
                         .HasColumnType("int");
 
@@ -8978,6 +9194,9 @@ namespace RetrieverCore.MasterDatabase.Migrations
                     b.Property<string>("Tag")
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<Guid?>("UpdateID")
+                        .HasColumnType("uniqueidentifier");
+
                     b.Property<string>("Version")
                         .HasColumnType("nvarchar(max)");
 
@@ -9030,6 +9249,9 @@ namespace RetrieverCore.MasterDatabase.Migrations
 
                     b.Property<string>("Status")
                         .HasColumnType("nvarchar(max)");
+
+                    b.Property<Guid?>("UpdateID")
+                        .HasColumnType("uniqueidentifier");
 
                     b.Property<int?>("WmiResultsSetEntityID")
                         .HasColumnType("int");
@@ -9300,6 +9522,9 @@ namespace RetrieverCore.MasterDatabase.Migrations
                     b.Property<DateTime?>("UntilTime")
                         .HasColumnType("datetime2");
 
+                    b.Property<Guid?>("UpdateID")
+                        .HasColumnType("uniqueidentifier");
+
                     b.Property<long?>("VerticalResolution")
                         .HasColumnType("bigint");
 
@@ -9439,6 +9664,9 @@ namespace RetrieverCore.MasterDatabase.Migrations
 
                     b.Property<long?>("ThreadCount")
                         .HasColumnType("bigint");
+
+                    b.Property<Guid?>("UpdateID")
+                        .HasColumnType("uniqueidentifier");
 
                     b.Property<decimal?>("UserModeTime")
                         .HasColumnType("decimal(20,0)");
@@ -9631,6 +9859,9 @@ namespace RetrieverCore.MasterDatabase.Migrations
                     b.Property<string>("UniqueId")
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<Guid?>("UpdateID")
+                        .HasColumnType("uniqueidentifier");
+
                     b.Property<int?>("UpgradeMethod")
                         .HasColumnType("int");
 
@@ -9804,6 +10035,9 @@ namespace RetrieverCore.MasterDatabase.Migrations
                     b.Property<DateTime?>("TimeOfLastReset")
                         .HasColumnType("datetime2");
 
+                    b.Property<Guid?>("UpdateID")
+                        .HasColumnType("uniqueidentifier");
+
                     b.Property<int?>("WmiResultsSetEntityID")
                         .HasColumnType("int");
 
@@ -9889,6 +10123,9 @@ namespace RetrieverCore.MasterDatabase.Migrations
 
                     b.Property<string>("SystemName")
                         .HasColumnType("nvarchar(max)");
+
+                    b.Property<Guid?>("UpdateID")
+                        .HasColumnType("uniqueidentifier");
 
                     b.Property<int?>("WmiResultsSetEntityID")
                         .HasColumnType("int");
@@ -9978,6 +10215,9 @@ namespace RetrieverCore.MasterDatabase.Migrations
 
                     b.Property<long?>("StandardYear")
                         .HasColumnType("bigint");
+
+                    b.Property<Guid?>("UpdateID")
+                        .HasColumnType("uniqueidentifier");
 
                     b.Property<int?>("WmiResultsSetEntityID")
                         .HasColumnType("int");
@@ -10158,6 +10398,9 @@ namespace RetrieverCore.MasterDatabase.Migrations
                     b.Property<DateTime?>("TimeOfLastReset")
                         .HasColumnType("datetime2");
 
+                    b.Property<Guid?>("UpdateID")
+                        .HasColumnType("uniqueidentifier");
+
                     b.Property<int?>("VideoArchitecture")
                         .HasColumnType("int");
 
@@ -10195,6 +10438,9 @@ namespace RetrieverCore.MasterDatabase.Migrations
 
                     b.Property<string>("Setting")
                         .HasColumnType("nvarchar(max)");
+
+                    b.Property<Guid?>("UpdateID")
+                        .HasColumnType("uniqueidentifier");
 
                     b.Property<int?>("WmiResultsSetEntityID")
                         .HasColumnType("int");
@@ -10345,6 +10591,9 @@ namespace RetrieverCore.MasterDatabase.Migrations
                     b.Property<bool?>("SystemVolume")
                         .HasColumnType("bit");
 
+                    b.Property<Guid?>("UpdateID")
+                        .HasColumnType("uniqueidentifier");
+
                     b.Property<int?>("WmiResultsSetEntityID")
                         .HasColumnType("int");
 
@@ -10357,583 +10606,918 @@ namespace RetrieverCore.MasterDatabase.Migrations
 
             modelBuilder.Entity("GathererEngine.Models.BatteryFullChargedCapacity", b =>
                 {
-                    b.HasOne("RetrieverCore.LocalDatabase.Models.WmiResultsSetEntity", "WmiResultsSetEntity")
+                    b.HasOne("GathererEngine.Database.WmiResultsSetEntity", "WmiResultsSetEntity")
                         .WithMany("BatteryFullChargedCapacity")
                         .HasForeignKey("WmiResultsSetEntityID");
+
+                    b.Navigation("WmiResultsSetEntity");
                 });
 
             modelBuilder.Entity("GathererEngine.Models.BatteryStaticData", b =>
                 {
-                    b.HasOne("RetrieverCore.LocalDatabase.Models.WmiResultsSetEntity", "WmiResultsSetEntity")
+                    b.HasOne("GathererEngine.Database.WmiResultsSetEntity", "WmiResultsSetEntity")
                         .WithMany("BatteryStaticData")
                         .HasForeignKey("WmiResultsSetEntityID");
+
+                    b.Navigation("WmiResultsSetEntity");
                 });
 
             modelBuilder.Entity("GathererEngine.Models.BatteryStatus", b =>
                 {
-                    b.HasOne("RetrieverCore.LocalDatabase.Models.WmiResultsSetEntity", "WmiResultsSetEntity")
+                    b.HasOne("GathererEngine.Database.WmiResultsSetEntity", "WmiResultsSetEntity")
                         .WithMany("BatteryStatus")
                         .HasForeignKey("WmiResultsSetEntityID");
+
+                    b.Navigation("WmiResultsSetEntity");
                 });
 
             modelBuilder.Entity("GathererEngine.Models.CIM_BIOSElement", b =>
                 {
-                    b.HasOne("RetrieverCore.LocalDatabase.Models.WmiResultsSetEntity", "WmiResultsSetEntity")
+                    b.HasOne("GathererEngine.Database.WmiResultsSetEntity", "WmiResultsSetEntity")
                         .WithMany("CIM_BIOSElement")
                         .HasForeignKey("WmiResultsSetEntityID");
+
+                    b.Navigation("WmiResultsSetEntity");
                 });
 
             modelBuilder.Entity("GathererEngine.Models.CIM_Battery", b =>
                 {
-                    b.HasOne("RetrieverCore.LocalDatabase.Models.WmiResultsSetEntity", "WmiResultsSetEntity")
+                    b.HasOne("GathererEngine.Database.WmiResultsSetEntity", "WmiResultsSetEntity")
                         .WithMany("CIM_Battery")
                         .HasForeignKey("WmiResultsSetEntityID");
+
+                    b.Navigation("WmiResultsSetEntity");
                 });
 
             modelBuilder.Entity("GathererEngine.Models.CIM_Card", b =>
                 {
-                    b.HasOne("RetrieverCore.LocalDatabase.Models.WmiResultsSetEntity", "WmiResultsSetEntity")
+                    b.HasOne("GathererEngine.Database.WmiResultsSetEntity", "WmiResultsSetEntity")
                         .WithMany("CIM_Card")
                         .HasForeignKey("WmiResultsSetEntityID");
+
+                    b.Navigation("WmiResultsSetEntity");
                 });
 
             modelBuilder.Entity("GathererEngine.Models.CIM_Chip", b =>
                 {
-                    b.HasOne("RetrieverCore.LocalDatabase.Models.WmiResultsSetEntity", "WmiResultsSetEntity")
+                    b.HasOne("GathererEngine.Database.WmiResultsSetEntity", "WmiResultsSetEntity")
                         .WithMany("CIM_Chip")
                         .HasForeignKey("WmiResultsSetEntityID");
+
+                    b.Navigation("WmiResultsSetEntity");
                 });
 
             modelBuilder.Entity("GathererEngine.Models.CIM_ComputerSystem", b =>
                 {
-                    b.HasOne("RetrieverCore.LocalDatabase.Models.WmiResultsSetEntity", "WmiResultsSetEntity")
+                    b.HasOne("GathererEngine.Database.WmiResultsSetEntity", "WmiResultsSetEntity")
                         .WithMany("CIM_ComputerSystem")
                         .HasForeignKey("WmiResultsSetEntityID");
+
+                    b.Navigation("WmiResultsSetEntity");
                 });
 
             modelBuilder.Entity("GathererEngine.Models.CIM_Controller", b =>
                 {
-                    b.HasOne("RetrieverCore.LocalDatabase.Models.WmiResultsSetEntity", "WmiResultsSetEntity")
+                    b.HasOne("GathererEngine.Database.WmiResultsSetEntity", "WmiResultsSetEntity")
                         .WithMany("CIM_Controller")
                         .HasForeignKey("WmiResultsSetEntityID");
+
+                    b.Navigation("WmiResultsSetEntity");
                 });
 
             modelBuilder.Entity("GathererEngine.Models.CIM_CoolingDevice", b =>
                 {
-                    b.HasOne("RetrieverCore.LocalDatabase.Models.WmiResultsSetEntity", "WmiResultsSetEntity")
+                    b.HasOne("GathererEngine.Database.WmiResultsSetEntity", "WmiResultsSetEntity")
                         .WithMany("CIM_CoolingDevice")
                         .HasForeignKey("WmiResultsSetEntityID");
+
+                    b.Navigation("WmiResultsSetEntity");
                 });
 
             modelBuilder.Entity("GathererEngine.Models.CIM_CurrentSensor", b =>
                 {
-                    b.HasOne("RetrieverCore.LocalDatabase.Models.WmiResultsSetEntity", "WmiResultsSetEntity")
+                    b.HasOne("GathererEngine.Database.WmiResultsSetEntity", "WmiResultsSetEntity")
                         .WithMany("CIM_CurrentSensor")
                         .HasForeignKey("WmiResultsSetEntityID");
+
+                    b.Navigation("WmiResultsSetEntity");
                 });
 
             modelBuilder.Entity("GathererEngine.Models.CIM_DesktopMonitor", b =>
                 {
-                    b.HasOne("RetrieverCore.LocalDatabase.Models.WmiResultsSetEntity", "WmiResultsSetEntity")
+                    b.HasOne("GathererEngine.Database.WmiResultsSetEntity", "WmiResultsSetEntity")
                         .WithMany("CIM_DesktopMonitor")
                         .HasForeignKey("WmiResultsSetEntityID");
+
+                    b.Navigation("WmiResultsSetEntity");
                 });
 
             modelBuilder.Entity("GathererEngine.Models.CIM_DiskDrive", b =>
                 {
-                    b.HasOne("RetrieverCore.LocalDatabase.Models.WmiResultsSetEntity", "WmiResultsSetEntity")
+                    b.HasOne("GathererEngine.Database.WmiResultsSetEntity", "WmiResultsSetEntity")
                         .WithMany("CIM_DiskDrive")
                         .HasForeignKey("WmiResultsSetEntityID");
+
+                    b.Navigation("WmiResultsSetEntity");
                 });
 
             modelBuilder.Entity("GathererEngine.Models.CIM_DiskPartition", b =>
                 {
-                    b.HasOne("RetrieverCore.LocalDatabase.Models.WmiResultsSetEntity", "WmiResultsSetEntity")
+                    b.HasOne("GathererEngine.Database.WmiResultsSetEntity", "WmiResultsSetEntity")
                         .WithMany("CIM_DiskPartition")
                         .HasForeignKey("WmiResultsSetEntityID");
+
+                    b.Navigation("WmiResultsSetEntity");
                 });
 
             modelBuilder.Entity("GathererEngine.Models.CIM_Display", b =>
                 {
-                    b.HasOne("RetrieverCore.LocalDatabase.Models.WmiResultsSetEntity", "WmiResultsSetEntity")
+                    b.HasOne("GathererEngine.Database.WmiResultsSetEntity", "WmiResultsSetEntity")
                         .WithMany("CIM_Display")
                         .HasForeignKey("WmiResultsSetEntityID");
+
+                    b.Navigation("WmiResultsSetEntity");
                 });
 
             modelBuilder.Entity("GathererEngine.Models.CIM_Fan", b =>
                 {
-                    b.HasOne("RetrieverCore.LocalDatabase.Models.WmiResultsSetEntity", "WmiResultsSetEntity")
+                    b.HasOne("GathererEngine.Database.WmiResultsSetEntity", "WmiResultsSetEntity")
                         .WithMany("CIM_Fan")
                         .HasForeignKey("WmiResultsSetEntityID");
+
+                    b.Navigation("WmiResultsSetEntity");
                 });
 
             modelBuilder.Entity("GathererEngine.Models.CIM_InstalledOS", b =>
                 {
-                    b.HasOne("RetrieverCore.LocalDatabase.Models.WmiResultsSetEntity", "WmiResultsSetEntity")
+                    b.HasOne("GathererEngine.Database.WmiResultsSetEntity", "WmiResultsSetEntity")
                         .WithMany("CIM_InstalledOS")
                         .HasForeignKey("WmiResultsSetEntityID");
+
+                    b.Navigation("WmiResultsSetEntity");
                 });
 
             modelBuilder.Entity("GathererEngine.Models.CIM_Keyboard", b =>
                 {
-                    b.HasOne("RetrieverCore.LocalDatabase.Models.WmiResultsSetEntity", "WmiResultsSetEntity")
+                    b.HasOne("GathererEngine.Database.WmiResultsSetEntity", "WmiResultsSetEntity")
                         .WithMany("CIM_Keyboard")
                         .HasForeignKey("WmiResultsSetEntityID");
+
+                    b.Navigation("WmiResultsSetEntity");
                 });
 
             modelBuilder.Entity("GathererEngine.Models.CIM_LogicalDisk", b =>
                 {
-                    b.HasOne("RetrieverCore.LocalDatabase.Models.WmiResultsSetEntity", "WmiResultsSetEntity")
+                    b.HasOne("GathererEngine.Database.WmiResultsSetEntity", "WmiResultsSetEntity")
                         .WithMany("CIM_LogicalDisk")
                         .HasForeignKey("WmiResultsSetEntityID");
+
+                    b.Navigation("WmiResultsSetEntity");
                 });
 
             modelBuilder.Entity("GathererEngine.Models.CIM_Memory", b =>
                 {
-                    b.HasOne("RetrieverCore.LocalDatabase.Models.WmiResultsSetEntity", "WmiResultsSetEntity")
+                    b.HasOne("GathererEngine.Database.WmiResultsSetEntity", "WmiResultsSetEntity")
                         .WithMany("CIM_Memory")
                         .HasForeignKey("WmiResultsSetEntityID");
+
+                    b.Navigation("WmiResultsSetEntity");
                 });
 
             modelBuilder.Entity("GathererEngine.Models.CIM_NetworkAdapter", b =>
                 {
-                    b.HasOne("RetrieverCore.LocalDatabase.Models.WmiResultsSetEntity", "WmiResultsSetEntity")
+                    b.HasOne("GathererEngine.Database.WmiResultsSetEntity", "WmiResultsSetEntity")
                         .WithMany("CIM_NetworkAdapter")
                         .HasForeignKey("WmiResultsSetEntityID");
+
+                    b.Navigation("WmiResultsSetEntity");
                 });
 
             modelBuilder.Entity("GathererEngine.Models.CIM_NumericSensor", b =>
                 {
-                    b.HasOne("RetrieverCore.LocalDatabase.Models.WmiResultsSetEntity", "WmiResultsSetEntity")
+                    b.HasOne("GathererEngine.Database.WmiResultsSetEntity", "WmiResultsSetEntity")
                         .WithMany("CIM_NumericSensor")
                         .HasForeignKey("WmiResultsSetEntityID");
+
+                    b.Navigation("WmiResultsSetEntity");
                 });
 
             modelBuilder.Entity("GathererEngine.Models.CIM_OperatingSystem", b =>
                 {
-                    b.HasOne("RetrieverCore.LocalDatabase.Models.WmiResultsSetEntity", "WmiResultsSetEntity")
+                    b.HasOne("GathererEngine.Database.WmiResultsSetEntity", "WmiResultsSetEntity")
                         .WithMany("CIM_OperatingSystem")
                         .HasForeignKey("WmiResultsSetEntityID");
+
+                    b.Navigation("WmiResultsSetEntity");
                 });
 
             modelBuilder.Entity("GathererEngine.Models.CIM_PCVideoController", b =>
                 {
-                    b.HasOne("RetrieverCore.LocalDatabase.Models.WmiResultsSetEntity", "WmiResultsSetEntity")
+                    b.HasOne("GathererEngine.Database.WmiResultsSetEntity", "WmiResultsSetEntity")
                         .WithMany("CIM_PCVideoController")
                         .HasForeignKey("WmiResultsSetEntityID");
+
+                    b.Navigation("WmiResultsSetEntity");
                 });
 
             modelBuilder.Entity("GathererEngine.Models.CIM_PhysicalConnector", b =>
                 {
-                    b.HasOne("RetrieverCore.LocalDatabase.Models.WmiResultsSetEntity", "WmiResultsSetEntity")
+                    b.HasOne("GathererEngine.Database.WmiResultsSetEntity", "WmiResultsSetEntity")
                         .WithMany("CIM_PhysicalConnector")
                         .HasForeignKey("WmiResultsSetEntityID");
+
+                    b.Navigation("WmiResultsSetEntity");
                 });
 
             modelBuilder.Entity("GathererEngine.Models.CIM_PhysicalElement", b =>
                 {
-                    b.HasOne("RetrieverCore.LocalDatabase.Models.WmiResultsSetEntity", "WmiResultsSetEntity")
+                    b.HasOne("GathererEngine.Database.WmiResultsSetEntity", "WmiResultsSetEntity")
                         .WithMany("CIM_PhysicalElement")
                         .HasForeignKey("WmiResultsSetEntityID");
+
+                    b.Navigation("WmiResultsSetEntity");
                 });
 
             modelBuilder.Entity("GathererEngine.Models.CIM_PhysicalMemory", b =>
                 {
-                    b.HasOne("RetrieverCore.LocalDatabase.Models.WmiResultsSetEntity", "WmiResultsSetEntity")
+                    b.HasOne("GathererEngine.Database.WmiResultsSetEntity", "WmiResultsSetEntity")
                         .WithMany("CIM_PhysicalMemory")
                         .HasForeignKey("WmiResultsSetEntityID");
+
+                    b.Navigation("WmiResultsSetEntity");
                 });
 
             modelBuilder.Entity("GathererEngine.Models.CIM_PointingDevice", b =>
                 {
-                    b.HasOne("RetrieverCore.LocalDatabase.Models.WmiResultsSetEntity", "WmiResultsSetEntity")
+                    b.HasOne("GathererEngine.Database.WmiResultsSetEntity", "WmiResultsSetEntity")
                         .WithMany("CIM_PointingDevice")
                         .HasForeignKey("WmiResultsSetEntityID");
+
+                    b.Navigation("WmiResultsSetEntity");
                 });
 
             modelBuilder.Entity("GathererEngine.Models.CIM_Printer", b =>
                 {
-                    b.HasOne("RetrieverCore.LocalDatabase.Models.WmiResultsSetEntity", "WmiResultsSetEntity")
+                    b.HasOne("GathererEngine.Database.WmiResultsSetEntity", "WmiResultsSetEntity")
                         .WithMany("CIM_Printer")
                         .HasForeignKey("WmiResultsSetEntityID");
+
+                    b.Navigation("WmiResultsSetEntity");
                 });
 
             modelBuilder.Entity("GathererEngine.Models.CIM_Process", b =>
                 {
-                    b.HasOne("RetrieverCore.LocalDatabase.Models.WmiResultsSetEntity", "WmiResultsSetEntity")
+                    b.HasOne("GathererEngine.Database.WmiResultsSetEntity", "WmiResultsSetEntity")
                         .WithMany("CIM_Process")
                         .HasForeignKey("WmiResultsSetEntityID");
+
+                    b.Navigation("WmiResultsSetEntity");
                 });
 
             modelBuilder.Entity("GathererEngine.Models.CIM_Processor", b =>
                 {
-                    b.HasOne("RetrieverCore.LocalDatabase.Models.WmiResultsSetEntity", "WmiResultsSetEntity")
+                    b.HasOne("GathererEngine.Database.WmiResultsSetEntity", "WmiResultsSetEntity")
                         .WithMany("CIM_Processor")
                         .HasForeignKey("WmiResultsSetEntityID");
+
+                    b.Navigation("WmiResultsSetEntity");
                 });
 
             modelBuilder.Entity("GathererEngine.Models.CIM_Product", b =>
                 {
-                    b.HasOne("RetrieverCore.LocalDatabase.Models.WmiResultsSetEntity", "WmiResultsSetEntity")
+                    b.HasOne("GathererEngine.Database.WmiResultsSetEntity", "WmiResultsSetEntity")
                         .WithMany("CIM_Product")
                         .HasForeignKey("WmiResultsSetEntityID");
+
+                    b.Navigation("WmiResultsSetEntity");
                 });
 
             modelBuilder.Entity("GathererEngine.Models.CIM_SCSIController", b =>
                 {
-                    b.HasOne("RetrieverCore.LocalDatabase.Models.WmiResultsSetEntity", "WmiResultsSetEntity")
+                    b.HasOne("GathererEngine.Database.WmiResultsSetEntity", "WmiResultsSetEntity")
                         .WithMany("CIM_SCSIController")
                         .HasForeignKey("WmiResultsSetEntityID");
+
+                    b.Navigation("WmiResultsSetEntity");
                 });
 
             modelBuilder.Entity("GathererEngine.Models.CIM_Sensor", b =>
                 {
-                    b.HasOne("RetrieverCore.LocalDatabase.Models.WmiResultsSetEntity", "WmiResultsSetEntity")
+                    b.HasOne("GathererEngine.Database.WmiResultsSetEntity", "WmiResultsSetEntity")
                         .WithMany("CIM_Sensor")
                         .HasForeignKey("WmiResultsSetEntityID");
+
+                    b.Navigation("WmiResultsSetEntity");
                 });
 
             modelBuilder.Entity("GathererEngine.Models.CIM_SerialController", b =>
                 {
-                    b.HasOne("RetrieverCore.LocalDatabase.Models.WmiResultsSetEntity", "WmiResultsSetEntity")
+                    b.HasOne("GathererEngine.Database.WmiResultsSetEntity", "WmiResultsSetEntity")
                         .WithMany("CIM_SerialController")
                         .HasForeignKey("WmiResultsSetEntityID");
+
+                    b.Navigation("WmiResultsSetEntity");
                 });
 
             modelBuilder.Entity("GathererEngine.Models.CIM_Slot", b =>
                 {
-                    b.HasOne("RetrieverCore.LocalDatabase.Models.WmiResultsSetEntity", "WmiResultsSetEntity")
+                    b.HasOne("GathererEngine.Database.WmiResultsSetEntity", "WmiResultsSetEntity")
                         .WithMany("CIM_Slot")
                         .HasForeignKey("WmiResultsSetEntityID");
+
+                    b.Navigation("WmiResultsSetEntity");
                 });
 
             modelBuilder.Entity("GathererEngine.Models.CIM_StorageVolume", b =>
                 {
-                    b.HasOne("RetrieverCore.LocalDatabase.Models.WmiResultsSetEntity", "WmiResultsSetEntity")
+                    b.HasOne("GathererEngine.Database.WmiResultsSetEntity", "WmiResultsSetEntity")
                         .WithMany("CIM_StorageVolume")
                         .HasForeignKey("WmiResultsSetEntityID");
+
+                    b.Navigation("WmiResultsSetEntity");
                 });
 
             modelBuilder.Entity("GathererEngine.Models.CIM_System", b =>
                 {
-                    b.HasOne("RetrieverCore.LocalDatabase.Models.WmiResultsSetEntity", "WmiResultsSetEntity")
+                    b.HasOne("GathererEngine.Database.WmiResultsSetEntity", "WmiResultsSetEntity")
                         .WithMany("CIM_System")
                         .HasForeignKey("WmiResultsSetEntityID");
+
+                    b.Navigation("WmiResultsSetEntity");
                 });
 
             modelBuilder.Entity("GathererEngine.Models.CIM_TemperatureSensor", b =>
                 {
-                    b.HasOne("RetrieverCore.LocalDatabase.Models.WmiResultsSetEntity", "WmiResultsSetEntity")
+                    b.HasOne("GathererEngine.Database.WmiResultsSetEntity", "WmiResultsSetEntity")
                         .WithMany("CIM_TemperatureSensor")
                         .HasForeignKey("WmiResultsSetEntityID");
+
+                    b.Navigation("WmiResultsSetEntity");
                 });
 
             modelBuilder.Entity("GathererEngine.Models.CIM_USBController", b =>
                 {
-                    b.HasOne("RetrieverCore.LocalDatabase.Models.WmiResultsSetEntity", "WmiResultsSetEntity")
+                    b.HasOne("GathererEngine.Database.WmiResultsSetEntity", "WmiResultsSetEntity")
                         .WithMany("CIM_USBController")
                         .HasForeignKey("WmiResultsSetEntityID");
+
+                    b.Navigation("WmiResultsSetEntity");
                 });
 
             modelBuilder.Entity("GathererEngine.Models.CIM_USBDevice", b =>
                 {
-                    b.HasOne("RetrieverCore.LocalDatabase.Models.WmiResultsSetEntity", "WmiResultsSetEntity")
+                    b.HasOne("GathererEngine.Database.WmiResultsSetEntity", "WmiResultsSetEntity")
                         .WithMany("CIM_USBDevice")
                         .HasForeignKey("WmiResultsSetEntityID");
+
+                    b.Navigation("WmiResultsSetEntity");
                 });
 
             modelBuilder.Entity("GathererEngine.Models.CIM_UnitaryComputerSystem", b =>
                 {
-                    b.HasOne("RetrieverCore.LocalDatabase.Models.WmiResultsSetEntity", "WmiResultsSetEntity")
+                    b.HasOne("GathererEngine.Database.WmiResultsSetEntity", "WmiResultsSetEntity")
                         .WithMany("CIM_UnitaryComputerSystem")
                         .HasForeignKey("WmiResultsSetEntityID");
+
+                    b.Navigation("WmiResultsSetEntity");
                 });
 
             modelBuilder.Entity("GathererEngine.Models.CIM_VideoController", b =>
                 {
-                    b.HasOne("RetrieverCore.LocalDatabase.Models.WmiResultsSetEntity", "WmiResultsSetEntity")
+                    b.HasOne("GathererEngine.Database.WmiResultsSetEntity", "WmiResultsSetEntity")
                         .WithMany("CIM_VideoController")
                         .HasForeignKey("WmiResultsSetEntityID");
+
+                    b.Navigation("WmiResultsSetEntity");
                 });
 
             modelBuilder.Entity("GathererEngine.Models.CIM_VideoControllerResolution", b =>
                 {
-                    b.HasOne("RetrieverCore.LocalDatabase.Models.WmiResultsSetEntity", "WmiResultsSetEntity")
+                    b.HasOne("GathererEngine.Database.WmiResultsSetEntity", "WmiResultsSetEntity")
                         .WithMany("CIM_VideoControllerResolution")
                         .HasForeignKey("WmiResultsSetEntityID");
+
+                    b.Navigation("WmiResultsSetEntity");
                 });
 
             modelBuilder.Entity("GathererEngine.Models.CIM_VideoSetting", b =>
                 {
-                    b.HasOne("RetrieverCore.LocalDatabase.Models.WmiResultsSetEntity", "WmiResultsSetEntity")
+                    b.HasOne("GathererEngine.Database.WmiResultsSetEntity", "WmiResultsSetEntity")
                         .WithMany("CIM_VideoSetting")
                         .HasForeignKey("WmiResultsSetEntityID");
+
+                    b.Navigation("WmiResultsSetEntity");
                 });
 
             modelBuilder.Entity("GathererEngine.Models.CIM_VoltageSensor", b =>
                 {
-                    b.HasOne("RetrieverCore.LocalDatabase.Models.WmiResultsSetEntity", "WmiResultsSetEntity")
+                    b.HasOne("GathererEngine.Database.WmiResultsSetEntity", "WmiResultsSetEntity")
                         .WithMany("CIM_VoltageSensor")
                         .HasForeignKey("WmiResultsSetEntityID");
+
+                    b.Navigation("WmiResultsSetEntity");
                 });
 
             modelBuilder.Entity("GathererEngine.Models.MSAcpi_ThermalZoneTemperature", b =>
                 {
-                    b.HasOne("RetrieverCore.LocalDatabase.Models.WmiResultsSetEntity", "WmiResultsSetEntity")
+                    b.HasOne("GathererEngine.Database.WmiResultsSetEntity", "WmiResultsSetEntity")
                         .WithMany("MSAcpi_ThermalZoneTemperature")
                         .HasForeignKey("WmiResultsSetEntityID");
+
+                    b.Navigation("WmiResultsSetEntity");
                 });
 
             modelBuilder.Entity("GathererEngine.Models.MSFT_PhysicalDisk", b =>
                 {
-                    b.HasOne("RetrieverCore.LocalDatabase.Models.WmiResultsSetEntity", "WmiResultsSetEntity")
+                    b.HasOne("GathererEngine.Database.WmiResultsSetEntity", "WmiResultsSetEntity")
                         .WithMany("MSFT_PhysicalDisk")
                         .HasForeignKey("WmiResultsSetEntityID");
+
+                    b.Navigation("WmiResultsSetEntity");
                 });
 
             modelBuilder.Entity("GathererEngine.Models.SoftwareLicensingProduct", b =>
                 {
-                    b.HasOne("RetrieverCore.LocalDatabase.Models.WmiResultsSetEntity", "WmiResultsSetEntity")
+                    b.HasOne("GathererEngine.Database.WmiResultsSetEntity", "WmiResultsSetEntity")
                         .WithMany("SoftwareLicensingProduct")
                         .HasForeignKey("WmiResultsSetEntityID");
+
+                    b.Navigation("WmiResultsSetEntity");
                 });
 
             modelBuilder.Entity("GathererEngine.Models.SoftwareLicensingService", b =>
                 {
-                    b.HasOne("RetrieverCore.LocalDatabase.Models.WmiResultsSetEntity", "WmiResultsSetEntity")
+                    b.HasOne("GathererEngine.Database.WmiResultsSetEntity", "WmiResultsSetEntity")
                         .WithMany("SoftwareLicensingService")
                         .HasForeignKey("WmiResultsSetEntityID");
+
+                    b.Navigation("WmiResultsSetEntity");
                 });
 
             modelBuilder.Entity("GathererEngine.Models.Win32_Account", b =>
                 {
-                    b.HasOne("RetrieverCore.LocalDatabase.Models.WmiResultsSetEntity", "WmiResultsSetEntity")
+                    b.HasOne("GathererEngine.Database.WmiResultsSetEntity", "WmiResultsSetEntity")
                         .WithMany("Win32_Account")
                         .HasForeignKey("WmiResultsSetEntityID");
+
+                    b.Navigation("WmiResultsSetEntity");
                 });
 
             modelBuilder.Entity("GathererEngine.Models.Win32_AssociatedProcessorMemory", b =>
                 {
-                    b.HasOne("RetrieverCore.LocalDatabase.Models.WmiResultsSetEntity", "WmiResultsSetEntity")
+                    b.HasOne("GathererEngine.Database.WmiResultsSetEntity", "WmiResultsSetEntity")
                         .WithMany("Win32_AssociatedProcessorMemory")
                         .HasForeignKey("WmiResultsSetEntityID");
+
+                    b.Navigation("WmiResultsSetEntity");
                 });
 
             modelBuilder.Entity("GathererEngine.Models.Win32_BIOS", b =>
                 {
-                    b.HasOne("RetrieverCore.LocalDatabase.Models.WmiResultsSetEntity", "WmiResultsSetEntity")
+                    b.HasOne("GathererEngine.Database.WmiResultsSetEntity", "WmiResultsSetEntity")
                         .WithMany("Win32_BIOS")
                         .HasForeignKey("WmiResultsSetEntityID");
+
+                    b.Navigation("WmiResultsSetEntity");
                 });
 
             modelBuilder.Entity("GathererEngine.Models.Win32_BaseBoard", b =>
                 {
-                    b.HasOne("RetrieverCore.LocalDatabase.Models.WmiResultsSetEntity", "WmiResultsSetEntity")
+                    b.HasOne("GathererEngine.Database.WmiResultsSetEntity", "WmiResultsSetEntity")
                         .WithMany("Win32_BaseBoard")
                         .HasForeignKey("WmiResultsSetEntityID");
+
+                    b.Navigation("WmiResultsSetEntity");
                 });
 
             modelBuilder.Entity("GathererEngine.Models.Win32_Battery", b =>
                 {
-                    b.HasOne("RetrieverCore.LocalDatabase.Models.WmiResultsSetEntity", "WmiResultsSetEntity")
+                    b.HasOne("GathererEngine.Database.WmiResultsSetEntity", "WmiResultsSetEntity")
                         .WithMany("Win32_Battery")
                         .HasForeignKey("WmiResultsSetEntityID");
+
+                    b.Navigation("WmiResultsSetEntity");
                 });
 
             modelBuilder.Entity("GathererEngine.Models.Win32_Bus", b =>
                 {
-                    b.HasOne("RetrieverCore.LocalDatabase.Models.WmiResultsSetEntity", "WmiResultsSetEntity")
+                    b.HasOne("GathererEngine.Database.WmiResultsSetEntity", "WmiResultsSetEntity")
                         .WithMany("Win32_Bus")
                         .HasForeignKey("WmiResultsSetEntityID");
+
+                    b.Navigation("WmiResultsSetEntity");
                 });
 
             modelBuilder.Entity("GathererEngine.Models.Win32_CDROMDrive", b =>
                 {
-                    b.HasOne("RetrieverCore.LocalDatabase.Models.WmiResultsSetEntity", "WmiResultsSetEntity")
+                    b.HasOne("GathererEngine.Database.WmiResultsSetEntity", "WmiResultsSetEntity")
                         .WithMany("Win32_CDROMDrive")
                         .HasForeignKey("WmiResultsSetEntityID");
+
+                    b.Navigation("WmiResultsSetEntity");
                 });
 
             modelBuilder.Entity("GathererEngine.Models.Win32_CacheMemory", b =>
                 {
-                    b.HasOne("RetrieverCore.LocalDatabase.Models.WmiResultsSetEntity", "WmiResultsSetEntity")
+                    b.HasOne("GathererEngine.Database.WmiResultsSetEntity", "WmiResultsSetEntity")
                         .WithMany("Win32_CacheMemory")
                         .HasForeignKey("WmiResultsSetEntityID");
+
+                    b.Navigation("WmiResultsSetEntity");
                 });
 
             modelBuilder.Entity("GathererEngine.Models.Win32_ComputerSystem", b =>
                 {
-                    b.HasOne("RetrieverCore.LocalDatabase.Models.WmiResultsSetEntity", "WmiResultsSetEntity")
+                    b.HasOne("GathererEngine.Database.WmiResultsSetEntity", "WmiResultsSetEntity")
                         .WithMany("Win32_ComputerSystem")
                         .HasForeignKey("WmiResultsSetEntityID");
+
+                    b.Navigation("WmiResultsSetEntity");
                 });
 
             modelBuilder.Entity("GathererEngine.Models.Win32_DiskDrive", b =>
                 {
-                    b.HasOne("RetrieverCore.LocalDatabase.Models.WmiResultsSetEntity", "WmiResultsSetEntity")
+                    b.HasOne("GathererEngine.Database.WmiResultsSetEntity", "WmiResultsSetEntity")
                         .WithMany("Win32_DiskDrive")
                         .HasForeignKey("WmiResultsSetEntityID");
+
+                    b.Navigation("WmiResultsSetEntity");
                 });
 
             modelBuilder.Entity("GathererEngine.Models.Win32_DiskPartition", b =>
                 {
-                    b.HasOne("RetrieverCore.LocalDatabase.Models.WmiResultsSetEntity", "WmiResultsSetEntity")
+                    b.HasOne("GathererEngine.Database.WmiResultsSetEntity", "WmiResultsSetEntity")
                         .WithMany("Win32_DiskPartition")
                         .HasForeignKey("WmiResultsSetEntityID");
+
+                    b.Navigation("WmiResultsSetEntity");
                 });
 
             modelBuilder.Entity("GathererEngine.Models.Win32_Fan", b =>
                 {
-                    b.HasOne("RetrieverCore.LocalDatabase.Models.WmiResultsSetEntity", "WmiResultsSetEntity")
+                    b.HasOne("GathererEngine.Database.WmiResultsSetEntity", "WmiResultsSetEntity")
                         .WithMany("Win32_Fan")
                         .HasForeignKey("WmiResultsSetEntityID");
+
+                    b.Navigation("WmiResultsSetEntity");
                 });
 
             modelBuilder.Entity("GathererEngine.Models.Win32_Keyboard", b =>
                 {
-                    b.HasOne("RetrieverCore.LocalDatabase.Models.WmiResultsSetEntity", "WmiResultsSetEntity")
+                    b.HasOne("GathererEngine.Database.WmiResultsSetEntity", "WmiResultsSetEntity")
                         .WithMany("Win32_Keyboard")
                         .HasForeignKey("WmiResultsSetEntityID");
+
+                    b.Navigation("WmiResultsSetEntity");
                 });
 
             modelBuilder.Entity("GathererEngine.Models.Win32_LogicalDisk", b =>
                 {
-                    b.HasOne("RetrieverCore.LocalDatabase.Models.WmiResultsSetEntity", "WmiResultsSetEntity")
+                    b.HasOne("GathererEngine.Database.WmiResultsSetEntity", "WmiResultsSetEntity")
                         .WithMany("Win32_LogicalDisk")
                         .HasForeignKey("WmiResultsSetEntityID");
+
+                    b.Navigation("WmiResultsSetEntity");
                 });
 
             modelBuilder.Entity("GathererEngine.Models.Win32_MotherboardDevice", b =>
                 {
-                    b.HasOne("RetrieverCore.LocalDatabase.Models.WmiResultsSetEntity", "WmiResultsSetEntity")
+                    b.HasOne("GathererEngine.Database.WmiResultsSetEntity", "WmiResultsSetEntity")
                         .WithMany("Win32_MotherboardDevice")
                         .HasForeignKey("WmiResultsSetEntityID");
+
+                    b.Navigation("WmiResultsSetEntity");
                 });
 
             modelBuilder.Entity("GathererEngine.Models.Win32_NetworkAdapter", b =>
                 {
-                    b.HasOne("RetrieverCore.LocalDatabase.Models.WmiResultsSetEntity", "WmiResultsSetEntity")
+                    b.HasOne("GathererEngine.Database.WmiResultsSetEntity", "WmiResultsSetEntity")
                         .WithMany("Win32_NetworkAdapter")
                         .HasForeignKey("WmiResultsSetEntityID");
+
+                    b.Navigation("WmiResultsSetEntity");
                 });
 
             modelBuilder.Entity("GathererEngine.Models.Win32_NetworkAdapterConfiguration", b =>
                 {
-                    b.HasOne("RetrieverCore.LocalDatabase.Models.WmiResultsSetEntity", "WmiResultsSetEntity")
+                    b.HasOne("GathererEngine.Database.WmiResultsSetEntity", "WmiResultsSetEntity")
                         .WithMany("Win32_NetworkAdapterConfiguration")
                         .HasForeignKey("WmiResultsSetEntityID");
+
+                    b.Navigation("WmiResultsSetEntity");
                 });
 
             modelBuilder.Entity("GathererEngine.Models.Win32_OperatingSystem", b =>
                 {
-                    b.HasOne("RetrieverCore.LocalDatabase.Models.WmiResultsSetEntity", "WmiResultsSetEntity")
+                    b.HasOne("GathererEngine.Database.WmiResultsSetEntity", "WmiResultsSetEntity")
                         .WithMany("Win32_OperatingSystem")
                         .HasForeignKey("WmiResultsSetEntityID");
+
+                    b.Navigation("WmiResultsSetEntity");
                 });
 
             modelBuilder.Entity("GathererEngine.Models.Win32_PhysicalMemory", b =>
                 {
-                    b.HasOne("RetrieverCore.LocalDatabase.Models.WmiResultsSetEntity", "WmiResultsSetEntity")
+                    b.HasOne("GathererEngine.Database.WmiResultsSetEntity", "WmiResultsSetEntity")
                         .WithMany("Win32_PhysicalMemory")
                         .HasForeignKey("WmiResultsSetEntityID");
+
+                    b.Navigation("WmiResultsSetEntity");
                 });
 
             modelBuilder.Entity("GathererEngine.Models.Win32_PnPDevice", b =>
                 {
-                    b.HasOne("RetrieverCore.LocalDatabase.Models.WmiResultsSetEntity", "WmiResultsSetEntity")
+                    b.HasOne("GathererEngine.Database.WmiResultsSetEntity", "WmiResultsSetEntity")
                         .WithMany("Win32_PnPDevice")
                         .HasForeignKey("WmiResultsSetEntityID");
+
+                    b.Navigation("WmiResultsSetEntity");
                 });
 
             modelBuilder.Entity("GathererEngine.Models.Win32_PnPEntity", b =>
                 {
-                    b.HasOne("RetrieverCore.LocalDatabase.Models.WmiResultsSetEntity", "WmiResultsSetEntity")
+                    b.HasOne("GathererEngine.Database.WmiResultsSetEntity", "WmiResultsSetEntity")
                         .WithMany("Win32_PnPEntity")
                         .HasForeignKey("WmiResultsSetEntityID");
+
+                    b.Navigation("WmiResultsSetEntity");
                 });
 
             modelBuilder.Entity("GathererEngine.Models.Win32_PointingDevice", b =>
                 {
-                    b.HasOne("RetrieverCore.LocalDatabase.Models.WmiResultsSetEntity", "WmiResultsSetEntity")
+                    b.HasOne("GathererEngine.Database.WmiResultsSetEntity", "WmiResultsSetEntity")
                         .WithMany("Win32_PointingDevice")
                         .HasForeignKey("WmiResultsSetEntityID");
+
+                    b.Navigation("WmiResultsSetEntity");
                 });
 
             modelBuilder.Entity("GathererEngine.Models.Win32_PortConnector", b =>
                 {
-                    b.HasOne("RetrieverCore.LocalDatabase.Models.WmiResultsSetEntity", "WmiResultsSetEntity")
+                    b.HasOne("GathererEngine.Database.WmiResultsSetEntity", "WmiResultsSetEntity")
                         .WithMany("Win32_PortConnector")
                         .HasForeignKey("WmiResultsSetEntityID");
+
+                    b.Navigation("WmiResultsSetEntity");
                 });
 
             modelBuilder.Entity("GathererEngine.Models.Win32_PortResource", b =>
                 {
-                    b.HasOne("RetrieverCore.LocalDatabase.Models.WmiResultsSetEntity", "WmiResultsSetEntity")
+                    b.HasOne("GathererEngine.Database.WmiResultsSetEntity", "WmiResultsSetEntity")
                         .WithMany("Win32_PortResource")
                         .HasForeignKey("WmiResultsSetEntityID");
+
+                    b.Navigation("WmiResultsSetEntity");
                 });
 
             modelBuilder.Entity("GathererEngine.Models.Win32_Printer", b =>
                 {
-                    b.HasOne("RetrieverCore.LocalDatabase.Models.WmiResultsSetEntity", "WmiResultsSetEntity")
+                    b.HasOne("GathererEngine.Database.WmiResultsSetEntity", "WmiResultsSetEntity")
                         .WithMany("Win32_Printer")
                         .HasForeignKey("WmiResultsSetEntityID");
+
+                    b.Navigation("WmiResultsSetEntity");
                 });
 
             modelBuilder.Entity("GathererEngine.Models.Win32_Process", b =>
                 {
-                    b.HasOne("RetrieverCore.LocalDatabase.Models.WmiResultsSetEntity", "WmiResultsSetEntity")
+                    b.HasOne("GathererEngine.Database.WmiResultsSetEntity", "WmiResultsSetEntity")
                         .WithMany("Win32_Process")
                         .HasForeignKey("WmiResultsSetEntityID");
+
+                    b.Navigation("WmiResultsSetEntity");
                 });
 
             modelBuilder.Entity("GathererEngine.Models.Win32_Processor", b =>
                 {
-                    b.HasOne("RetrieverCore.LocalDatabase.Models.WmiResultsSetEntity", "WmiResultsSetEntity")
+                    b.HasOne("GathererEngine.Database.WmiResultsSetEntity", "WmiResultsSetEntity")
                         .WithMany("Win32_Processor")
                         .HasForeignKey("WmiResultsSetEntityID");
+
+                    b.Navigation("WmiResultsSetEntity");
                 });
 
             modelBuilder.Entity("GathererEngine.Models.Win32_SerialPort", b =>
                 {
-                    b.HasOne("RetrieverCore.LocalDatabase.Models.WmiResultsSetEntity", "WmiResultsSetEntity")
+                    b.HasOne("GathererEngine.Database.WmiResultsSetEntity", "WmiResultsSetEntity")
                         .WithMany("Win32_SerialPort")
                         .HasForeignKey("WmiResultsSetEntityID");
+
+                    b.Navigation("WmiResultsSetEntity");
                 });
 
             modelBuilder.Entity("GathererEngine.Models.Win32_SoundDevice", b =>
                 {
-                    b.HasOne("RetrieverCore.LocalDatabase.Models.WmiResultsSetEntity", "WmiResultsSetEntity")
+                    b.HasOne("GathererEngine.Database.WmiResultsSetEntity", "WmiResultsSetEntity")
                         .WithMany("Win32_SoundDevice")
                         .HasForeignKey("WmiResultsSetEntityID");
+
+                    b.Navigation("WmiResultsSetEntity");
                 });
 
             modelBuilder.Entity("GathererEngine.Models.Win32_TimeZone", b =>
                 {
-                    b.HasOne("RetrieverCore.LocalDatabase.Models.WmiResultsSetEntity", "WmiResultsSetEntity")
+                    b.HasOne("GathererEngine.Database.WmiResultsSetEntity", "WmiResultsSetEntity")
                         .WithMany("Win32_TimeZone")
                         .HasForeignKey("WmiResultsSetEntityID");
+
+                    b.Navigation("WmiResultsSetEntity");
                 });
 
             modelBuilder.Entity("GathererEngine.Models.Win32_VideoController", b =>
                 {
-                    b.HasOne("RetrieverCore.LocalDatabase.Models.WmiResultsSetEntity", "WmiResultsSetEntity")
+                    b.HasOne("GathererEngine.Database.WmiResultsSetEntity", "WmiResultsSetEntity")
                         .WithMany("Win32_VideoController")
                         .HasForeignKey("WmiResultsSetEntityID");
+
+                    b.Navigation("WmiResultsSetEntity");
                 });
 
             modelBuilder.Entity("GathererEngine.Models.Win32_VideoSettings", b =>
                 {
-                    b.HasOne("RetrieverCore.LocalDatabase.Models.WmiResultsSetEntity", "WmiResultsSetEntity")
+                    b.HasOne("GathererEngine.Database.WmiResultsSetEntity", "WmiResultsSetEntity")
                         .WithMany("Win32_VideoSettings")
                         .HasForeignKey("WmiResultsSetEntityID");
+
+                    b.Navigation("WmiResultsSetEntity");
                 });
 
             modelBuilder.Entity("GathererEngine.Models.Win32_Volume", b =>
                 {
-                    b.HasOne("RetrieverCore.LocalDatabase.Models.WmiResultsSetEntity", "WmiResultsSetEntity")
+                    b.HasOne("GathererEngine.Database.WmiResultsSetEntity", "WmiResultsSetEntity")
                         .WithMany("Win32_Volume")
                         .HasForeignKey("WmiResultsSetEntityID");
+
+                    b.Navigation("WmiResultsSetEntity");
+                });
+
+            modelBuilder.Entity("GathererEngine.Database.WmiResultsSetEntity", b =>
+                {
+                    b.Navigation("BatteryFullChargedCapacity");
+
+                    b.Navigation("BatteryStaticData");
+
+                    b.Navigation("BatteryStatus");
+
+                    b.Navigation("CIM_Battery");
+
+                    b.Navigation("CIM_BIOSElement");
+
+                    b.Navigation("CIM_Card");
+
+                    b.Navigation("CIM_Chip");
+
+                    b.Navigation("CIM_ComputerSystem");
+
+                    b.Navigation("CIM_Controller");
+
+                    b.Navigation("CIM_CoolingDevice");
+
+                    b.Navigation("CIM_CurrentSensor");
+
+                    b.Navigation("CIM_DesktopMonitor");
+
+                    b.Navigation("CIM_DiskDrive");
+
+                    b.Navigation("CIM_DiskPartition");
+
+                    b.Navigation("CIM_Display");
+
+                    b.Navigation("CIM_Fan");
+
+                    b.Navigation("CIM_InstalledOS");
+
+                    b.Navigation("CIM_Keyboard");
+
+                    b.Navigation("CIM_LogicalDisk");
+
+                    b.Navigation("CIM_Memory");
+
+                    b.Navigation("CIM_NetworkAdapter");
+
+                    b.Navigation("CIM_NumericSensor");
+
+                    b.Navigation("CIM_OperatingSystem");
+
+                    b.Navigation("CIM_PCVideoController");
+
+                    b.Navigation("CIM_PhysicalConnector");
+
+                    b.Navigation("CIM_PhysicalElement");
+
+                    b.Navigation("CIM_PhysicalMemory");
+
+                    b.Navigation("CIM_PointingDevice");
+
+                    b.Navigation("CIM_Printer");
+
+                    b.Navigation("CIM_Process");
+
+                    b.Navigation("CIM_Processor");
+
+                    b.Navigation("CIM_Product");
+
+                    b.Navigation("CIM_SCSIController");
+
+                    b.Navigation("CIM_Sensor");
+
+                    b.Navigation("CIM_SerialController");
+
+                    b.Navigation("CIM_Slot");
+
+                    b.Navigation("CIM_StorageVolume");
+
+                    b.Navigation("CIM_System");
+
+                    b.Navigation("CIM_TemperatureSensor");
+
+                    b.Navigation("CIM_UnitaryComputerSystem");
+
+                    b.Navigation("CIM_USBController");
+
+                    b.Navigation("CIM_USBDevice");
+
+                    b.Navigation("CIM_VideoController");
+
+                    b.Navigation("CIM_VideoControllerResolution");
+
+                    b.Navigation("CIM_VideoSetting");
+
+                    b.Navigation("CIM_VoltageSensor");
+
+                    b.Navigation("MSAcpi_ThermalZoneTemperature");
+
+                    b.Navigation("MSFT_PhysicalDisk");
+
+                    b.Navigation("SoftwareLicensingProduct");
+
+                    b.Navigation("SoftwareLicensingService");
+
+                    b.Navigation("Win32_Account");
+
+                    b.Navigation("Win32_AssociatedProcessorMemory");
+
+                    b.Navigation("Win32_BaseBoard");
+
+                    b.Navigation("Win32_Battery");
+
+                    b.Navigation("Win32_BIOS");
+
+                    b.Navigation("Win32_Bus");
+
+                    b.Navigation("Win32_CacheMemory");
+
+                    b.Navigation("Win32_CDROMDrive");
+
+                    b.Navigation("Win32_ComputerSystem");
+
+                    b.Navigation("Win32_DiskDrive");
+
+                    b.Navigation("Win32_DiskPartition");
+
+                    b.Navigation("Win32_Fan");
+
+                    b.Navigation("Win32_Keyboard");
+
+                    b.Navigation("Win32_LogicalDisk");
+
+                    b.Navigation("Win32_MotherboardDevice");
+
+                    b.Navigation("Win32_NetworkAdapter");
+
+                    b.Navigation("Win32_NetworkAdapterConfiguration");
+
+                    b.Navigation("Win32_OperatingSystem");
+
+                    b.Navigation("Win32_PhysicalMemory");
+
+                    b.Navigation("Win32_PnPDevice");
+
+                    b.Navigation("Win32_PnPEntity");
+
+                    b.Navigation("Win32_PointingDevice");
+
+                    b.Navigation("Win32_PortConnector");
+
+                    b.Navigation("Win32_PortResource");
+
+                    b.Navigation("Win32_Printer");
+
+                    b.Navigation("Win32_Process");
+
+                    b.Navigation("Win32_Processor");
+
+                    b.Navigation("Win32_SerialPort");
+
+                    b.Navigation("Win32_SoundDevice");
+
+                    b.Navigation("Win32_TimeZone");
+
+                    b.Navigation("Win32_VideoController");
+
+                    b.Navigation("Win32_VideoSettings");
+
+                    b.Navigation("Win32_Volume");
                 });
 #pragma warning restore 612, 618
         }

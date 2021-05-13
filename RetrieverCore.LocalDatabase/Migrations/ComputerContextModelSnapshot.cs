@@ -14,7 +14,7 @@ namespace RetrieverCore.LocalDatabase.Migrations
         {
 #pragma warning disable 612, 618
             modelBuilder
-                .HasAnnotation("ProductVersion", "3.1.6");
+                .HasAnnotation("ProductVersion", "5.0.4");
 
             modelBuilder.Entity("RetrieverCore.LocalDatabase.Models.BatteryEntity", b =>
                 {
@@ -25,14 +25,11 @@ namespace RetrieverCore.LocalDatabase.Migrations
                     b.Property<int?>("ComputerEntityID")
                         .HasColumnType("INTEGER");
 
-                    b.Property<double>("MaxWearLevel")
+                    b.Property<double>("DesignedCapacity")
                         .HasColumnType("REAL");
 
-                    b.Property<string>("Vendor")
+                    b.Property<Guid?>("UpdateID")
                         .HasColumnType("TEXT");
-
-                    b.Property<double>("Voltage")
-                        .HasColumnType("REAL");
 
                     b.HasKey("ID");
 
@@ -56,6 +53,9 @@ namespace RetrieverCore.LocalDatabase.Migrations
                     b.Property<string>("Notes")
                         .HasColumnType("TEXT");
 
+                    b.Property<Guid?>("UpdateID")
+                        .HasColumnType("TEXT");
+
                     b.Property<string>("Vendor")
                         .HasColumnType("TEXT");
 
@@ -72,14 +72,20 @@ namespace RetrieverCore.LocalDatabase.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("INTEGER");
 
-                    b.Property<int>("Capacity")
-                        .HasColumnType("INTEGER");
-
-                    b.Property<int>("Clocking")
+                    b.Property<long>("Capacity")
                         .HasColumnType("INTEGER");
 
                     b.Property<int?>("ComputerEntityID")
                         .HasColumnType("INTEGER");
+
+                    b.Property<int>("DesignedClocking")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<int>("SetClocking")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<Guid?>("UpdateID")
+                        .HasColumnType("TEXT");
 
                     b.HasKey("ID");
 
@@ -112,6 +118,9 @@ namespace RetrieverCore.LocalDatabase.Migrations
                     b.Property<int>("ScreenWidth")
                         .HasColumnType("INTEGER");
 
+                    b.Property<Guid?>("UpdateID")
+                        .HasColumnType("TEXT");
+
                     b.HasKey("ID");
 
                     b.HasIndex("ComputerEntityID");
@@ -131,10 +140,10 @@ namespace RetrieverCore.LocalDatabase.Migrations
                     b.Property<string>("Model")
                         .HasColumnType("TEXT");
 
-                    b.Property<int>("ProcessorID")
-                        .HasColumnType("INTEGER");
+                    b.Property<Guid?>("UpdateID")
+                        .HasColumnType("TEXT");
 
-                    b.Property<string>("Socket")
+                    b.Property<string>("Version")
                         .HasColumnType("TEXT");
 
                     b.HasKey("ID");
@@ -148,15 +157,24 @@ namespace RetrieverCore.LocalDatabase.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("INTEGER");
 
-                    b.Property<int?>("MainboardEntityID")
+                    b.Property<int?>("ComputerEntityID")
                         .HasColumnType("INTEGER");
 
-                    b.Property<string>("Name")
+                    b.Property<string>("ExternalName")
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("InternalName")
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("PortType")
+                        .HasColumnType("TEXT");
+
+                    b.Property<Guid?>("UpdateID")
                         .HasColumnType("TEXT");
 
                     b.HasKey("ID");
 
-                    b.HasIndex("MainboardEntityID");
+                    b.HasIndex("ComputerEntityID");
 
                     b.ToTable("MainboardPorts");
                 });
@@ -167,13 +185,25 @@ namespace RetrieverCore.LocalDatabase.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("INTEGER");
 
+                    b.Property<string>("AdapterType")
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("Caption")
+                        .HasColumnType("TEXT");
+
                     b.Property<int?>("ComputerEntityID")
                         .HasColumnType("INTEGER");
 
-                    b.Property<string>("Model")
+                    b.Property<string>("Manufacturer")
                         .HasColumnType("TEXT");
 
-                    b.Property<string>("Vendor")
+                    b.Property<int>("NetworkInterfaceType")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<string>("ProductName")
+                        .HasColumnType("TEXT");
+
+                    b.Property<Guid?>("UpdateID")
                         .HasColumnType("TEXT");
 
                     b.HasKey("ID");
@@ -195,6 +225,9 @@ namespace RetrieverCore.LocalDatabase.Migrations
                     b.Property<double>("ClockSpeed")
                         .HasColumnType("REAL");
 
+                    b.Property<int?>("ComputerEntityID")
+                        .HasColumnType("INTEGER");
+
                     b.Property<byte>("Cores")
                         .HasColumnType("INTEGER");
 
@@ -204,10 +237,7 @@ namespace RetrieverCore.LocalDatabase.Migrations
                     b.Property<double>("L3CacheSize")
                         .HasColumnType("REAL");
 
-                    b.Property<byte>("LogicalProcessor")
-                        .HasColumnType("INTEGER");
-
-                    b.Property<int?>("MainboardEntityID")
+                    b.Property<byte>("LogicalProcessors")
                         .HasColumnType("INTEGER");
 
                     b.Property<string>("Manufacturer")
@@ -219,9 +249,12 @@ namespace RetrieverCore.LocalDatabase.Migrations
                     b.Property<string>("Socket")
                         .HasColumnType("TEXT");
 
+                    b.Property<Guid?>("UpdateID")
+                        .HasColumnType("TEXT");
+
                     b.HasKey("ID");
 
-                    b.HasIndex("MainboardEntityID");
+                    b.HasIndex("ComputerEntityID");
 
                     b.ToTable("Processors");
                 });
@@ -232,13 +265,13 @@ namespace RetrieverCore.LocalDatabase.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("INTEGER");
 
-                    b.Property<int>("Capacity")
+                    b.Property<long>("Capacity")
                         .HasColumnType("INTEGER");
 
                     b.Property<int?>("ComputerEntityID")
                         .HasColumnType("INTEGER");
 
-                    b.Property<string>("Type")
+                    b.Property<Guid?>("UpdateID")
                         .HasColumnType("TEXT");
 
                     b.HasKey("ID");
@@ -260,6 +293,8 @@ namespace RetrieverCore.LocalDatabase.Migrations
                     b.HasOne("RetrieverCore.LocalDatabase.Models.MainboardEntity", "Mainboard")
                         .WithMany()
                         .HasForeignKey("MainboardID");
+
+                    b.Navigation("Mainboard");
                 });
 
             modelBuilder.Entity("RetrieverCore.LocalDatabase.Models.DDREntity", b =>
@@ -278,9 +313,9 @@ namespace RetrieverCore.LocalDatabase.Migrations
 
             modelBuilder.Entity("RetrieverCore.LocalDatabase.Models.MainboardPortEntity", b =>
                 {
-                    b.HasOne("RetrieverCore.LocalDatabase.Models.MainboardEntity", null)
+                    b.HasOne("RetrieverCore.LocalDatabase.Models.ComputerEntity", null)
                         .WithMany("MainboardPorts")
-                        .HasForeignKey("MainboardEntityID");
+                        .HasForeignKey("ComputerEntityID");
                 });
 
             modelBuilder.Entity("RetrieverCore.LocalDatabase.Models.NetworkInterfaceEntity", b =>
@@ -292,9 +327,9 @@ namespace RetrieverCore.LocalDatabase.Migrations
 
             modelBuilder.Entity("RetrieverCore.LocalDatabase.Models.ProcessorEntity", b =>
                 {
-                    b.HasOne("RetrieverCore.LocalDatabase.Models.MainboardEntity", null)
+                    b.HasOne("RetrieverCore.LocalDatabase.Models.ComputerEntity", null)
                         .WithMany("Processors")
-                        .HasForeignKey("MainboardEntityID");
+                        .HasForeignKey("ComputerEntityID");
                 });
 
             modelBuilder.Entity("RetrieverCore.LocalDatabase.Models.StorageEntity", b =>
@@ -302,6 +337,23 @@ namespace RetrieverCore.LocalDatabase.Migrations
                     b.HasOne("RetrieverCore.LocalDatabase.Models.ComputerEntity", null)
                         .WithMany("Storages")
                         .HasForeignKey("ComputerEntityID");
+                });
+
+            modelBuilder.Entity("RetrieverCore.LocalDatabase.Models.ComputerEntity", b =>
+                {
+                    b.Navigation("Batteries");
+
+                    b.Navigation("DDRs");
+
+                    b.Navigation("GPUs");
+
+                    b.Navigation("MainboardPorts");
+
+                    b.Navigation("NetworkInterfaces");
+
+                    b.Navigation("Processors");
+
+                    b.Navigation("Storages");
                 });
 #pragma warning restore 612, 618
         }

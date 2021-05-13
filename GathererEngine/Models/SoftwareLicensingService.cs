@@ -4,7 +4,7 @@ using GathererEngine.Extensions;
 
 namespace GathererEngine.Models
 {
-    public class SoftwareLicensingService : MappableToDatabaseExtension
+    public class SoftwareLicensingService
     {
         public const string Scope = WmiScope.Cimv2;
         public string ClientMachineID { get; set; }

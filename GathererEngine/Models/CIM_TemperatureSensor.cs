@@ -4,7 +4,7 @@ using GathererEngine.Extensions;
 
 namespace GathererEngine.Models
 {
-    public class CIM_TemperatureSensor : MappableToDatabaseExtension
+    public class CIM_TemperatureSensor
     {
         public const string Scope = WmiScope.Cimv2;
         public Int32? Accuracy { get; set; }

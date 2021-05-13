@@ -4,7 +4,7 @@ using GathererEngine.Extensions;
 
 namespace GathererEngine.Models
 {
-    public class Win32_SoundDevice : MappableToDatabaseExtension
+    public class Win32_SoundDevice
     {
         public const string Scope = WmiScope.Cimv2;
         public UInt16? Availability { get; set; }

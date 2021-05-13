@@ -1,14 +1,14 @@
 ﻿using RetrieverCore.Models.Common;
-using RetrieverCore.LocalDatabase.Models;
-using GathererEngine.Models;
+using RetrieverCore.Common.Models;
 using System.Collections.Generic;
 using System.Threading.Tasks;
+using System;
 
 namespace RetrieverCore.CoreLogic.Interfaces
 {
     public interface IDDRService
     {
-        Task<Result<IEnumerable<DDREntity>>> GetDesignedDDRsAsync(string model);
-        Task<Result<IEnumerable<Win32_PhysicalMemory>>> GetPhysicalDDRsAsync();
+        Task<Result<IEnumerable<DDR>>> GetDesignedDDRsAsync(Guid setId);
+        Task<Result<IEnumerable<DDR>>> GetPhysicalDDRsAsync();
     }
 }

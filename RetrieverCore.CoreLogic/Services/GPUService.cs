@@ -1,59 +1,53 @@
 ﻿using RetrieverCore.CoreLogic.Interfaces;
-using RetrieverCore.CoreLogic.Utlities;
 using RetrieverCore.Repositories.Interfaces;
 using RetrieverCore.Models.Common;
-using RetrieverCore.LocalDatabase.Models;
-using GathererEngine.Models;
+using RetrieverCore.Common.Models;
 using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
+using RetrieverCore.Models.WMIEntieties;
+using System.Linq;
+using RetrieverCore.CoreLogic.Mappers;
 
 namespace RetrieverCore.CoreLogic.Services
 {
     public class GPUService : IGPUService
     {
-        private readonly IGPURepository _repository;
+        private readonly IGenericDatabaseRepository<GPU> _gpuRepo;
+        private readonly IGenericComponentRepository _componentRepo;
 
-        public GPUService(IGPURepository repository)
+        public GPUService(IGenericDatabaseRepository<GPU> gpuRepo, IGenericComponentRepository componentRepo)
         {
-            _repository = repository;
+            _gpuRepo = gpuRepo;
+            _componentRepo = componentRepo;
         }
 
-        public async Task<Result<IEnumerable<GPUEntity>>> GetDesignedGPUsAsync(string model)
-        {
-            if (Guard.IsNullOrWhitespace(model, out var error))
-            {
-                return Result<IEnumerable<GPUEntity>>.Fail(error);
-            }
-
-            try
-            {
-                var result = await _repository.GetDesignedGPUsAsync(model);
-
-                return Result<IEnumerable<GPUEntity>>.Ok(result);
-            }
-            catch (Exception e)
-            {
-                return Result<IEnumerable<GPUEntity>>.Fail(e);
-            }
-        }
-
-        public async Task<Result<IEnumerable<Win32_VideoController>>> GetPhysicalGPUsAsync()
+        public async Task<Result<IEnumerable<GPU>>> GetDesignedGPUsAsync(Guid setId)
         {
             try
             {
-                var result = await _repository.GetWin32VideoControllersAsync();
+                var result = await _gpuRepo.GetBySetIdAsync(setId);
 
-                if (Guard.IsEmptyOrAnyNull(result, out var e))
-                {
-                    return Result<IEnumerable<Win32_VideoController>>.Fail(e);
-                }
-
-                return Result<IEnumerable<Win32_VideoController>>.Ok(result);
+                return Result<IEnumerable<GPU>>.Ok(result);
             }
             catch (Exception e)
             {
-                return Result<IEnumerable<Win32_VideoController>>.Fail(e);
+                return Result<IEnumerable<GPU>>.Fail(e);
+            }
+        }
+
+        public async Task<Result<IEnumerable<GPU>>> GetPhysicalGPUsAsync()
+        {
+            try
+            {
+                var result = await Task.Run(() => _componentRepo.Get<Win32_VideoController>());
+                var output = result.Select(x => GPUMapper.From(x));
+
+                return Result<IEnumerable<GPU>>.Ok(output);
+            }
+            catch (Exception e)
+            {
+                return Result<IEnumerable<GPU>>.Fail(e);
             }
         }
     }

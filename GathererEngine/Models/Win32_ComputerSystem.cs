@@ -1,11 +1,9 @@
 using System;
-using GathererEngine.Attributes;
 using GathererEngine.Constants;
-using GathererEngine.Extensions;
 
 namespace GathererEngine.Models
 {
-    public class Win32_ComputerSystem : MappableToDatabaseExtension
+    public class Win32_ComputerSystem
     {
         public const string Scope = WmiScope.Cimv2;
         public UInt16? AdminPasswordStatus { get; set; }
@@ -35,7 +33,7 @@ namespace GathererEngine.Models
         public DateTime? InstallDate { get; set; }
         public UInt16? KeyboardPasswordStatus { get; set; }
         public string LastLoadInfo { get; set; }
-        [Use]
+        
         public string Manufacturer { get; set; }
         public string Model { get; set; }
         public string Name { get; set; }
@@ -44,7 +42,7 @@ namespace GathererEngine.Models
         public UInt32? NumberOfLogicalProcessors { get; set; }
         public UInt32? NumberOfProcessors { get; set; }
         public byte?[] OEMLogoBitmap { get; set; }
-        [Use]
+        
         public string[] OEMStringArray { get; set; }
         public bool? PartOfDomain { get; set; }
         public Int64? PauseAfterReset { get; set; }

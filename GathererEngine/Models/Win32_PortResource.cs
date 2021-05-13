@@ -4,7 +4,7 @@ using GathererEngine.Extensions;
 
 namespace GathererEngine.Models
 {
-    public class Win32_PortResource : MappableToDatabaseExtension
+    public class Win32_PortResource
     {
         public const string Scope = WmiScope.Cimv2;
         public bool? Alias { get; set; }

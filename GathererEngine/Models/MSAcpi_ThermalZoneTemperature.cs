@@ -4,7 +4,7 @@ using GathererEngine.Extensions;
 
 namespace GathererEngine.Models
 {
-    public class MSAcpi_ThermalZoneTemperature : MappableToDatabaseExtension
+    public class MSAcpi_ThermalZoneTemperature
     {
         public const string Scope = WmiScope.Wmi;
         public bool? Active { get; set; }

@@ -4,7 +4,7 @@ using GathererEngine.Extensions;
 
 namespace GathererEngine.Models
 {
-    public class Win32_VideoSettings : MappableToDatabaseExtension
+    public class Win32_VideoSettings
     {
         public const string Scope = WmiScope.Cimv2;
         public string Element { get; set; }

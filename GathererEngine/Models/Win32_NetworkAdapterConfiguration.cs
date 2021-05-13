@@ -4,7 +4,7 @@ using GathererEngine.Extensions;
 
 namespace GathererEngine.Models
 {
-    public class Win32_NetworkAdapterConfiguration : MappableToDatabaseExtension
+    public class Win32_NetworkAdapterConfiguration
     {
         public const string Scope = WmiScope.Cimv2;
         public bool? ArpAlwaysSourceRoute { get; set; }

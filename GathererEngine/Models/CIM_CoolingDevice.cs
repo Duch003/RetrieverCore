@@ -4,7 +4,7 @@ using GathererEngine.Extensions;
 
 namespace GathererEngine.Models
 {
-    public class CIM_CoolingDevice : MappableToDatabaseExtension
+    public class CIM_CoolingDevice
     {
         public const string Scope = WmiScope.Cimv2;
         public bool? ActiveCooling { get; set; }

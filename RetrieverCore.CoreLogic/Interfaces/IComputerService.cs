@@ -1,13 +1,13 @@
 ﻿using RetrieverCore.Models.Common;
-using RetrieverCore.LocalDatabase.Models;
-using GathererEngine.Models;
+using RetrieverCore.Common.Models;
 using System.Threading.Tasks;
+using System.Collections.Generic;
 
 namespace RetrieverCore.CoreLogic.Interfaces
 {
     public interface IComputerService
     {
-        Task<Result<ComputerEntity>> GetDesignedComputerAsync(string model);
-        Task<Result<Win32_ComputerSystem>> GetPhysicalComputerAsync();
+        Task<Result<IEnumerable<Computer>>> GetDesignedComputersAsync();
+        Task<Result<IEnumerable<Computer>>> GetPhysicalComputersAsync();
     }
 }

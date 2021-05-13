@@ -4,7 +4,7 @@ using GathererEngine.Extensions;
 
 namespace GathererEngine.Models
 {
-    public class CIM_StorageVolume : MappableToDatabaseExtension
+    public class CIM_StorageVolume
     {
         public const string Scope = WmiScope.Cimv2;
         public UInt16? Access { get; set; }

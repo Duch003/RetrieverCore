@@ -1,2 +1,5 @@
-Add-Migration Initial -Context ComputerContext -Project RetrieverCore.IO -StartupProject TestConsole -OutputDir ./Migrations/Computer
-Update-Database -Context ComputerContext -Project RetrieverCore.IO -StartupProject TestConsole
+Add-Migration <<NAME>> -Context LocalDatabaseContext -Project Databases\RetrieverCore.LocalDatabase
+Update-Database -Context LocalDatabaseContext -Project Databases\RetrieverCore.LocalDatabase
+
+Add-Migration UpdateGuidAdded -Context MasterDatabaseContext -Project Databases\RetrieverCore.MasterDatabase
+Update-Database -Context MasterDatabaseContext -Project Databases\RetrieverCore.MasterDatabase

@@ -4,7 +4,7 @@ using GathererEngine.Extensions;
 
 namespace GathererEngine.Models
 {
-    public class CIM_NetworkAdapter : MappableToDatabaseExtension
+    public class CIM_NetworkAdapter
     {
         public const string Scope = WmiScope.Cimv2;
         public string AdapterType { get; set; }

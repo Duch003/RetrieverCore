@@ -1,172 +1,98 @@
 ﻿using Microsoft.Extensions.Configuration;
 using RetrieverCore.CoreLogic.Interfaces;
 using RetrieverCore.CoreLogic.Mappers;
-using RetrieverCore.CoreLogic.Utlities;
 using RetrieverCore.Repositories.Interfaces;
 using RetrieverCore.Models.Common;
-using RetrieverCore.Models.ComputerComponents.Physical;
-using RetrieverCore.LocalDatabase.Models;
-using GathererEngine.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using RetrieverCore.Models.WMIEntieties;
+using RetrieverCore.Common.Models;
 
 namespace RetrieverCore.CoreLogic.Services
 {
     public class BatteryService : IBatteryService
     {
-        private readonly IConfiguration _configuration;
-        private readonly IBatteryRepository _batteryRepository;
+        private readonly IGenericDatabaseRepository<Battery> _batteryRepo;
+        private readonly IGenericComponentRepository _componentRepository;
 
-        public BatteryService(IConfiguration configuration, IBatteryRepository batteryRepository)
+        public BatteryService(IGenericDatabaseRepository<Battery> batteryRepo, IGenericComponentRepository componentRepository)
         {
-            _configuration = configuration;
-            _batteryRepository = batteryRepository;
+            _batteryRepo = batteryRepo;
+            _componentRepository = componentRepository;
         }
 
         #region Public methods
 
-        public async Task<Result<IEnumerable<BatteryComponent>>> GetPhysicalBatteriesAsync()
+        public async Task<Result<IEnumerable<Battery>>> GetPhysicalBatteriesAsync()
         {
-            var output = new List<BatteryComponent>();
+            var output = new List<Battery>();
 
-            var staticDataResult = await Task.Run(() => GetBatteriesStaticDataAsync());
+            var staticDataResult = await GetPhysicalData(() => _componentRepository.Get<BatteryStaticData>());
             if (!staticDataResult.IsSuccess || !staticDataResult.Output.Any())
             {
-                return Result<IEnumerable<BatteryComponent>>.Fail(staticDataResult.Exception);
+                return Result<IEnumerable<Battery>>.Fail(staticDataResult.Exception);
             }
 
-            foreach (var staticData in staticDataResult.Output)
+            var win32batteryResult = await GetPhysicalData(() => _componentRepository.Get<Win32_Battery>());
+            if (!win32batteryResult.IsSuccess)
             {
-                if (!staticData.Tag.HasValue || string.IsNullOrWhiteSpace(staticData.UniqueID))
-                {
-                    var invalidBattery = new BatteryComponent(double.NaN, double.NaN, -1, double.NaN);
-                    invalidBattery.Messages.Add($"Could not match battery static data with related instances: Tag: {staticData.Tag ?? null}, UniqueID: {staticData.UniqueID}.");
-                    output.Add(invalidBattery);
-                    continue;
-                }
-
-                var win32batteryResult = await Task.Run(() => GetWin32BatteryAsync(staticData.UniqueID));
-                if (!win32batteryResult.IsSuccess)
-                {
-                    return Result<IEnumerable<BatteryComponent>>.Fail(win32batteryResult.Exception);
-                }
-
-                var fullChargedCapacityResult = await Task.Run(() => GetBatteryFullChargedCapacityAsync(staticData.Tag));
-                if (!fullChargedCapacityResult.IsSuccess)
-                {
-                    return Result<IEnumerable<BatteryComponent>>.Fail(fullChargedCapacityResult.Exception);
-                }
-
-                output.Add(BatteryComponentMapper.From(fullChargedCapacityResult.Output, win32batteryResult.Output, staticData));
+                return Result<IEnumerable<Battery>>.Fail(win32batteryResult.Exception);
             }
 
-            return Result<IEnumerable<BatteryComponent>>.Ok(output);
+            var fullChargedCapacityResult = await GetPhysicalData(() => _componentRepository.Get<BatteryFullChargedCapacity>());
+            if (!fullChargedCapacityResult.IsSuccess)
+            {
+                return Result<IEnumerable<Battery>>.Fail(fullChargedCapacityResult.Exception);
+            }
+
+            try
+            {
+                foreach (var staticData in staticDataResult.Output)
+                {
+                    var fulChargedCapacity = fullChargedCapacityResult.Output.First(x => x.Tag == staticData.Tag);
+                    var win32battery = win32batteryResult.Output.First(x => x.DeviceID == staticData.UniqueID);
+                    output.Add(BatteryMapper.From(fulChargedCapacity, win32battery, staticData));
+                }
+
+                return Result<IEnumerable<Battery>>.Ok(output);
+            }
+            catch(Exception e)
+            {
+                return Result<IEnumerable<Battery>>.Fail(e);
+            }
         }
 
-        public async Task<Result<IEnumerable<BatteryComponent>>> GetDesignedBatteriesAsync(string model)
+        public async Task<Result<IEnumerable<Battery>>> GetDesignedBatteriesAsync(Guid setId)
         {
-            if (Guard.IsNullOrWhitespace(model, out var error))
+            try
             {
-                return Result<IEnumerable<BatteryComponent>>.Fail(error);
-            }
+                var output = await _batteryRepo.GetBySetIdAsync(setId);
 
-            var maxWearLevel = _configuration.GetValue<double?>("MaxWearLevel");
-            if (!maxWearLevel.HasValue)
+                return Result<IEnumerable<Battery>>.Ok(output);
+            }
+            catch (Exception e)
             {
-                return Result<IEnumerable<BatteryComponent>>
-                    .Fail(new Exception("MaxWearLevel unreadable from configuration."));
+                return Result<IEnumerable<Battery>>.Fail(e);
             }
-
-            var result = await GetData(model);
-            if (!result.IsSuccess)
-            {
-                return Result<IEnumerable<BatteryComponent>>
-                    .Fail(new Exception("No record found in database.", result.Exception));
-            }
-
-            var output = new List<BatteryComponent>();
-            foreach (var battery in result.Output)
-            {
-                output.Add(BatteryComponentMapper.From(battery, maxWearLevel.Value));
-            }
-
-            return Result<IEnumerable<BatteryComponent>>.Ok(output);
         }
 
         #endregion
 
         #region Private methods
 
-        private async Task<Result<IEnumerable<BatteryEntity>>> GetData(string model)
+        private async Task<Result<IEnumerable<T>>> GetPhysicalData<T>(Func<IEnumerable<T>> source)
         {
             try
             {
-                var output = await _batteryRepository.GetDesignedBatteriesAsync(model);
+                var output = await Task.FromResult(source());
 
-                return Result<IEnumerable<BatteryEntity>>.Ok(output);
+                return Result<IEnumerable<T>>.Ok(output);
             }
             catch (Exception e)
             {
-                return Result<IEnumerable<BatteryEntity>>.Fail(e);
-            }
-        }
-
-        private async Task<Result<BatteryFullChargedCapacity>> GetBatteryFullChargedCapacityAsync(uint? tag)
-        {
-            try
-            {
-                var output = await _batteryRepository.GetBatteryFullChargedCapacityAsync(tag.Value);
-
-                if (Guard.IsNull(output, out var e))
-                {
-                    return Result<BatteryFullChargedCapacity>.Fail(e);
-                }
-
-                return Result<BatteryFullChargedCapacity>.Ok(output);
-            }
-            catch (Exception e)
-            {
-                return Result<BatteryFullChargedCapacity>.Fail(e);
-            }
-        }
-
-        private async Task<Result<Win32_Battery>> GetWin32BatteryAsync(string deviceId)
-        {
-            try
-            {
-                var output = await _batteryRepository.GetWin32BatteryAsync(deviceId);
-
-                if (Guard.IsNull(output, out var e))
-                {
-                    return Result<Win32_Battery>.Fail(e);
-                }
-
-                return Result<Win32_Battery>.Ok(output);
-            }
-            catch (Exception e)
-            {
-                return Result<Win32_Battery>.Fail(e);
-            }
-        }
-
-        private async Task<Result<IEnumerable<BatteryStaticData>>> GetBatteriesStaticDataAsync()
-        {
-            try
-            {
-                var output = await _batteryRepository.GetBatteriesStaticDataAsync();
-
-                if (Guard.IsEmptyOrAnyNull(output, out var e))
-                {
-                    return Result<IEnumerable<BatteryStaticData>>.Fail(e);
-                }
-
-                return Result<IEnumerable<BatteryStaticData>>.Ok(output);
-            }
-            catch (Exception e)
-            {
-                return Result<IEnumerable<BatteryStaticData>>.Fail(e);
+                return Result<IEnumerable<T>>.Fail(e);
             }
         }
 

@@ -4,7 +4,7 @@ using GathererEngine.Extensions;
 
 namespace GathererEngine.Models
 {
-    public class CIM_VideoController : MappableToDatabaseExtension
+    public class CIM_VideoController
     {
         public const string Scope = WmiScope.Cimv2;
         public UInt16?[] AcceleratorCapabilities { get; set; }

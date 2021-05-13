@@ -4,7 +4,7 @@ using GathererEngine.Extensions;
 
 namespace GathererEngine.Models
 {
-    public class CIM_LogicalDisk : MappableToDatabaseExtension
+    public class CIM_LogicalDisk
     {
         public const string Scope = WmiScope.Cimv2;
         public UInt16? Access { get; set; }

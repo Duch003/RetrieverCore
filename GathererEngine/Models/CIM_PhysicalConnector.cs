@@ -4,7 +4,7 @@ using GathererEngine.Extensions;
 
 namespace GathererEngine.Models
 {
-    public class CIM_PhysicalConnector : MappableToDatabaseExtension
+    public class CIM_PhysicalConnector
     {
         public const string Scope = WmiScope.Cimv2;
         public UInt32? BusNumber { get; set; }

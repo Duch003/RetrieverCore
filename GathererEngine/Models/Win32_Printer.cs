@@ -4,7 +4,7 @@ using GathererEngine.Extensions;
 
 namespace GathererEngine.Models
 {
-    public class Win32_Printer : MappableToDatabaseExtension
+    public class Win32_Printer
     {
         public const string Scope = WmiScope.Cimv2;
         public UInt32? Attributes { get; set; }

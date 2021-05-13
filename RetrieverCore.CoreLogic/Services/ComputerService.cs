@@ -1,58 +1,53 @@
 ﻿using RetrieverCore.CoreLogic.Interfaces;
-using RetrieverCore.CoreLogic.Utlities;
 using RetrieverCore.Repositories.Interfaces;
 using RetrieverCore.Models.Common;
-using RetrieverCore.LocalDatabase.Models;
-using GathererEngine.Models;
 using System;
 using System.Threading.Tasks;
+using RetrieverCore.Common.Models;
+using System.Collections.Generic;
+using RetrieverCore.Models.WMIEntieties;
+using RetrieverCore.CoreLogic.Mappers;
+using System.Linq;
 
 namespace RetrieverCore.CoreLogic.Services
 {
     public class ComputerService : IComputerService
     {
-        private readonly IComputerRepository _repository;
+        private readonly IGenericDatabaseRepository<Computer> _computerRepo;
+        private readonly IGenericComponentRepository _componentRepo;
 
-        public ComputerService(IComputerRepository repository)
+        public ComputerService(IGenericDatabaseRepository<Computer> computerRepo, IGenericComponentRepository componentRepo)
         {
-            _repository = repository;
+            _computerRepo = computerRepo;
+            _componentRepo = componentRepo;
         }
 
-        public async Task<Result<ComputerEntity>> GetDesignedComputerAsync(string model)
-        {
-            if (Guard.IsNullOrWhitespace(model, out var error))
-            {
-                return Result<ComputerEntity>.Fail(error);
-            }
-
-            try
-            {
-                var result = await _repository.GetDesignedComputerAsync(model);
-
-                return Result<ComputerEntity>.Ok(result);
-            }
-            catch (Exception e)
-            {
-                return Result<ComputerEntity>.Fail(e);
-            }
-        }
-
-        public async Task<Result<Win32_ComputerSystem>> GetPhysicalComputerAsync()
+        public async Task<Result<IEnumerable<Computer>>> GetDesignedComputersAsync()
         {
             try
             {
-                var result = await _repository.GetWin32ComputerSystemAsync();
+                var result = await _computerRepo.GetAsync(x => !x.Deleted);
 
-                if(Guard.IsNull(result, out var e))
-                {
-                    return Result<Win32_ComputerSystem>.Fail(e);
-                }
-
-                return Result<Win32_ComputerSystem>.Ok(result);
+                return Result<IEnumerable<Computer>>.Ok(result);
             }
             catch (Exception e)
             {
-                return Result<Win32_ComputerSystem>.Fail(e);
+                return Result<IEnumerable<Computer>>.Fail(e);
+            }
+        }
+
+        public async Task<Result<IEnumerable<Computer>>> GetPhysicalComputersAsync()
+        {
+            try
+            {
+                var result = await Task.Run(() => _componentRepo.Get<Win32_ComputerSystem>());
+                var output = result.Select(x => ComputerMapper.From(x)).ToList();
+
+                return Result<IEnumerable<Computer>>.Ok(output);
+            }
+            catch (Exception e)
+            {
+                return Result<IEnumerable<Computer>>.Fail(e);
             }
         }
     }

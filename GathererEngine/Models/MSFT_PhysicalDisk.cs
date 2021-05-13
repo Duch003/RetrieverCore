@@ -1,15 +1,18 @@
 using System;
+using GathererEngine.Attributes;
 using GathererEngine.Constants;
 using GathererEngine.Extensions;
 
 namespace GathererEngine.Models
 {
-    public class MSFT_PhysicalDisk : MappableToDatabaseExtension
+    public class MSFT_PhysicalDisk
     {
         public const string Scope = WmiScope.Storage;
         public string AdapterSerialNumber { get; set; }
         public UInt64? AllocatedSize { get; set; }
+        
         public UInt16? BusType { get; set; }
+        
         public UInt16?[] CannotPoolReason { get; set; }
         public bool? CanPool { get; set; }
         public string Description { get; set; }
@@ -22,10 +25,14 @@ namespace GathererEngine.Models
         public bool? IsPartial { get; set; }
         public UInt64? LogicalSectorSize { get; set; }
         public string Manufacturer { get; set; }
+        
         public UInt16? MediaType { get; set; }
+        
         public string Model { get; set; }
         public string ObjectId { get; set; }
+        
         public string[] OperationalDetails { get; set; }
+        
         public UInt16?[] OperationalStatus { get; set; }
         public string OtherCannotPoolReasonDescription { get; set; }
         public string PartNumber { get; set; }
@@ -41,6 +48,7 @@ namespace GathererEngine.Models
         public string SoftwareVersion { get; set; }
         public UInt32? SpindleSpeed { get; set; }
         public string StoragePoolUniqueId { get; set; }
+        
         public UInt16?[] SupportedUsages { get; set; }
         public string UniqueId { get; set; }
         public UInt16? UniqueIdFormat { get; set; }

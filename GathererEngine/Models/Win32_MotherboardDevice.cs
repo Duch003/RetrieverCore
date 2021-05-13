@@ -4,7 +4,7 @@ using GathererEngine.Extensions;
 
 namespace GathererEngine.Models
 {
-    public class Win32_MotherboardDevice : MappableToDatabaseExtension
+    public class Win32_MotherboardDevice
     {
         public const string Scope = WmiScope.Cimv2;
         public UInt16? Availability { get; set; }

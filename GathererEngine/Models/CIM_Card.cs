@@ -4,7 +4,7 @@ using GathererEngine.Extensions;
 
 namespace GathererEngine.Models
 {
-    public class CIM_Card : MappableToDatabaseExtension
+    public class CIM_Card
     {
         public const string Scope = WmiScope.Cimv2;
         public string Caption { get; set; }

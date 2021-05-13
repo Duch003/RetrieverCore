@@ -5,13 +5,13 @@ using GathererEngine.Extensions;
 
 namespace GathererEngine.Models
 {
-    public class Win32_Battery : MappableToDatabaseExtension
+    public class Win32_Battery
     {
         public const string Scope = WmiScope.Cimv2;
         public static string Conditions(string deviceId) => $"DeviceID = { deviceId }";
         public UInt16? Availability { get; set; }
         public UInt32? BatteryRechargeTime { get; set; }
-        [Use]
+        
         public UInt16? BatteryStatus { get; set; }
         public string Caption { get; set; }
         public UInt16? Chemistry { get; set; }
@@ -21,11 +21,11 @@ namespace GathererEngine.Models
         public string Description { get; set; }
         public UInt32? DesignCapacity { get; set; }
         public UInt64? DesignVoltage { get; set; }
-        [Use]
+        
         public string DeviceID { get; set; }
         public bool? ErrorCleared { get; set; }
         public string ErrorDescription { get; set; }
-        [Use]
+        
         public UInt16? EstimatedChargeRemaining { get; set; }
         public UInt32? EstimatedRunTime { get; set; }
         public UInt32? ExpectedBatteryLife { get; set; }

@@ -5,7 +5,7 @@ using GathererEngine.Extensions;
 
 namespace GathererEngine.Models
 {
-    public class BatteryStaticData : MappableToDatabaseExtension
+    public class BatteryStaticData
     {
         public const string Scope = WmiScope.Wmi;
         public bool? Active { get; set; }
@@ -16,7 +16,7 @@ namespace GathererEngine.Models
         public UInt32? DefaultAlert1 { get; set; }
         public UInt32? DefaultAlert2 { get; set; }
         public string Description { get; set; }
-        [Use]
+        
         public UInt32? DesignedCapacity { get; set; }
         public string DeviceName { get; set; }
         public UInt64? Frequency_Object { get; set; }
@@ -31,13 +31,13 @@ namespace GathererEngine.Models
         public string ManufactureName { get; set; }
         public string Name { get; set; }
         public string SerialNumber { get; set; }
-        [Use]
+        
         public UInt32? Tag { get; set; }
         public byte? Technology { get; set; }
         public UInt64? Timestamp_Object { get; set; }
         public UInt64? Timestamp_PerfTime { get; set; }
         public UInt64? Timestamp_Sys100NS { get; set; }
-        [Use]
+        
         public string UniqueID { get; set; }
     }
 }

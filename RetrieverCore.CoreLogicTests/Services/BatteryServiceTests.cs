@@ -1,387 +1,128 @@
 ﻿using Moq;
-using System;
-using System.Collections.Generic;
-using Xunit;
-using Microsoft.Extensions.Configuration;
-using RetrieverCore.Repositories.Interfaces;
-using GathererEngine.Models;
-using System.Linq;
-using RetrieverCore.TestDataGenerator.WindowsEntities;
-using RetrieverCore.LocalDatabase.Models;
-using RetrieverCore.TestDataGenerator.Database;
-using System.Threading.Tasks;
+using RetrieverCore.Common.Models;
 using RetrieverCore.CoreLogic.Interfaces;
 using RetrieverCore.CoreLogic.Services;
+using RetrieverCore.Models.WMIEntieties;
+using RetrieverCore.Repositories.Interfaces;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Threading.Tasks;
+using Xunit;
 
 namespace RetrieverCore.CoreLogicTests.Services
 {
-    
-    public class BatteryServiceTests
+    public class BatteryServiceTests : IDisposable
     {
-        private IConfiguration _configuration;
-        private List<BatteryStaticData> _batteryStaticDataEntries = BatteryStaticDataFactory.GetForBatteryServiceTests();
-        private List<BatteryFullChargedCapacity> _batteryFullChargedCapacityEntires 
-            = BatteryFullChargedCapacityFactory.GetForBatteryServiceTests();
-        private List<Win32_Battery> _win32_BatteryEntires
-            = Win32_BatteryFactory.GetForBatteryServiceTests();
-        private IEnumerable<BatteryEntity> _databaseEntieties = BatteryEntityFactory.GetForBatteryServiceTests();
-
-        private string _model0 = "Model0";
-        private string _model1 = "Model1";
-        private string _errorModel = "Error";
-        private Dictionary<string, bool> _exceptionSwitch;
-        private Dictionary<string, bool> _dataSwitch;
-
         private IBatteryService _service;
-        private IBatteryService _invalidConfigurationService;
+        private Mock<IGenericDatabaseRepository<Battery>> _mockBatteryRepo;
+        private Mock<IGenericComponentRepository> _mockComponentRepo;
+
+        private BatteryStaticData _batteryStaticData1;
+        private BatteryStaticData _batteryStaticData2;
+        private BatteryStaticData _batteryStaticData3;
+        private List<BatteryStaticData> _batteryStaticData;
+
+        private BatteryFullChargedCapacity _batteryFullChargedCapacity1;
+        private BatteryFullChargedCapacity _batteryFullChargedCapacity2;
+        private BatteryFullChargedCapacity _batteryFullChargedCapacity3;
+        private List<BatteryFullChargedCapacity> _batteryFullChargedCapacities;
+
+        private Win32_Battery _win32Battery1;
+        private Win32_Battery _win32Battery2;
+        private Win32_Battery _win32Battery3;
+        private List<Win32_Battery> _win32Batteries;
+
+        private Battery _battery1;
+        private Battery _battery2;
+        private Battery _battery3;
+        private List<Battery> _batteries;
+
+        private Guid _throwException;
+        private bool _batteryStaticDataException;
+        private bool _batteryFullChargedCapacityException;
+        private bool _win32BatteryException;
 
         public BatteryServiceTests()
         {
-            var configurationData = new Dictionary<string, string>();
-            configurationData["MaxWearLevel"] = "15";
-            var builder = new ConfigurationBuilder();
-            _configuration = builder.AddInMemoryCollection(configurationData)
-                .Build();
-
-            var batteryRepositoryMock = new Mock<IBatteryRepository>();
-            batteryRepositoryMock.Setup(p => p.GetBatteriesStaticDataAsync())
-                .Returns(() =>
-                {
-                    if(_exceptionSwitch["GetBatteriesStaticDataAsync"])
-                    {
-                        throw new Exception("GetBatteriesStaticDataAsync");
-                    }
-                    if (_dataSwitch["GetBatteriesStaticDataAsync"])
-                    {
-                        return Task.FromResult(new List<BatteryStaticData>().AsEnumerable());
-                    }
-                    return Task.FromResult(_batteryStaticDataEntries.AsEnumerable());
-                });
-            batteryRepositoryMock.Setup(p => p.GetBatteryFullChargedCapacityAsync(It.IsAny<uint>()))
-                .Returns<uint>(tag =>
-                {
-                    if (_exceptionSwitch["GetBatteryFullChargedCapacityAsync"])
-                    {
-                        throw new Exception("GetBatteryFullChargedCapacityAsync");
-                    }
-                    if (_dataSwitch["GetBatteryFullChargedCapacityAsync"])
-                    {
-                        return Task.FromResult(default(BatteryFullChargedCapacity));
-                    }
-                    return Task.FromResult(_batteryFullChargedCapacityEntires.FirstOrDefault(x => x.Tag == tag));
-                });
-            batteryRepositoryMock.Setup(p => p.GetWin32BatteryAsync(It.IsAny<string>()))
-                .Returns<string>(uniqueIdentifier =>
-                {
-                    if (_exceptionSwitch["GetWin32BatteryAsync"])
-                    {
-                        throw new Exception("GetWin32BatteryAsync");
-                    }
-                    if (_dataSwitch["GetWin32BatteryAsync"])
-                    {
-                        return Task.FromResult(default(Win32_Battery));
-                    }
-                    return Task.FromResult(_win32_BatteryEntires.FirstOrDefault(x => x.DeviceID == uniqueIdentifier));
-                });
-            batteryRepositoryMock.Setup(p => p.GetDesignedBatteriesAsync(_model0))
-                .Returns(() =>
-                {
-                    if (_exceptionSwitch["GetDesignedBatteriesAsync"])
-                    {
-                        throw new Exception("GetDesignedBatteriesAsync");
-                    }
-                    if (_dataSwitch["GetDesignedBatteriesAsync"])
-                    {
-                        return Task.FromResult(new List<BatteryEntity>().AsEnumerable());
-                    }
-                    return Task.FromResult(_databaseEntieties);
-                });
-            batteryRepositoryMock.Setup(p => p.GetDesignedBatteriesAsync(_model1))
-                .Returns(Task.FromResult(new List<BatteryEntity>().AsEnumerable()));
-
-            batteryRepositoryMock.Setup(p => p.GetDesignedBatteriesAsync(_errorModel))
-                .Throws(new Exception());
-
-            _service = new BatteryService(_configuration, batteryRepositoryMock.Object);
-
-            _invalidConfigurationService = new BatteryService(new ConfigurationBuilder().AddInMemoryCollection().Build(), null);
-
-            _exceptionSwitch = new Dictionary<string, bool>();
-            _exceptionSwitch["GetBatteriesStaticDataAsync"] = false;
-            _exceptionSwitch["GetBatteryFullChargedCapacityAsync"] = false;
-            _exceptionSwitch["GetWin32BatteryAsync"] = false;
-            _exceptionSwitch["GetDesignedBatteriesAsync"] = false;
-
-            _dataSwitch = new Dictionary<string, bool>();
-            _dataSwitch["GetBatteriesStaticDataAsync"] = false;
-            _dataSwitch["GetBatteryFullChargedCapacityAsync"] = false;
-            _dataSwitch["GetWin32BatteryAsync"] = false;
-            _dataSwitch["GetDesignedBatteriesAsync"] = false;
+            SetupData();
+            SetupRepositories();
+            SetupService();
         }
-        private void CleanUp()
+
+        public void Dispose()
         {
-            _exceptionSwitch["GetBatteriesStaticDataAsync"] = false;
-            _exceptionSwitch["GetBatteryFullChargedCapacityAsync"] = false;
-            _exceptionSwitch["GetWin32BatteryAsync"] = false;
-            _exceptionSwitch["GetDesignedBatteriesAsync"] = false;
-
-            _dataSwitch["GetBatteriesStaticDataAsync"] = false;
-            _dataSwitch["GetBatteryFullChargedCapacityAsync"] = false;
-            _dataSwitch["GetWin32BatteryAsync"] = false;
-            _dataSwitch["GetDesignedBatteriesAsync"] = false;
+            _service = null;
+            _mockBatteryRepo = null;
+            _mockComponentRepo = null;
+            _batteryStaticData1 = null;
+            _batteryStaticData = null;
+            _batteryFullChargedCapacity1 = null;
+            _batteryFullChargedCapacities = null;
+            _win32Battery1 = null;
+            _win32Batteries = null;
+            _battery1 = null;
+            _batteries = null;
         }
 
+        #region Tests
         [Fact]
-        public async Task GetPhysicalBatteriesAsync_DataGetheredProperly_ReturnsResultWithSuccess()
+        public async Task GetDesignedBatteriesAsync_FiltersOutDeletedEntries_ReturnsResultWithSuccess()
         {
             //Arrange
+            var setId = new Guid(new string('0', 31) + "1");
 
             //Act
-            var result = await _service.GetPhysicalBatteriesAsync();
+            var result = await _service.GetDesignedBatteriesAsync(setId);
 
             //Assert
             Assert.NotNull(result);
             Assert.True(result.IsSuccess);
             Assert.Null(result.Exception);
             Assert.NotNull(result.Output);
-            Assert.True(result.Output.Count() == _batteryStaticDataEntries.Count);
-
-            CleanUp();
+            Assert.True(result.Output.Count() == 2);
+            Assert.Equal(result.Output.ToList()[0], _battery1);
+            Assert.Equal(result.Output.ToList()[1], _battery2);
         }
 
         [Fact]
-        public async Task GetPhysicalBatteriesAsync_GetBatteriesStaticDataAsyncFails_ReturnsResultWithFail()
+        public async Task GetDesignedBatteriesAsync_NoEntryWithGivenSetId_ReturnsResultWithSuccess()
         {
             //Arrange
-            _exceptionSwitch["GetBatteriesStaticDataAsync"] = true;
+            var setId = new Guid(new string('0', 31) + "2");
 
             //Act
-            var result = await _service.GetPhysicalBatteriesAsync();
-
-            //Assert
-            Assert.NotNull(result);
-            Assert.False(result.IsSuccess);
-            Assert.NotNull(result.Exception);
-            Assert.Null(result.Output);
-
-            Assert.Equal("GetBatteriesStaticDataAsync", result.Exception.Message);
-            CleanUp();
-        }
-
-        [Fact]
-        public async Task GetPhysicalBatteriesAsync_GetWin32BatteryAsyncFails_ReturnsResultWithFail()
-        {
-            //Arrange
-            _exceptionSwitch["GetWin32BatteryAsync"] = true;
-
-            //Act
-            var result = await _service.GetPhysicalBatteriesAsync();
-
-            //Assert
-            Assert.NotNull(result);
-            Assert.False(result.IsSuccess);
-            Assert.NotNull(result.Exception);
-            Assert.Null(result.Output);
-
-            Assert.Equal("GetWin32BatteryAsync", result.Exception.Message);
-            CleanUp();
-        }
-
-        [Fact]
-        public async Task GetPhysicalBatteriesAsync_GetBatteryFullChargedCapacityAsyncFails_ReturnsResultWithFail()
-        {
-            //Arrange
-            _exceptionSwitch["GetBatteryFullChargedCapacityAsync"] = true;
-
-            //Act
-            var result = await _service.GetPhysicalBatteriesAsync();
-
-            //Assert
-            Assert.NotNull(result);
-            Assert.False(result.IsSuccess);
-            Assert.NotNull(result.Exception);
-            Assert.Null(result.Output);
-
-            Assert.Equal("GetBatteryFullChargedCapacityAsync", result.Exception.Message);
-            CleanUp();
-        }
-
-        [Fact]
-        public async Task GetPhysicalBatteriesAsync_GetBatteriesStaticReturnsNoData_ReturnsResultWithFail()
-        {
-            //Arrange
-            _dataSwitch["GetBatteriesStaticDataAsync"] = true;
-
-            //Act
-            var result = await _service.GetPhysicalBatteriesAsync();
-
-            //Assert
-            Assert.NotNull(result);
-            Assert.False(result.IsSuccess);
-            Assert.NotNull(result.Exception);
-            Assert.Null(result.Output);
-
-            Assert.Equal("List is null or empty. (Caller: 'GetBatteriesStaticDataAsync')", result.Exception.Message);
-            CleanUp();
-        }
-
-        [Fact]
-        public async Task GetPhysicalBatteriesAsync_GetWin32BatteryAsyncReturnsNoData_ReturnsResultWithFail()
-        {
-            //Arrange
-            _dataSwitch["GetWin32BatteryAsync"] = true;
-
-            //Act
-            var result = await _service.GetPhysicalBatteriesAsync();
-
-            //Assert
-            Assert.NotNull(result);
-            Assert.False(result.IsSuccess);
-            Assert.NotNull(result.Exception);
-            Assert.Null(result.Output);
-
-            Assert.Equal($"Gatherer returned null entity of {nameof(Win32_Battery)}.", result.Exception.Message);
-            CleanUp();
-        }
-
-        [Fact]
-        public async Task GetPhysicalBatteriesAsync_GetBatteryFullChargedCapacityAsyncReturnsNoData_ReturnsResultWithFail()
-        {
-            //Arrange
-            _dataSwitch["GetBatteryFullChargedCapacityAsync"] = true;
-
-            //Act
-            var result = await _service.GetPhysicalBatteriesAsync();
-
-            //Assert
-            Assert.NotNull(result);
-            Assert.False(result.IsSuccess);
-            Assert.NotNull(result.Exception);
-            Assert.Null(result.Output);
-
-            Assert.Equal($"Gatherer returned null entity of {nameof(BatteryFullChargedCapacity)}.", result.Exception.Message);
-            CleanUp();
-        }
-
-        [Fact]
-        public async Task GetPhysicalBatteriesAsync_TagIsNull_ReturnsResultWithSuccess()
-        {
-            //Arrange
-            var invalidEntity = new BatteryStaticData
-            {
-                Tag = null,
-                UniqueID = "UniqueIdentifier0"
-            };
-            _batteryStaticDataEntries.Add(invalidEntity);
-
-            //Act
-            var result = await _service.GetPhysicalBatteriesAsync();
+            var result = await _service.GetDesignedBatteriesAsync(setId);
 
             //Assert
             Assert.NotNull(result);
             Assert.True(result.IsSuccess);
             Assert.Null(result.Exception);
             Assert.NotNull(result.Output);
-            Assert.True(result.Output.Count() == 4);
-
-            Assert.True(result.Output.FirstOrDefault(x => x.Messages.Any()) != null);
-            Assert.True(result.Output.First(x => x.Messages.Any()).Messages.Count == 1);
-
-            _batteryStaticDataEntries.Remove(invalidEntity);
-            CleanUp();
+            Assert.True(result.Output.Count() == 0);
         }
 
         [Fact]
-        public async Task GetPhysicalBatteriesAsync_UniqueIdentifierIsNull_ReturnsResultWithSuccess()
+        public async Task GetDesignedBatteriesAsync_ErrorWhileQueryingDatabase_ReturnsResultWithFailure()
         {
             //Arrange
-            var invalidEntity = new BatteryStaticData
-            {
-                Tag = 7,
-                UniqueID = null
-            };
-            _batteryStaticDataEntries.Add(invalidEntity);
-
             //Act
-            var result = await _service.GetPhysicalBatteriesAsync();
+            var result = await _service.GetDesignedBatteriesAsync(_throwException);
 
             //Assert
             Assert.NotNull(result);
-            Assert.True(result.IsSuccess);
-            Assert.Null(result.Exception);
-            Assert.NotNull(result.Output);
-            Assert.True(result.Output.Count() == 4);
-
-            Assert.True(result.Output.FirstOrDefault(x => x.Messages.Any()) != null);
-            Assert.True(result.Output.First(x => x.Messages.Any()).Messages.Count == 1);
-
-            _batteryStaticDataEntries.Remove(invalidEntity);
-            CleanUp();
+            Assert.False(result.IsSuccess);
+            Assert.NotNull(result.Exception);
+            Assert.Null(result.Output);
+            Assert.True(result.Exception.Message == _throwException.ToString());
         }
 
         [Fact]
-        public async Task GetPhysicalBatteriesAsync_UniqueIdentifierIsEmpty_ReturnsResultWithSuccess()
+        public async Task GetPhysicalBatteriesAsync_NoErrorsWhileExecutingWMIQuery_ReturnsResultWithSuccess()
         {
             //Arrange
-            var invalidEntity = new BatteryStaticData
-            {
-                Tag = 7,
-                UniqueID = null
-            };
-            _batteryStaticDataEntries.Add(invalidEntity);
-
             //Act
             var result = await _service.GetPhysicalBatteriesAsync();
-
-            //Assert
-            Assert.NotNull(result);
-            Assert.True(result.IsSuccess);
-            Assert.Null(result.Exception);
-            Assert.NotNull(result.Output);
-            Assert.True(result.Output.Count() == 4);
-
-            Assert.True(result.Output.FirstOrDefault(x => x.Messages.Any()) != null);
-            Assert.True(result.Output.First(x => x.Messages.Any()).Messages.Count == 1);
-
-            _batteryStaticDataEntries.Remove(invalidEntity);
-            CleanUp();
-        }
-
-        [Fact]
-        public async Task GetPhysicalBatteriesAsync_UniqueIdentifierIsWhitespace_ReturnsResultWithSuccess()
-        {
-            //Arrange
-            var invalidEntity = new BatteryStaticData
-            {
-                Tag = 7,
-                UniqueID = " "
-            };
-            _batteryStaticDataEntries.Add(invalidEntity);
-
-            //Act
-            var result = await _service.GetPhysicalBatteriesAsync();
-
-            //Assert
-            Assert.NotNull(result);
-            Assert.True(result.IsSuccess);
-            Assert.Null(result.Exception);
-            Assert.NotNull(result.Output);
-            Assert.True(result.Output.Count() == 4);
-
-            Assert.True(result.Output.FirstOrDefault(x => x.Messages.Any()) != null);
-            Assert.True(result.Output.First(x => x.Messages.Any()).Messages.Count == 1);
-
-            _batteryStaticDataEntries.Remove(invalidEntity);
-            CleanUp();
-        }
-
-        [Fact]
-        public async Task GetDesignedBatteriesAsync_EverythingWorksFine_ReturnsResultWithSuccess()
-        {
-            //Arrange
-
-            //Act
-            var result = await _service.GetDesignedBatteriesAsync(_model0);
 
             //Assert
             Assert.NotNull(result);
@@ -389,116 +130,258 @@ namespace RetrieverCore.CoreLogicTests.Services
             Assert.Null(result.Exception);
             Assert.NotNull(result.Output);
             Assert.True(result.Output.Count() == 3);
-
-            CleanUp();
         }
 
         [Fact]
-        public async Task GetDesignedBatteriesAsync_ModelIsNull_ReturnsResultWithFail()
+        public async Task GetPhysicalBatteriesAsync_CannotPairComponentsByDeviceID_ReturnsResultWithFailure()
         {
             //Arrange
+            _win32Battery1.DeviceID = "invalid";
 
             //Act
-            var result = await _service.GetDesignedBatteriesAsync(null);
+            var result = await _service.GetPhysicalBatteriesAsync();
 
             //Assert
             Assert.NotNull(result);
             Assert.False(result.IsSuccess);
             Assert.NotNull(result.Exception);
             Assert.Null(result.Output);
-            Assert.Contains("Value is null or empty.", result.Exception.Message);
-
-            CleanUp();
+            Assert.True(result.Exception.GetType().FullName == typeof(InvalidOperationException).FullName);
+            Assert.True(result.Exception.Message == "Sequence contains no matching element");
         }
 
         [Fact]
-        public async Task GetDesignedBatteriesAsync_ModelIsEmpty_ReturnsResultWithFail()
+        public async Task GetPhysicalBatteriesAsync_CannotPairComponentsByUniqueID_ReturnsResultWithFailure()
         {
             //Arrange
+            _batteryStaticData1.UniqueID = "invalid";
 
             //Act
-            var result = await _service.GetDesignedBatteriesAsync(string.Empty);
+            var result = await _service.GetPhysicalBatteriesAsync();
 
             //Assert
             Assert.NotNull(result);
             Assert.False(result.IsSuccess);
             Assert.NotNull(result.Exception);
             Assert.Null(result.Output);
-            Assert.Contains("Value is null or empty.", result.Exception.Message);
-
-            CleanUp();
+            Assert.True(result.Exception.GetType().FullName == typeof(InvalidOperationException).FullName);
+            Assert.True(result.Exception.Message == "Sequence contains no matching element");
         }
 
         [Fact]
-        public async Task GetDesignedBatteriesAsync_ModelIsWhitespace_ReturnsResultWithFail()
+        public async Task GetPhysicalBatteriesAsync_CannotPairComponentsByTag_ReturnsResultWithFailure()
         {
             //Arrange
+            _batteryFullChargedCapacity3.Tag = 90;
+            _batteryStaticData3.Tag = 190;
 
             //Act
-            var result = await _service.GetDesignedBatteriesAsync(" ");
+            var result = await _service.GetPhysicalBatteriesAsync();
 
             //Assert
             Assert.NotNull(result);
             Assert.False(result.IsSuccess);
             Assert.NotNull(result.Exception);
             Assert.Null(result.Output);
-            Assert.Contains("Value is null or empty.", result.Exception.Message);
-
-            CleanUp();
+            Assert.True(result.Exception.GetType().FullName == typeof(InvalidOperationException).FullName);
+            Assert.True(result.Exception.Message == "Sequence contains no matching element");
         }
 
         [Fact]
-        public async Task GetDesignedBatteriesAsync_ConfigurationContainsNoSuchKey_ReturnsResultWithFail()
+        public async Task GetPhysicalBatteriesAsync_ErrorWhileGatheringBatteryStaticData_ReturnsResultWithFailure()
         {
             //Arrange
+            _batteryStaticDataException = true;
 
             //Act
-            var result = await _invalidConfigurationService.GetDesignedBatteriesAsync(_model0);
+            var result = await _service.GetPhysicalBatteriesAsync();
 
             //Assert
             Assert.NotNull(result);
             Assert.False(result.IsSuccess);
             Assert.NotNull(result.Exception);
             Assert.Null(result.Output);
-            Assert.Equal("MaxWearLevel unreadable from configuration.", result.Exception.Message);
-
-            CleanUp();
+            Assert.True(result.Exception.Message == typeof(BatteryStaticData).Name);
         }
 
         [Fact]
-        public async Task GetDesignedBatteriesAsync_NoSuchModelInDatabase_ReturnsResultWithFail()
+        public async Task GetPhysicalBatteriesAsync_ErrorWhileGatheringBatteryFullChargedCapacity_ReturnsResultWithFailure()
         {
             //Arrange
+            _batteryFullChargedCapacityException = true;
 
             //Act
-            var result = await _service.GetDesignedBatteriesAsync(_model1);
-
-            //Assert
-            Assert.NotNull(result);
-            Assert.True(result.IsSuccess);
-            Assert.Null(result.Exception);
-            Assert.NotNull(result.Output);
-
-            CleanUp();
-        }
-
-        [Fact]
-        public async Task GetDesignedBatteriesAsync_DatabaseError_ReturnsResultWithFail()
-        {
-            //Arrange
-
-            //Act
-            var result = await _service.GetDesignedBatteriesAsync(_errorModel);
+            var result = await _service.GetPhysicalBatteriesAsync();
 
             //Assert
             Assert.NotNull(result);
             Assert.False(result.IsSuccess);
             Assert.NotNull(result.Exception);
             Assert.Null(result.Output);
-            Assert.Equal("No record found in database.", result.Exception.Message);
-            Assert.NotNull(result.Exception.InnerException);
-
-            CleanUp();
+            Assert.True(result.Exception.Message == typeof(BatteryFullChargedCapacity).Name);
         }
+
+        [Fact]
+        public async Task GetPhysicalBatteriesAsync_ErrorWhileGatheringWin32Battery_ReturnsResultWithFailure()
+        {
+            //Arrange
+            _win32BatteryException = true;
+
+            //Act
+            var result = await _service.GetPhysicalBatteriesAsync();
+
+            //Assert
+            Assert.NotNull(result);
+            Assert.False(result.IsSuccess);
+            Assert.NotNull(result.Exception);
+            Assert.Null(result.Output);
+            Assert.True(result.Exception.Message == typeof(Win32_Battery).Name);
+        }
+        #endregion
+
+        #region Private methods
+        private void SetupData()
+        {
+            _throwException = new Guid(new string('9', 32));
+            _batteryStaticDataException = false;
+            _batteryFullChargedCapacityException = false;
+            _win32BatteryException = false;
+
+            _batteryStaticData1 = new BatteryStaticData
+            {
+                UniqueID = "UniqueID1",
+                Tag = 1,
+                DesignedCapacity = 8150
+            };
+            _batteryStaticData2 = new BatteryStaticData
+            {
+                UniqueID = "UniqueID2",
+                Tag = 2,
+                DesignedCapacity = 10200
+            };
+            _batteryStaticData3 = new BatteryStaticData
+            {
+                UniqueID = "UniqueID3",
+                Tag = 3,
+                DesignedCapacity = 13133
+            };
+            _batteryStaticData = new List<BatteryStaticData> { _batteryStaticData1, _batteryStaticData2, _batteryStaticData3 };
+
+            _batteryFullChargedCapacity1 = new BatteryFullChargedCapacity
+            {
+                Tag = 1,
+                FullChargedCapacity = 8500
+            };
+            _batteryFullChargedCapacity2 = new BatteryFullChargedCapacity
+            {
+                Tag = 2,
+                FullChargedCapacity = 12000
+            };
+            _batteryFullChargedCapacity3 = new BatteryFullChargedCapacity
+            {
+                Tag = 3,
+                FullChargedCapacity = 13000
+            };
+            _batteryFullChargedCapacities = new List<BatteryFullChargedCapacity> { _batteryFullChargedCapacity1, 
+                _batteryFullChargedCapacity2, _batteryFullChargedCapacity3 };
+
+            _win32Battery1 = new Win32_Battery
+            {
+                BatteryStatus = 1,
+                DeviceID = "UniqueID1",
+                EstimatedChargeRemaining = 10
+            };
+            _win32Battery2 = new Win32_Battery
+            {
+                BatteryStatus = 2,
+                DeviceID = "UniqueID2",
+                EstimatedChargeRemaining = 20
+            };
+            _win32Battery3 = new Win32_Battery
+            {
+                BatteryStatus = 3,
+                DeviceID = "UniqueID3",
+                EstimatedChargeRemaining = 30
+            };
+            _win32Batteries = new List<Win32_Battery> { _win32Battery1, _win32Battery2, _win32Battery3 };
+
+            _battery1 = new Battery
+            {
+                ID = 1,
+                Deleted = false,
+                SetID = new Guid(new string('0', 31) + "1"),
+                WearLevel = 1,
+                Status = 1,
+                DesignedCapacity = 1
+            };
+            _battery2 = new Battery
+            {
+                ID = 2,
+                Deleted = false,
+                SetID = new Guid(new string('0', 31) + "1"),
+                WearLevel = 2,
+                Status = 2,
+                DesignedCapacity = 2
+            };
+            _battery3 = new Battery
+            {
+                ID = 3,
+                Deleted = true,
+                SetID = new Guid(new string('0', 31) + "1"),
+                WearLevel = 3,
+                Status = 3,
+                DesignedCapacity = 3
+            };
+            _batteries = new List<Battery> { _battery1, _battery2, _battery3 };
+        }
+
+        private void SetupRepositories()
+        {
+            _mockBatteryRepo = new Mock<IGenericDatabaseRepository<Battery>>();
+            _mockBatteryRepo.Setup(x => x.GetBySetIdAsync(It.IsAny<Guid>(), It.IsAny<bool>()))
+                .Returns<Guid, bool>((setId, isDeleted) =>
+                {
+                    if(setId == _throwException)
+                    {
+                        throw new Exception(setId.ToString());
+                    }
+                    return Task.FromResult(_batteries.Where(x => x.SetID == setId && x.Deleted == isDeleted).ToList().AsEnumerable());
+                });
+
+            _mockComponentRepo = new Mock<IGenericComponentRepository>();
+            _mockComponentRepo.Setup(x => x.Get<BatteryStaticData>())
+                .Returns(() =>
+                {
+                    if (_batteryStaticDataException)
+                    {
+                        throw new Exception(typeof(BatteryStaticData).Name);
+                    }
+                    return _batteryStaticData.AsEnumerable();
+                });
+            _mockComponentRepo.Setup(x => x.Get<Win32_Battery>())
+                .Returns(() =>
+                {
+                    if (_win32BatteryException)
+                    {
+                        throw new Exception(typeof(Win32_Battery).Name);
+                    }
+                    return _win32Batteries.AsEnumerable();
+                });
+            _mockComponentRepo.Setup(x => x.Get<BatteryFullChargedCapacity>())
+                .Returns(() =>
+                {
+                    if (_batteryFullChargedCapacityException)
+                    {
+                        throw new Exception(typeof(BatteryFullChargedCapacity).Name);
+                    }
+                    return _batteryFullChargedCapacities.AsEnumerable();
+                });
+        }
+
+        private void SetupService()
+        {
+            _service = new BatteryService(_mockBatteryRepo.Object, _mockComponentRepo.Object);
+        }
+        #endregion
     }
 }

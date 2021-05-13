@@ -4,7 +4,7 @@ using GathererEngine.Extensions;
 
 namespace GathererEngine.Models
 {
-    public class CIM_DesktopMonitor : MappableToDatabaseExtension
+    public class CIM_DesktopMonitor
     {
         public const string Scope = WmiScope.Cimv2;
         public UInt16? Availability { get; set; }

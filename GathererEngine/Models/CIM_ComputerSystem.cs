@@ -4,7 +4,7 @@ using GathererEngine.Extensions;
 
 namespace GathererEngine.Models
 {
-    public class CIM_ComputerSystem : MappableToDatabaseExtension
+    public class CIM_ComputerSystem
     {
         public const string Scope = WmiScope.Cimv2;
         public UInt16? AdminPasswordStatus { get; set; }

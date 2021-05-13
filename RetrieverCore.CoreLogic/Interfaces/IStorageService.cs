@@ -1,6 +1,6 @@
-﻿using RetrieverCore.LocalDatabase.Models;
+﻿using RetrieverCore.Common.Models;
 using RetrieverCore.Models.Common;
-using RetrieverCore.Models.ComputerComponents.Physical;
+using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 
@@ -8,7 +8,7 @@ namespace RetrieverCore.CoreLogic.Interfaces
 {
     public interface IStorageService
     {
-        Task<Result<IEnumerable<StorageEntity>>> GetDesignedStorages(string model);
-        Task<Result<IEnumerable<StorageComponent>>> GetPhysicalStoragesAsync();
+        Task<Result<IEnumerable<Storage>>> GetDesignedStoragesAsync(Guid setId);
+        Task<Result<IEnumerable<Storage>>> GetPhysicalStoragesAsync();
     }
 }

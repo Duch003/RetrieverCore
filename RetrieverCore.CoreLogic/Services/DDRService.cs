@@ -1,59 +1,53 @@
 ﻿using RetrieverCore.CoreLogic.Interfaces;
-using RetrieverCore.CoreLogic.Utlities;
 using RetrieverCore.Repositories.Interfaces;
 using RetrieverCore.Models.Common;
-using RetrieverCore.LocalDatabase.Models;
-using GathererEngine.Models;
+using RetrieverCore.Common.Models;
 using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
+using RetrieverCore.Models.WMIEntieties;
+using System.Linq;
+using RetrieverCore.CoreLogic.Mappers;
 
 namespace RetrieverCore.CoreLogic.Services
 {
     public class DDRService : IDDRService
     {
-        private readonly IDDRRepository _repository;
+        private readonly IGenericDatabaseRepository<DDR> _ddrRepo;
+        private readonly IGenericComponentRepository _componentRepo;
 
-        public DDRService(IDDRRepository repository)
+        public DDRService(IGenericDatabaseRepository<DDR> ddrRepo, IGenericComponentRepository componentRepo)
         {
-            _repository = repository;
+            _ddrRepo = ddrRepo;
+            _componentRepo = componentRepo;
         }
 
-        public async Task<Result<IEnumerable<DDREntity>>> GetDesignedDDRsAsync(string model)
-        {
-            if (Guard.IsNullOrWhitespace(model, out var error))
-            {
-                return Result<IEnumerable<DDREntity>>.Fail(error);
-            }
-
-            try
-            {
-                var result = await _repository.GetDesignedDDRsAsync(model);
-
-                return Result<IEnumerable<DDREntity>>.Ok(result);
-            }
-            catch (Exception e)
-            {
-                return Result<IEnumerable<DDREntity>>.Fail(e);
-            }
-        }
-
-        public async Task<Result<IEnumerable<Win32_PhysicalMemory>>> GetPhysicalDDRsAsync()
+        public async Task<Result<IEnumerable<DDR>>> GetDesignedDDRsAsync(Guid setId)
         {
             try
             {
-                var result = await _repository.GetWin32PhysicalMemoriesAsync();
+                var result = await _ddrRepo.GetBySetIdAsync(setId);
 
-                if(Guard.IsEmptyOrAnyNull(result, out var e))
-                {
-                    return Result<IEnumerable<Win32_PhysicalMemory>>.Fail(e);
-                }
-
-                return Result<IEnumerable<Win32_PhysicalMemory>>.Ok(result);
+                return Result<IEnumerable<DDR>>.Ok(result);
             }
             catch (Exception e)
             {
-                return Result<IEnumerable<Win32_PhysicalMemory>>.Fail(e);
+                return Result<IEnumerable<DDR>>.Fail(e);
+            }
+        }
+
+        public async Task<Result<IEnumerable<DDR>>> GetPhysicalDDRsAsync()
+        {
+            try
+            {
+                var result = await Task.Run(() => _componentRepo.Get<Win32_PhysicalMemory>());
+                var output = result.Select(x => DDRMapper.From(x)).ToList();
+
+                return Result<IEnumerable<DDR>>.Ok(output);
+            }
+            catch (Exception e)
+            {
+                return Result<IEnumerable<DDR>>.Fail(e);
             }
         }
     }

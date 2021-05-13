@@ -4,7 +4,7 @@ using GathererEngine.Extensions;
 
 namespace GathererEngine.Models
 {
-    public class Win32_BIOS : MappableToDatabaseExtension
+    public class Win32_BIOS
     {
         public const string Scope = WmiScope.Cimv2;
         public UInt16?[] BiosCharacteristics { get; set; }

@@ -5,14 +5,11 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <Folder Include="Master\" />
-  </ItemGroup>
-
-  <ItemGroup>
     <ProjectReference Include="..\GathererEngine\GathererEngine.csproj" />
     <ProjectReference Include="..\RegistryReader\RegistryReader.csproj" />
     <ProjectReference Include="..\RetrieverCore.LocalDatabase\RetrieverCore.LocalDatabase.csproj" />
     <ProjectReference Include="..\RetrieverCore.MasterDatabase\RetrieverCore.MasterDatabase.csproj" />
+    <ProjectReference Include="..\RetrieverCore.Models\RetrieverCore.Models.csproj" />
   </ItemGroup>
 
 </Project>

@@ -5,11 +5,11 @@ using GathererEngine.Extensions;
 
 namespace GathererEngine.Models
 {
-    public class Win32_Processor : MappableToDatabaseExtension
+    public class Win32_Processor
     {
         public const string Scope = WmiScope.Cimv2;
         public UInt16? AddressWidth { get; set; }
-        [Use]
+        
         public UInt16? Architecture { get; set; }
         public string AssetTag { get; set; }
         public UInt16? Availability { get; set; }
@@ -19,7 +19,7 @@ namespace GathererEngine.Models
         public bool? ConfigManagerUserConfig { get; set; }
         public UInt16? CpuStatus { get; set; }
         public string CreationClassName { get; set; }
-        [Use]
+        
         public UInt32? CurrentClockSpeed { get; set; }
         public UInt16? CurrentVoltage { get; set; }
         public UInt16? DataWidth { get; set; }
@@ -30,24 +30,24 @@ namespace GathererEngine.Models
         public UInt32? ExtClock { get; set; }
         public UInt16? Family { get; set; }
         public DateTime? InstallDate { get; set; }
-        [Use]
+        
         public UInt32? L2CacheSize { get; set; }
         public UInt32? L2CacheSpeed { get; set; }
-        [Use]
+        
         public UInt32? L3CacheSize { get; set; }
         public UInt32? L3CacheSpeed { get; set; }
         public UInt32? LastErrorCode { get; set; }
         public UInt16? Level { get; set; }
         public UInt16? LoadPercentage { get; set; }
-        [Use]
+        
         public string Manufacturer { get; set; }
         public UInt32? MaxClockSpeed { get; set; }
-        [Use]
+        
         public string Name { get; set; }
-        [Use]
+        
         public UInt32? NumberOfCores { get; set; }
         public UInt32? NumberOfEnabledCore { get; set; }
-        [Use]
+        
         public UInt32? NumberOfLogicalProcessors { get; set; }
         public string OtherFamilyDescription { get; set; }
         public string PartNumber { get; set; }
@@ -60,7 +60,7 @@ namespace GathererEngine.Models
         public string Role { get; set; }
         public bool? SecondLevelAddressTranslationExtensions { get; set; }
         public string SerialNumber { get; set; }
-        [Use]
+        
         public string SocketDesignation { get; set; }
         public string Status { get; set; }
         public UInt16? StatusInfo { get; set; }

@@ -5,15 +5,15 @@ using GathererEngine.Extensions;
 
 namespace GathererEngine.Models
 {
-    public class Win32_NetworkAdapter : MappableToDatabaseExtension
+    public class Win32_NetworkAdapter
     {
         public const string Scope = WmiScope.Cimv2;
-        [Use]
+        
         public string AdapterType { get; set; }
         public UInt16? AdapterTypeId { get; set; }
         public bool? AutoSense { get; set; }
         public UInt16? Availability { get; set; }
-        [Use]
+        
         public string Caption { get; set; }
         public UInt32? ConfigManagerErrorCode { get; set; }
         public bool? ConfigManagerUserConfig { get; set; }
@@ -22,7 +22,7 @@ namespace GathererEngine.Models
         public string DeviceID { get; set; }
         public bool? ErrorCleared { get; set; }
         public string ErrorDescription { get; set; }
-        [Use]
+        
         public string GUID { get; set; }
         public UInt32? Index { get; set; }
         public DateTime? InstallDate { get; set; }
@@ -43,7 +43,7 @@ namespace GathererEngine.Models
         public string PNPDeviceID { get; set; }
         public UInt16?[] PowerManagementCapabilities { get; set; }
         public bool? PowerManagementSupported { get; set; }
-        [Use]
+        
         public string ProductName { get; set; }
         public string ServiceName { get; set; }
         public UInt64? Speed { get; set; }

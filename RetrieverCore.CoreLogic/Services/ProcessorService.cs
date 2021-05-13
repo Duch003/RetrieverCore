@@ -1,59 +1,53 @@
 ﻿using RetrieverCore.CoreLogic.Interfaces;
-using RetrieverCore.CoreLogic.Utlities;
 using RetrieverCore.Repositories.Interfaces;
 using RetrieverCore.Models.Common;
-using RetrieverCore.LocalDatabase.Models;
-using GathererEngine.Models;
+using RetrieverCore.Common.Models;
 using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
+using RetrieverCore.Models.WMIEntieties;
+using System.Linq;
+using RetrieverCore.CoreLogic.Mappers;
 
 namespace RetrieverCore.CoreLogic.Services
 {
     public class ProcessorService : IProcessorService
     {
-        private readonly IProcessorRepository _repository;
+        private readonly IGenericDatabaseRepository<CPU> _cpuRepo;
+        private readonly IGenericComponentRepository _componentRepo;
 
-        public ProcessorService(IProcessorRepository repository)
+        public ProcessorService(IGenericDatabaseRepository<CPU> cpuRepo, IGenericComponentRepository componentRepo)
         {
-            _repository = repository;
+            _cpuRepo = cpuRepo;
+            _componentRepo = componentRepo;
         }
 
-        public async Task<Result<IEnumerable<ProcessorEntity>>> GetDesignedProcessorsAsync(string model)
-        {
-            if (Guard.IsNullOrWhitespace(model, out var error))
-            {
-                return Result<IEnumerable<ProcessorEntity>>.Fail(error);
-            }
-
-            try
-            {
-                var result = await _repository.GetDesignedProcessors(model);
-
-                return Result<IEnumerable<ProcessorEntity>>.Ok(result);
-            }
-            catch (Exception e)
-            {
-                return Result<IEnumerable<ProcessorEntity>>.Fail(e);
-            }
-        }
-
-        public async Task<Result<IEnumerable<Win32_Processor>>> GetPhysicalProcessorsAsync()
+        public async Task<Result<IEnumerable<CPU>>> GetDesignedCPUsAsync(Guid setId)
         {
             try
             {
-                var result = await _repository.GetWin32Processors();
+                var result = await _cpuRepo.GetBySetIdAsync(setId);
 
-                if (Guard.IsEmptyOrAnyNull(result, out var e))
-                {
-                    return Result<IEnumerable<Win32_Processor>>.Fail(e);
-                }
-
-                return Result<IEnumerable<Win32_Processor>>.Ok(result);
+                return Result<IEnumerable<CPU>>.Ok(result);
             }
             catch (Exception e)
             {
-                return Result<IEnumerable<Win32_Processor>>.Fail(e);
+                return Result<IEnumerable<CPU>>.Fail(e);
+            }
+        }
+
+        public async Task<Result<IEnumerable<CPU>>> GetPhysicalCPUsAsync()
+        {
+            try
+            {
+                var result = await Task.Run(() => _componentRepo.Get<Win32_Processor>());
+                var output = result.Select(x => CPUMapper.From(x));
+
+                return Result<IEnumerable<CPU>>.Ok(output);
+            }
+            catch (Exception e)
+            {
+                return Result<IEnumerable<CPU>>.Fail(e);
             }
         }
     }

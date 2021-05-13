@@ -4,7 +4,7 @@ using GathererEngine.Extensions;
 
 namespace GathererEngine.Models
 {
-    public class BatteryStatus : MappableToDatabaseExtension
+    public class BatteryStatus
     {
         public const string Scope = WmiScope.Wmi;
         public bool? Active { get; set; }

@@ -4,7 +4,7 @@ using GathererEngine.Extensions;
 
 namespace GathererEngine.Models
 {
-    public class Win32_Account : MappableToDatabaseExtension
+    public class Win32_Account
     {
         public const string Scope = WmiScope.Cimv2;
         public string Caption { get; set; }

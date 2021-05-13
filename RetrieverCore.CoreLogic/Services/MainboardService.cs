@@ -1,58 +1,53 @@
 ﻿using RetrieverCore.CoreLogic.Interfaces;
-using RetrieverCore.CoreLogic.Utlities;
 using RetrieverCore.Repositories.Interfaces;
 using RetrieverCore.Models.Common;
-using RetrieverCore.LocalDatabase.Models;
-using GathererEngine.Models;
+using RetrieverCore.Common.Models;
 using System;
 using System.Threading.Tasks;
+using RetrieverCore.Models.WMIEntieties;
+using RetrieverCore.CoreLogic.Mappers;
+using System.Linq;
 
 namespace RetrieverCore.CoreLogic.Services
 {
     public class MainboardService : IMainboardService
     {
-        private readonly IMainboardRepository _repository;
+        private readonly IGenericDatabaseRepository<Mainboard> _mainboardRepo;
+        private readonly IGenericComponentRepository _componentRepo;
 
-        public MainboardService(IMainboardRepository repository)
+        public MainboardService(IGenericDatabaseRepository<Mainboard> mainboardRepo, IGenericComponentRepository componentRepo)
         {
-            _repository = repository;
+            _mainboardRepo = mainboardRepo;
+            _componentRepo = componentRepo;
         }
 
-        public async Task<Result<MainboardEntity>> GetDesignedMainboardAsync(string model)
-        {
-            if (Guard.IsNullOrWhitespace(model, out var error))
-            {
-                return Result<MainboardEntity>.Fail(error);
-            }
-
-            try
-            {
-                var result = await _repository.GetDesignedMainboard(model);
-
-                return Result<MainboardEntity>.Ok(result);
-            }
-            catch (Exception e)
-            {
-                return Result<MainboardEntity>.Fail(e);
-            }
-        }
-
-        public async Task<Result<Win32_BaseBoard>> GetPhysicalMainboardAsync()
+        public async Task<Result<Mainboard>> GetDesignedMainboardAsync(Guid setId)
         {
             try
             {
-                var result = await _repository.GetWin32BaseBoard();
+                var result = await _mainboardRepo.SingleAsync(x => x.SetID == setId);
 
-                if (Guard.IsNull(result, out var e))
-                {
-                    return Result<Win32_BaseBoard>.Fail(e);
-                }
-
-                return Result<Win32_BaseBoard>.Ok(result);
+                return Result<Mainboard>.Ok(result);
             }
             catch (Exception e)
             {
-                return Result<Win32_BaseBoard>.Fail(e);
+                return Result<Mainboard>.Fail(e);
+            }
+        }
+
+        public async Task<Result<Mainboard>> GetPhysicalMainboardAsync()
+        {
+            try
+            {
+                var baseBoards = await Task.Run(() => _componentRepo.Get<Win32_BaseBoard>());
+                var motherboardDevice = await Task.Run(() => _componentRepo.Get<Win32_MotherboardDevice>());
+                var output = MainboardMapper.From(baseBoards.Single(), motherboardDevice.Single());
+
+                return Result<Mainboard>.Ok(output);
+            }
+            catch (Exception e)
+            {
+                return Result<Mainboard>.Fail(e);
             }
         }
     }

@@ -4,7 +4,7 @@ using GathererEngine.Extensions;
 
 namespace GathererEngine.Models
 {
-    public class CIM_VideoSetting : MappableToDatabaseExtension
+    public class CIM_VideoSetting
     {
         public const string Scope = WmiScope.Cimv2;
         public string Element { get; set; }

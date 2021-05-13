@@ -5,20 +5,20 @@ using GathererEngine.Extensions;
 
 namespace GathererEngine.Models
 {
-    public class Win32_SerialPort : MappableToDatabaseExtension
+    public class Win32_SerialPort
     {
         public const string Scope = WmiScope.Cimv2;
         public UInt16? Availability { get; set; }
         public bool? Binary { get; set; }
         public UInt16?[] Capabilities { get; set; }
         public string[] CapabilityDescriptions { get; set; }
-        [Use]
+        
         public string Caption { get; set; }
         public UInt32? ConfigManagerErrorCode { get; set; }
         public bool? ConfigManagerUserConfig { get; set; }
         public string CreationClassName { get; set; }
         public string Description { get; set; }
-        [Use]
+        
         public string DeviceID { get; set; }
         public bool? ErrorCleared { get; set; }
         public string ErrorDescription { get; set; }
@@ -34,7 +34,7 @@ namespace GathererEngine.Models
         public UInt16?[] PowerManagementCapabilities { get; set; }
         public bool? PowerManagementSupported { get; set; }
         public UInt16? ProtocolSupported { get; set; }
-        [Use]
+        
         public string ProviderType { get; set; }
         public bool? SettableBaudRate { get; set; }
         public bool? SettableDataBits { get; set; }

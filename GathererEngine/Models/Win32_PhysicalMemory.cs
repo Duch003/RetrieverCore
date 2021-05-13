@@ -5,15 +5,15 @@ using GathererEngine.Extensions;
 
 namespace GathererEngine.Models
 {
-    public class Win32_PhysicalMemory : MappableToDatabaseExtension
+    public class Win32_PhysicalMemory
     {
         public const string Scope = WmiScope.Cimv2;
         public UInt32? Attributes { get; set; }
         public string BankLabel { get; set; }
-        [Use]
+        
         public UInt64? Capacity { get; set; }
         public string Caption { get; set; }
-        [Use]
+        
         public UInt32? ConfiguredClockSpeed { get; set; }
         public UInt32? ConfiguredVoltage { get; set; }
         public string CreationClassName { get; set; }
@@ -40,7 +40,7 @@ namespace GathererEngine.Models
         public string SerialNumber { get; set; }
         public string SKU { get; set; }
         public UInt32? SMBIOSMemoryType { get; set; }
-        [Use]
+        
         public UInt32? Speed { get; set; }
         public string Status { get; set; }
         public string Tag { get; set; }

@@ -4,7 +4,7 @@ using GathererEngine.Extensions;
 
 namespace GathererEngine.Models
 {
-    public class CIM_InstalledOS : MappableToDatabaseExtension
+    public class CIM_InstalledOS
     {
         public const string Scope = WmiScope.Cimv2;
         public string GroupComponent { get; set; }

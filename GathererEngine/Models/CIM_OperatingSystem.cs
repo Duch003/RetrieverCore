@@ -4,7 +4,7 @@ using GathererEngine.Extensions;
 
 namespace GathererEngine.Models
 {
-    public class CIM_OperatingSystem : MappableToDatabaseExtension
+    public class CIM_OperatingSystem
     {
         public const string Scope = WmiScope.Cimv2;
         public string BootDevice { get; set; }

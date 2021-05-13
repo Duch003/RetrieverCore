@@ -4,7 +4,7 @@ using GathererEngine.Extensions;
 
 namespace GathererEngine.Models
 {
-    public class Win32_AssociatedProcessorMemory : MappableToDatabaseExtension
+    public class Win32_AssociatedProcessorMemory
     {
         public const string Scope = WmiScope.Cimv2;
         public string Antecedent { get; set; }

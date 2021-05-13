@@ -1,14 +1,14 @@
 ﻿using RetrieverCore.Models.Common;
-using RetrieverCore.LocalDatabase.Models;
-using GathererEngine.Models;
+using RetrieverCore.Common.Models;
 using System.Collections.Generic;
 using System.Threading.Tasks;
+using System;
 
 namespace RetrieverCore.CoreLogic.Interfaces
 {
     public interface IProcessorService
     {
-        Task<Result<IEnumerable<ProcessorEntity>>> GetDesignedProcessorsAsync(string model);
-        Task<Result<IEnumerable<Win32_Processor>>> GetPhysicalProcessorsAsync();
+        Task<Result<IEnumerable<CPU>>> GetDesignedCPUsAsync(Guid setId);
+        Task<Result<IEnumerable<CPU>>> GetPhysicalCPUsAsync();
     }
 }

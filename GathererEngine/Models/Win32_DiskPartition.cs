@@ -5,22 +5,22 @@ using GathererEngine.Extensions;
 
 namespace GathererEngine.Models
 {
-    public class Win32_DiskPartition : MappableToDatabaseExtension
+    public class Win32_DiskPartition
     {
         public const string Scope = WmiScope.Cimv2;
         public UInt16? Access { get; set; }
         public UInt16? Availability { get; set; }
-        [Use]
+        
         public UInt64? BlockSize { get; set; }
         public bool? Bootable { get; set; }
-        [Use]
+        
         public bool? BootPartition { get; set; }
         public string Caption { get; set; }
         public UInt32? ConfigManagerErrorCode { get; set; }
         public bool? ConfigManagerUserConfig { get; set; }
         public string CreationClassName { get; set; }
         public string Description { get; set; }
-        [Use]
+        
         public string DeviceID { get; set; }
         public UInt32? DiskIndex { get; set; }
         public bool? ErrorCleared { get; set; }
@@ -38,7 +38,7 @@ namespace GathererEngine.Models
         public bool? PrimaryPartition { get; set; }
         public string Purpose { get; set; }
         public bool? RewritePartition { get; set; }
-        [Use]
+        
         public UInt64? Size { get; set; }
         public UInt64? StartingOffset { get; set; }
         public string Status { get; set; }

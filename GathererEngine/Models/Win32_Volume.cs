@@ -4,7 +4,7 @@ using GathererEngine.Extensions;
 
 namespace GathererEngine.Models
 {
-    public class Win32_Volume : MappableToDatabaseExtension
+    public class Win32_Volume
     {
         public const string Scope = WmiScope.Cimv2;
         public UInt16? Access { get; set; }

@@ -5,14 +5,14 @@ using GathererEngine.Extensions;
 
 namespace GathererEngine.Models
 {
-    public class Win32_VideoController : MappableToDatabaseExtension
+    public class Win32_VideoController
     {
         public const string Scope = WmiScope.Cimv2;
         public UInt16?[] AcceleratorCapabilities { get; set; }
-        [Use]
+        
         public string AdapterCompatibility { get; set; }
         public string AdapterDACType { get; set; }
-        [Use]
+        
         public UInt32? AdapterRAM { get; set; }
         public UInt16? Availability { get; set; }
         public string[] CapabilityDescriptions { get; set; }
@@ -22,14 +22,14 @@ namespace GathererEngine.Models
         public bool? ConfigManagerUserConfig { get; set; }
         public string CreationClassName { get; set; }
         public UInt32? CurrentBitsPerPixel { get; set; }
-        [Use]
+        
         public UInt32? CurrentHorizontalResolution { get; set; }
         public UInt64? CurrentNumberOfColors { get; set; }
         public UInt32? CurrentNumberOfColumns { get; set; }
         public UInt32? CurrentNumberOfRows { get; set; }
         public UInt32? CurrentRefreshRate { get; set; }
         public UInt16? CurrentScanMode { get; set; }
-        [Use]
+        
         public UInt32? CurrentVerticalResolution { get; set; }
         public string Description { get; set; }
         public string DeviceID { get; set; }
@@ -51,7 +51,7 @@ namespace GathererEngine.Models
         public UInt32? MaxRefreshRate { get; set; }
         public UInt32? MinRefreshRate { get; set; }
         public bool? Monochrome { get; set; }
-        [Use]
+        
         public string Name { get; set; }
         public UInt16? NumberOfColorPlanes { get; set; }
         public UInt32? NumberOfVideoPages { get; set; }

@@ -4,7 +4,7 @@ using GathererEngine.Extensions;
 
 namespace GathererEngine.Models
 {
-    public class CIM_Controller : MappableToDatabaseExtension
+    public class CIM_Controller
     {
         public const string Scope = WmiScope.Cimv2;
         public UInt16? Availability { get; set; }
