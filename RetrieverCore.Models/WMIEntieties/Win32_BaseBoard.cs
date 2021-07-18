@@ -12,6 +12,5 @@ namespace RetrieverCore.Models.WMIEntieties
 
         public string Manufacturer { get; set; }
         public string Product { get; set; }
-        public string Version { get; set; }
     }
 }

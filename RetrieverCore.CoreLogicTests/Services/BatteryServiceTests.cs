@@ -1,5 +1,5 @@
 ﻿using Moq;
-using RetrieverCore.Common.Models;
+using Databases.RetrieverCore.Common.Models;
 using RetrieverCore.CoreLogic.Interfaces;
 using RetrieverCore.CoreLogic.Services;
 using RetrieverCore.Models.WMIEntieties;
@@ -63,14 +63,15 @@ namespace RetrieverCore.CoreLogicTests.Services
             _win32Batteries = null;
             _battery1 = null;
             _batteries = null;
+            GC.SuppressFinalize(this);
         }
 
         #region Tests
         [Fact]
-        public async Task GetDesignedBatteriesAsync_FiltersOutDeletedEntries_ReturnsResultWithSuccess()
+        public async Task GetDesignedBatteriesAsync_NoErrorsWhileQueryingDatabase_ReturnsResultWithSuccess()
         {
             //Arrange
-            var setId = new Guid(new string('0', 31) + "1");
+            var setId = new Guid(new string('0', 32));
 
             //Act
             var result = await _service.GetDesignedBatteriesAsync(setId);
@@ -80,16 +81,15 @@ namespace RetrieverCore.CoreLogicTests.Services
             Assert.True(result.IsSuccess);
             Assert.Null(result.Exception);
             Assert.NotNull(result.Output);
-            Assert.True(result.Output.Count() == 2);
+            Assert.True(result.Output.Count() == 1);
             Assert.Equal(result.Output.ToList()[0], _battery1);
-            Assert.Equal(result.Output.ToList()[1], _battery2);
         }
 
         [Fact]
         public async Task GetDesignedBatteriesAsync_NoEntryWithGivenSetId_ReturnsResultWithSuccess()
         {
             //Arrange
-            var setId = new Guid(new string('0', 31) + "2");
+            var setId = new Guid(new string('1', 32));
 
             //Act
             var result = await _service.GetDesignedBatteriesAsync(setId);
@@ -118,7 +118,7 @@ namespace RetrieverCore.CoreLogicTests.Services
         }
 
         [Fact]
-        public async Task GetPhysicalBatteriesAsync_NoErrorsWhileExecutingWMIQuery_ReturnsResultWithSuccess()
+        public async Task GetPhysicalBatteriesAsync_NoErrorsWhileExecutingWMI_ReturnsResultWithSuccess()
         {
             //Arrange
             //Act
@@ -151,6 +151,23 @@ namespace RetrieverCore.CoreLogicTests.Services
         }
 
         [Fact]
+        public async Task GetPhysicalBatteriesAsync_NoWin32BatteryComponentFound_ReturnsResultWithSuccess()
+        {
+            //Arrange
+            _win32Batteries.Clear();
+
+            //Act
+            var result = await _service.GetPhysicalBatteriesAsync();
+
+            //Assert
+            Assert.NotNull(result);
+            Assert.True(result.IsSuccess);
+            Assert.Null(result.Exception);
+            Assert.NotNull(result.Output);
+            Assert.True(result.Output.Count() == 0);
+        }
+
+        [Fact]
         public async Task GetPhysicalBatteriesAsync_CannotPairComponentsByUniqueID_ReturnsResultWithFailure()
         {
             //Arrange
@@ -166,6 +183,23 @@ namespace RetrieverCore.CoreLogicTests.Services
             Assert.Null(result.Output);
             Assert.True(result.Exception.GetType().FullName == typeof(InvalidOperationException).FullName);
             Assert.True(result.Exception.Message == "Sequence contains no matching element");
+        }
+
+        [Fact]
+        public async Task GetPhysicalBatteriesAsync_NoBatteryStaticDataComponentFound_ReturnsResultWithSuccess()
+        {
+            //Arrange
+            _batteryStaticData.Clear();
+
+            //Act
+            var result = await _service.GetPhysicalBatteriesAsync();
+
+            //Assert
+            Assert.NotNull(result);
+            Assert.True(result.IsSuccess);
+            Assert.Null(result.Exception);
+            Assert.NotNull(result.Output);
+            Assert.True(result.Output.Count() == 0);
         }
 
         [Fact]
@@ -185,6 +219,23 @@ namespace RetrieverCore.CoreLogicTests.Services
             Assert.Null(result.Output);
             Assert.True(result.Exception.GetType().FullName == typeof(InvalidOperationException).FullName);
             Assert.True(result.Exception.Message == "Sequence contains no matching element");
+        }
+
+        [Fact]
+        public async Task GetPhysicalBatteriesAsync_NoBatteryFullChargedCapacityDataComponentFound_ReturnsResultWithSuccess()
+        {
+            //Arrange
+            _batteryFullChargedCapacities.Clear();
+
+            //Act
+            var result = await _service.GetPhysicalBatteriesAsync();
+
+            //Assert
+            Assert.NotNull(result);
+            Assert.True(result.IsSuccess);
+            Assert.Null(result.Exception);
+            Assert.NotNull(result.Output);
+            Assert.True(result.Output.Count() == 0);
         }
 
         [Fact]
@@ -309,7 +360,7 @@ namespace RetrieverCore.CoreLogicTests.Services
             {
                 ID = 1,
                 Deleted = false,
-                SetID = new Guid(new string('0', 31) + "1"),
+                SetID = new Guid(new string('0', 32)),
                 WearLevel = 1,
                 Status = 1,
                 DesignedCapacity = 1
@@ -327,7 +378,7 @@ namespace RetrieverCore.CoreLogicTests.Services
             {
                 ID = 3,
                 Deleted = true,
-                SetID = new Guid(new string('0', 31) + "1"),
+                SetID = new Guid(new string('0', 32)),
                 WearLevel = 3,
                 Status = 3,
                 DesignedCapacity = 3

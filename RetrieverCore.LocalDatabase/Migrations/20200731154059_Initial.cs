@@ -1,6 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore.Migrations;
 
-namespace RetrieverCore.LocalDatabase.Migrations
+namespace Databases.RetrieverCore.LocalDatabase.Migrations
 {
     public partial class Initial : Migration
     {

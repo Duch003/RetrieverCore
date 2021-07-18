@@ -1,7 +1,7 @@
-﻿using RetrieverCore.Common.Models.Base;
+﻿using Databases.RetrieverCore.Common.Models.Base;
 using System.Collections.Generic;
 
-namespace RetrieverCore.Common.Models
+namespace Databases.RetrieverCore.Common.Models
 {
     public class Computer : EntityBase
     {

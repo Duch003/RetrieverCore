@@ -1,5 +1,5 @@
 ﻿using RetrieverCore.Models.Common;
-using RetrieverCore.Common.Models;
+using Databases.RetrieverCore.Common.Models;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using System;

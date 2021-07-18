@@ -1,6 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore;
-using RetrieverCore.Common.Models.Base;
-using RetrieverCore.LocalDatabase;
+using Databases.RetrieverCore.Common.Models.Base;
+using Databases.RetrieverCore.LocalDatabase.Context;
 using RetrieverCore.Repositories.Interfaces;
 using System;
 using System.Collections.Generic;

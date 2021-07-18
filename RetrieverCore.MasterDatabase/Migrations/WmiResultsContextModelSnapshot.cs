@@ -4,9 +4,9 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
-using RetrieverCore.MasterDatabase.Context;
+using Databases.RetrieverCore.MasterDatabase.Context;
 
-namespace RetrieverCore.MasterDatabase.Migrations
+namespace Databases.RetrieverCore.MasterDatabase.Migrations
 {
     [DbContext(typeof(MasterDatabaseContext))]
     partial class WmiResultsContextModelSnapshot : ModelSnapshot

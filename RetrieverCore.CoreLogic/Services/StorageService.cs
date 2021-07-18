@@ -1,4 +1,4 @@
-﻿using RetrieverCore.Common.Models;
+﻿using Databases.RetrieverCore.Common.Models;
 using RetrieverCore.CoreLogic.Interfaces;
 using RetrieverCore.CoreLogic.Mappers;
 using RetrieverCore.Models.Common;

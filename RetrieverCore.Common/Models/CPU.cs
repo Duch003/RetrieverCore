@@ -1,6 +1,6 @@
-﻿using RetrieverCore.Common.Models.Base;
+﻿using Databases.RetrieverCore.Common.Models.Base;
 
-namespace RetrieverCore.Common.Models
+namespace Databases.RetrieverCore.Common.Models
 {
     public class CPU : EntityBase
     {

@@ -12,22 +12,22 @@ namespace RetrieverCore.CoreLogic.Services
 {
     public class NetworkInterfaceService : INetworkInterfaceService
     {
-        private readonly IGenericDatabaseRepository<Common.Models.NetworkInterface> _interfaceRepo;
+        private readonly IGenericDatabaseRepository<Databases.RetrieverCore.Common.Models.NetworkInterface> _interfaceRepo;
         private readonly IExtendedNetworkInterfaceComponentRepository _componentRepo;
 
-        public NetworkInterfaceService(IGenericDatabaseRepository<Common.Models.NetworkInterface> interfaceRepo, IExtendedNetworkInterfaceComponentRepository componentRepo)
+        public NetworkInterfaceService(IGenericDatabaseRepository<Databases.RetrieverCore.Common.Models.NetworkInterface> interfaceRepo, IExtendedNetworkInterfaceComponentRepository componentRepo)
         {
             _interfaceRepo = interfaceRepo;
             _componentRepo = componentRepo;
         }
 
-        public async Task<Result<IEnumerable<Common.Models.NetworkInterface>>> GetPhysicalNetworkInterfacesAsync()
+        public async Task<Result<IEnumerable<Databases.RetrieverCore.Common.Models.NetworkInterface>>> GetPhysicalNetworkInterfacesAsync()
         {
             try
             {
                 var networkInterfaces = await Task.Run(() => _componentRepo.Get());
                 var networkAdapters = await Task.Run(() => _componentRepo.Get<Win32_NetworkAdapter>());
-                var output = new List<Common.Models.NetworkInterface>();
+                var output = new List<Databases.RetrieverCore.Common.Models.NetworkInterface>();
 
                 foreach(var iface in networkInterfaces)
                 {
@@ -35,25 +35,25 @@ namespace RetrieverCore.CoreLogic.Services
                     output.Add(NetworkInterfaceMapper.From(iface, relatedAdapter));
                 }
 
-                return Result<IEnumerable<Common.Models.NetworkInterface>>.Ok(output);
+                return Result<IEnumerable<Databases.RetrieverCore.Common.Models.NetworkInterface>>.Ok(output);
             }
             catch (Exception e)
             {
-                return Result<IEnumerable<Common.Models.NetworkInterface>>.Fail(e);
+                return Result<IEnumerable<Databases.RetrieverCore.Common.Models.NetworkInterface>>.Fail(e);
             }
         }
 
-        public async Task<Result<IEnumerable<Common.Models.NetworkInterface>>> GetDesignedNetworkInterfacesAsync(Guid setId)
+        public async Task<Result<IEnumerable<Databases.RetrieverCore.Common.Models.NetworkInterface>>> GetDesignedNetworkInterfacesAsync(Guid setId)
         {
             try
             {
                 var output = await _interfaceRepo.GetBySetIdAsync(setId);
 
-                return Result<IEnumerable<Common.Models.NetworkInterface>>.Ok(output);
+                return Result<IEnumerable<Databases.RetrieverCore.Common.Models.NetworkInterface>>.Ok(output);
             }
             catch (Exception e)
             {
-                return Result<IEnumerable<Common.Models.NetworkInterface>>.Fail(e);
+                return Result<IEnumerable<Databases.RetrieverCore.Common.Models.NetworkInterface>>.Fail(e);
             }
         }
     }

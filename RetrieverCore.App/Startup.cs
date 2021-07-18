@@ -4,11 +4,12 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
-using RetrieverCore.LocalDatabase;
-using RetrieverCore.MasterDatabase.Context;
+using Databases.RetrieverCore.LocalDatabase.Context;
+using Databases.RetrieverCore.MasterDatabase.Context;
 using RetrieverCore.Repositories.Interfaces;
 using RetrieverCore.Repositories.Local;
 using System.Reflection;
+using Databases.RetrieverCore.LocalDatabase;
 
 namespace RetrieverCore.App
 {

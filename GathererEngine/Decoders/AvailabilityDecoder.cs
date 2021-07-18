@@ -11,6 +11,7 @@ namespace GathererEngine.Decoders
                 case 1:
                     return "Other";
                 case 2:
+                default:
                     return "Unknown";
                 case 3:
                     return "Running or Full Power";
@@ -50,8 +51,6 @@ namespace GathererEngine.Decoders
                     return "Not Configured";
                 case 21:
                     return "Quiesced";
-                default:
-                    return "Unknwon status";
             }
         }
     }

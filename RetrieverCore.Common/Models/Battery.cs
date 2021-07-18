@@ -1,7 +1,7 @@
-﻿using RetrieverCore.Common.Models.Base;
+﻿using Databases.RetrieverCore.Common.Models.Base;
 using System.ComponentModel.DataAnnotations.Schema;
 
-namespace RetrieverCore.Common.Models
+namespace Databases.RetrieverCore.Common.Models
 {
     public class Battery : EntityBase
     {

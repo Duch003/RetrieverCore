@@ -1,8 +1,8 @@
 ﻿using Microsoft.EntityFrameworkCore;
-using RetrieverCore.Common.Context;
+using Databases.RetrieverCore.Common.Models.Context;
 using System.Reflection;
 
-namespace RetrieverCore.LocalDatabase
+namespace Databases.RetrieverCore.LocalDatabase.Context
 { 
     public class LocalDatabaseContext : RetrieverCoreContextBase
     {

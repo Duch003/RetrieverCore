@@ -1,6 +1,7 @@
 ﻿using RetrieverCore.CoreLogic.Mappers;
 using RetrieverCore.Models.WMIEntieties;
 using System;
+using System.Threading.Tasks;
 using Xunit;
 
 namespace RetrieverCore.CoreLogicTests.Mappers

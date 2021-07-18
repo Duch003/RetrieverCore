@@ -1,7 +1,7 @@
 ﻿using System;
 using System.ComponentModel.DataAnnotations;
 
-namespace RetrieverCore.Common.Models.Base
+namespace Databases.RetrieverCore.Common.Models.Base
 {
     public abstract class EntityBase
     {

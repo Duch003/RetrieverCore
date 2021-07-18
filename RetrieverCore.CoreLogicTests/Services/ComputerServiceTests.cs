@@ -1,5 +1,5 @@
 ﻿using Moq;
-using RetrieverCore.Common.Models;
+using Databases.RetrieverCore.Common.Models;
 using RetrieverCore.CoreLogic.Interfaces;
 using RetrieverCore.CoreLogic.Services;
 using RetrieverCore.Models.WMIEntieties;
@@ -50,11 +50,12 @@ namespace RetrieverCore.CoreLogicTests.Services
             _computer3 = null;
             _computers = null;
             _includes = null;
+            GC.SuppressFinalize(this);
         }
 
         #region Tests
         [Fact]
-        public async Task GetDesignedComputersAsync_FiltersOutDeletedEntries_ReturnsResultWithSuccess()
+        public async Task GetDesignedComputersAsync_NoErrorsWhileQueryingDatabase_ReturnsResultWithSuccess()
         {
             //Arrange
             //Act
@@ -68,6 +69,7 @@ namespace RetrieverCore.CoreLogicTests.Services
             Assert.True(result.Output.Count() == 2);
             Assert.True(result.Output.ToList()[0] == _computer1);
             Assert.True(result.Output.ToList()[1] == _computer3);
+            Assert.True(_includes.Count == 0);
         }
 
         [Fact]
@@ -100,10 +102,23 @@ namespace RetrieverCore.CoreLogicTests.Services
             Assert.Null(result.Exception);
             Assert.NotNull(result.Output);
             Assert.True(result.Output.Count() == 1);
-            Assert.True(result.Output.First().ID == 0);
-            Assert.True(result.Output.First().Deleted == false);
-            Assert.True(result.Output.First().Name == $"{_win32ComputerSystem.Manufacturer} - {_win32ComputerSystem.Model}");
-            Assert.True(_includes.Count() == 0);
+        }
+
+        [Fact]
+        public async Task GetPhysicalComputersAsync_NoComponentFound_ReturnsResultWithSuccess()
+        {
+            //Arrange
+            _win32ComputerSystems.Clear();
+
+            //Act
+            var result = await _service.GetPhysicalComputersAsync();
+
+            //Assert
+            Assert.NotNull(result);
+            Assert.True(result.IsSuccess);
+            Assert.Null(result.Exception);
+            Assert.NotNull(result.Output);
+            Assert.True(result.Output.Count() == 0);
         }
 
         [Fact]

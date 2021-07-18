@@ -8,7 +8,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using RetrieverCore.Models.WMIEntieties;
-using RetrieverCore.Common.Models;
+using Databases.RetrieverCore.Common.Models;
 
 namespace RetrieverCore.CoreLogic.Services
 {
@@ -30,7 +30,7 @@ namespace RetrieverCore.CoreLogic.Services
             var output = new List<Battery>();
 
             var staticDataResult = await GetPhysicalData(() => _componentRepository.Get<BatteryStaticData>());
-            if (!staticDataResult.IsSuccess || !staticDataResult.Output.Any())
+            if (!staticDataResult.IsSuccess)
             {
                 return Result<IEnumerable<Battery>>.Fail(staticDataResult.Exception);
             }
@@ -45,6 +45,11 @@ namespace RetrieverCore.CoreLogic.Services
             if (!fullChargedCapacityResult.IsSuccess)
             {
                 return Result<IEnumerable<Battery>>.Fail(fullChargedCapacityResult.Exception);
+            }
+
+            if(!win32batteryResult.Output.Any() || !staticDataResult.Output.Any() || !fullChargedCapacityResult.Output.Any())
+            {
+                return Result<IEnumerable<Battery>>.Ok(output);
             }
 
             try

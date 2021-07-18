@@ -1,7 +1,7 @@
 ﻿using RetrieverCore.CoreLogic.Interfaces;
 using RetrieverCore.Repositories.Interfaces;
 using RetrieverCore.Models.Common;
-using RetrieverCore.Common.Models;
+using Databases.RetrieverCore.Common.Models;
 using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;

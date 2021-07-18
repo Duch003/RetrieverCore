@@ -1,6 +1,6 @@
-﻿using RetrieverCore.Common.Models.Base;
+﻿using Databases.RetrieverCore.Common.Models.Base;
 
-namespace RetrieverCore.Common.Models
+namespace Databases.RetrieverCore.Common.Models
 {
     public class Mainboard : EntityBase
     {
@@ -10,7 +10,6 @@ namespace RetrieverCore.Common.Models
         //Win32_MotherboardDevice
         public string PrimaryBusType { get; set; }
         public string SecondaryBusType { get; set; }
-        public string Availability { get; set; }
         ////MSAcpi_ThermalZoneTemperature ADMIN
         //public IEnumerable<TemperatureSensor> TemperatureSensors { get; set; }
         ////Win32_PortConnector

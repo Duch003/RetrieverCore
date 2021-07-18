@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace RetrieverCore.Common.Extensions
+namespace Databases.RetrieverCore.Common.Models.Extensions
 {
     public static class GenericExtension
     {

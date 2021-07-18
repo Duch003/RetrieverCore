@@ -3,7 +3,7 @@ using RetrieverCore.Repositories.Interfaces;
 using RetrieverCore.Models.Common;
 using System;
 using System.Threading.Tasks;
-using RetrieverCore.Common.Models;
+using Databases.RetrieverCore.Common.Models;
 using System.Collections.Generic;
 using RetrieverCore.Models.WMIEntieties;
 using RetrieverCore.CoreLogic.Mappers;

@@ -1,5 +1,5 @@
 ﻿using GathererEngine.Decoders;
-using RetrieverCore.Common.Models;
+using Databases.RetrieverCore.Common.Models;
 using RetrieverCore.Models;
 using RetrieverCore.Models.WMIEntieties;
 

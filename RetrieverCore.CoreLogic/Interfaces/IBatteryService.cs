@@ -1,4 +1,4 @@
-﻿using RetrieverCore.Common.Models;
+﻿using Databases.RetrieverCore.Common.Models;
 using RetrieverCore.Models.Common;
 using System;
 using System.Collections.Generic;

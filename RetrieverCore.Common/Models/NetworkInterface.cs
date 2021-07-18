@@ -1,8 +1,8 @@
-﻿using RetrieverCore.Common.Models.Base;
+﻿using Databases.RetrieverCore.Common.Models.Base;
 using System;
 using System.Net.NetworkInformation;
 
-namespace RetrieverCore.Common.Models
+namespace Databases.RetrieverCore.Common.Models
 {
     public class NetworkInterface : EntityBase
     {

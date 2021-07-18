@@ -5,9 +5,9 @@ using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
 using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
-using RetrieverCore.MasterDatabase.Context;
+using Databases.RetrieverCore.MasterDatabase.Context;
 
-namespace RetrieverCore.MasterDatabase.Migrations
+namespace Databases.RetrieverCore.MasterDatabase.Migrations
 {
     [DbContext(typeof(MasterDatabaseContext))]
     [Migration("20200801121723_Updated WmiResultsSetEntityExtension")]

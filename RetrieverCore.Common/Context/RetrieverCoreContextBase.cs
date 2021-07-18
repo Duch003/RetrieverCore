@@ -1,7 +1,7 @@
 ﻿using Microsoft.EntityFrameworkCore;
-using RetrieverCore.Common.Models;
+using Databases.RetrieverCore.Common.Models;
 
-namespace RetrieverCore.Common.Context
+namespace Databases.RetrieverCore.Common.Models.Context
 {
     public class RetrieverCoreContextBase : DbContext
     {

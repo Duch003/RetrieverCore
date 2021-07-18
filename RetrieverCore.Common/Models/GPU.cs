@@ -1,13 +1,13 @@
-﻿using RetrieverCore.Common.Models.Base;
+﻿using Databases.RetrieverCore.Common.Models.Base;
 
-namespace RetrieverCore.Common.Models
+namespace Databases.RetrieverCore.Common.Models
 {
     public class GPU : EntityBase
     {
         //Win32_VideoController
         public string Availability { get; set; }
-        public int Height { get; set; }
-        public int Width { get; set; }
+        public long Height { get; set; }
+        public long Width { get; set; }
         public long Capacity { get; set; }
         public string AdapterDACType { get; set; }
         public string Name { get; set; }

@@ -1,7 +1,7 @@
 ﻿using System;
 using Microsoft.EntityFrameworkCore.Migrations;
 
-namespace RetrieverCore.MasterDatabase.Migrations
+namespace Databases.RetrieverCore.MasterDatabase.Migrations
 {
     public partial class UpdateGuidAdded : Migration
     {

@@ -3,9 +3,9 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
-using RetrieverCore.LocalDatabase;
+using Databases.RetrieverCore.LocalDatabase.Context;
 
-namespace RetrieverCore.LocalDatabase.Migrations
+namespace Databases.RetrieverCore.LocalDatabase.Migrations
 {
     [DbContext(typeof(LocalDatabaseContext))]
     partial class ComputerContextModelSnapshot : ModelSnapshot

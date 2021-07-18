@@ -1,7 +1,7 @@
 ﻿using RetrieverCore.CoreLogic.Interfaces;
 using RetrieverCore.Repositories.Interfaces;
 using RetrieverCore.Models.Common;
-using RetrieverCore.Common.Models;
+using Databases.RetrieverCore.Common.Models;
 using System;
 using System.Threading.Tasks;
 using RetrieverCore.Models.WMIEntieties;
@@ -25,7 +25,7 @@ namespace RetrieverCore.CoreLogic.Services
         {
             try
             {
-                var result = await _mainboardRepo.SingleAsync(x => x.SetID == setId);
+                var result = await _mainboardRepo.SingleAsync(x => x.SetID == setId && !x.Deleted);
 
                 return Result<Mainboard>.Ok(result);
             }

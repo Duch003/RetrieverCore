@@ -7,7 +7,7 @@ namespace RetrieverCore.CoreLogic.Interfaces
 {
     public interface INetworkInterfaceService
     {
-        Task<Result<IEnumerable<Common.Models.NetworkInterface>>> GetDesignedNetworkInterfacesAsync(Guid setId);
-        Task<Result<IEnumerable<Common.Models.NetworkInterface>>> GetPhysicalNetworkInterfacesAsync();
+        Task<Result<IEnumerable<Databases.RetrieverCore.Common.Models.NetworkInterface>>> GetDesignedNetworkInterfacesAsync(Guid setId);
+        Task<Result<IEnumerable<Databases.RetrieverCore.Common.Models.NetworkInterface>>> GetPhysicalNetworkInterfacesAsync();
     }
 }

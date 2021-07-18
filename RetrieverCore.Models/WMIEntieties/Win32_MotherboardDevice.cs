@@ -1,6 +1,5 @@
 ﻿using GathererEngine.Constants;
 using RetrieverCore.Models.WMIEntieties.Base;
-using System;
 
 namespace RetrieverCore.Models.WMIEntieties
 {
@@ -13,6 +12,5 @@ namespace RetrieverCore.Models.WMIEntieties
 
         public string PrimaryBusType { get; set; }
         public string SecondaryBusType { get; set; }
-        public UInt16? Availability { get; set; }
     }
 }

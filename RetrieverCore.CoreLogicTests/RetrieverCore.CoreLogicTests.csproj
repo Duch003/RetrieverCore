@@ -27,7 +27,9 @@
     <ProjectReference Include="..\RetrieverCore.CoreLogic\RetrieverCore.CoreLogic.csproj" />
     <ProjectReference Include="..\RetrieverCore.IO\RetrieverCore.IO.csproj" />
     <ProjectReference Include="..\RetrieverCore.LocalDatabase\RetrieverCore.LocalDatabase.csproj" />
+    <ProjectReference Include="..\RetrieverCore.Models\RetrieverCore.Models.csproj" />
     <ProjectReference Include="..\RetrieverCore.Repositories\RetrieverCore.Repositories.csproj" />
+    <ProjectReference Include="..\Tests.RetrieverCore.Common\Tests.RetrieverCore.Common.csproj" />
   </ItemGroup>
 
 </Project>

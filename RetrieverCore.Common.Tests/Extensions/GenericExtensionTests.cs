@@ -2,9 +2,9 @@
 using System.Collections.Generic;
 using System.Linq;
 using Xunit;
-using RetrieverCore.Common.Extensions;
+using Databases.RetrieverCore.Common.Models.Extensions;
 
-namespace Databases.RetrieverCore.Common.Tests.Extensions
+namespace Databases.RetrieverCore.Common.Models.Tests.Extensions
 {
     public class GenericExtensionTests
     {
